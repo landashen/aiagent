@@ -28,16 +28,16 @@
 
 | 章节 | 标题 | 核心内容 |
 |------|------|----------|
-| 01 | AI Agent 概述 | 什么是 AI Agent？它与传统 AI 有何不同？从定义出发，用生活类比带你理解 Agent 的核心特征与发展历程。 |
-| 02 | AI Agent 核心架构 | 拆解 Agent 的五大核心模块——感知、规划、记忆、行动、工具使用，理解它们如何协同工作。 |
-| 03 | AI Agent 关键技术 | 深入 LLM、Prompt Engineering、ReAct、CoT、Function Calling、RAG 等核心技术栈。 |
-| 04 | 主流 Agent 框架与平台 | LangChain、AutoGPT、CrewAI、Dify……全面对比主流框架的优劣与适用场景。 |
-| 05 | Multi-Agent 系统 | 当多个 Agent 协作时会发生什么？分层式、对等式、竞争式三大协作模式全面解析。 |
-| 06 | AI Agent 的记忆系统 | 工作记忆、情景记忆、语义记忆、程序记忆——四种记忆类型如何让 Agent "活"起来。 |
-| 07 | AI Agent 的规划与推理 | 任务分解、自我反思、树搜索、Plan-and-Execute——Agent 如何"想清楚再做事"。 |
-| 08 | AI Agent 安全与伦理 | Prompt 注入防御、权限控制、沙箱机制、对齐问题——构建安全 Agent 的全面指南。 |
-| 09 | AI Agent 实战案例 | 六大真实场景深度剖析，看 Agent 技术如何在各行各业中解决实际问题。 |
-| 10 | AI Agent 的未来趋势 | 具身智能、Agent 操作系统、自主科研……展望 AI Agent 的下一个十年。 |
+| 01 | [AI Agent 概述](https://gostudying.cn/chapter01.html) | 什么是 AI Agent？它与传统 AI 有何不同？从定义出发，用生活类比带你理解 Agent 的核心特征与发展历程。 |
+| 02 | [AI Agent 核心架构](https://gostudying.cn/chapter02.html) | 拆解 Agent 的五大核心模块——感知、规划、记忆、行动、工具使用，理解它们如何协同工作。 |
+| 03 | [AI Agent 关键技术](https://gostudying.cn/chapter03.html) | 深入 LLM、Prompt Engineering、ReAct、CoT、Function Calling、RAG 等核心技术栈。 |
+| 04 | [主流 Agent 框架与平台](https://gostudying.cn/chapter04.html) | LangChain、AutoGPT、CrewAI、Dify……全面对比主流框架的优劣与适用场景。 |
+| 05 | [Multi-Agent 系统](https://gostudying.cn/chapter05.html) | 当多个 Agent 协作时会发生什么？分层式、对等式、竞争式三大协作模式全面解析。 |
+| 06 | [AI Agent 的记忆系统](https://gostudying.cn/chapter06.html) | 工作记忆、情景记忆、语义记忆、程序记忆——四种记忆类型如何让 Agent "活"起来。 |
+| 07 | [AI Agent 的规划与推理](https://gostudying.cn/chapter07.html) | 任务分解、自我反思、树搜索、Plan-and-Execute——Agent 如何"想清楚再做事"。 |
+| 08 | [AI Agent 安全与伦理](https://gostudying.cn/chapter08.html) | Prompt 注入防御、权限控制、沙箱机制、对齐问题——构建安全 Agent 的全面指南。 |
+| 09 | [AI Agent 实战案例](https://gostudying.cn/chapter09.html) | 六大真实场景深度剖析，看 Agent 技术如何在各行各业中解决实际问题。 |
+| 10 | [AI Agent 的未来趋势](https://gostudying.cn/chapter10.html) | 具身智能、Agent 操作系统、自主科研……展望 AI Agent 的下一个十年。 |
 
 ---
 
