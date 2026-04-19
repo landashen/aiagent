@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 中文首页 -->
+  <url>
+    <loc>https://tujieagent.com/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/"/>
+  </url>
+
+  <!-- 英文首页 -->
+  <url>
+    <loc>https://tujieagent.com/en/</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/"/>
+  </url>
+
+  <!-- 第一章 / Chapter 1 -->
+  <url>
+    <loc>https://tujieagent.com/chapter01.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter01.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter01.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter01.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter01.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter01.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter01.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter01.html"/>
+  </url>
+
+  <!-- 第二章 / Chapter 2 -->
+  <url>
+    <loc>https://tujieagent.com/chapter02.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter02.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter02.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter02.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter02.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter02.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter02.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter02.html"/>
+  </url>
+
+  <!-- 第三章 / Chapter 3 -->
+  <url>
+    <loc>https://tujieagent.com/chapter03.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter03.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter03.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter03.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter03.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter03.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter03.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter03.html"/>
+  </url>
+
+  <!-- 第四章 / Chapter 4 -->
+  <url>
+    <loc>https://tujieagent.com/chapter04.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter04.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter04.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter04.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter04.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter04.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter04.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter04.html"/>
+  </url>
+
+  <!-- 第五章 / Chapter 5 -->
+  <url>
+    <loc>https://tujieagent.com/chapter05.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter05.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter05.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter05.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter05.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter05.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter05.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter05.html"/>
+  </url>
+
+  <!-- 第六章 / Chapter 6 -->
+  <url>
+    <loc>https://tujieagent.com/chapter06.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter06.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter06.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter06.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter06.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter06.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter06.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter06.html"/>
+  </url>
+
+  <!-- 第七章 / Chapter 7 -->
+  <url>
+    <loc>https://tujieagent.com/chapter07.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter07.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter07.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter07.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter07.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter07.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter07.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter07.html"/>
+  </url>
+
+  <!-- 第八章 / Chapter 8 -->
+  <url>
+    <loc>https://tujieagent.com/chapter08.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter08.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter08.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter08.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter08.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter08.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter08.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter08.html"/>
+  </url>
+
+  <!-- 第九章 / Chapter 9 -->
+  <url>
+    <loc>https://tujieagent.com/chapter09.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter09.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter09.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter09.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter09.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter09.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter09.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter09.html"/>
+  </url>
+
+  <!-- 第十章 / Chapter 10 -->
+  <url>
+    <loc>https://tujieagent.com/chapter10.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter10.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter10.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter10.html"/>
+  </url>
+  <url>
+    <loc>https://tujieagent.com/en/chapter10.html</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter10.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter10.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter10.html"/>
+  </url>
+
+</urlset>

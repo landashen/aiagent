@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图解 AI Agent - 面试必备 AI Agent 学习指南 | 10万字图文教程</title>
+  <meta name="description" content="从零掌握 AI Agent 核心技术，涵盖架构、LLM、多智能体、记忆系统等 10 大主题。适合 AI 转行、面试备战、技术进阶。10万字手绘风图解，复杂概念一看就懂。">
+  <meta name="keywords" content="AI Agent, 图解AI Agent, AI面试, AI转行, Agent架构, LLM, 大模型, 人工智能, AI学习, Agent教程">
+  <meta name="author" content="图解 AI Agent">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://tujieagent.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="图解 AI Agent - 面试必备 AI Agent 学习指南 | 10万字图文教程">
+  <meta property="og:description" content="从零掌握 AI Agent 核心技术，涵盖架构、LLM、多智能体、记忆系统等 10 大主题。适合 AI 转行、面试备战、技术进阶。10万字手绘风图解，复杂概念一看就懂。">
+  <meta property="og:url" content="https://tujieagent.com/">
+  <meta property="og:site_name" content="图解 AI Agent">
+  <meta property="og:image" content="images/hero-cover.jpg">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="图解 AI Agent - 面试必备 AI Agent 学习指南 | 10万字图文教程">
+  <meta name="twitter:description" content="从零掌握 AI Agent 核心技术，涵盖架构、LLM、多智能体、记忆系统等 10 大主题。适合 AI 转行、面试备战、技术进阶。10万字手绘风图解，复杂概念一看就懂。">
+  <meta name="twitter:image" content="images/hero-cover.jpg">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/">
+  <link rel="alternate" hreflang="en" href="https://tujieagent.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://tujieagent.com/">
+
+  <!-- Search Engine Verification -->
+  <meta name="baidu-site-verification" content="placeholder_baidu_code">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="msvalidate.01" content="placeholder_bing_code">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "图解 AI Agent",
+  "description": "从零掌握 AI Agent 核心技术，涵盖架构、LLM、多智能体、记忆系统等 10 大主题。适合 AI 转行、面试备战、技术进阶。10万字手绘风图解，复杂概念一看就懂。",
+  "url": "https://tujieagent.com/",
+  "author": {
+    "@type": "Person",
+    "name": "图解 AI Agent"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "图解 AI Agent"
+  },
+  "datePublished": "2026-04-18",
+  "dateModified": "2026-04-18",
+  "image": "images/hero-cover.jpg",
+  "inLanguage": "zh-CN"
+}
+  </script>
+
+  <!-- Favicon & PWA -->
+  <!-- Favicon & PWA -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://p-mira-img-sign-sgnontt.byteintl.net" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body class="home-page">
+
+  <main role="main">
+  <!-- ===== Hero Section ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1 class="hero-title">图解 AI Agent</h1>
+        <p class="hero-subtitle">从概念到实战，用生动类比与系统化框架，带你全面掌握 AI Agent 的架构设计、核心技术与前沿趋势。</p>
+        <div class="hero-badges">
+          <span class="badge">🎯 面试必备</span>
+          <span class="badge">🚀 转行利器</span>
+          <span class="badge">💡 求职加分</span>
+        </div>
+        <a href="chapter01.html" class="cta-btn">开始阅读 →</a>
+      </div>
+      <div class="hero-image">
+        <img loading="lazy" src="images/hero-cover.jpg" alt="图解 AI Agent 封面">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Highlights Section ===== -->
+  <section class="highlights">
+    <div class="section-container">
+      <h2 class="section-title">Why 图解 AI Agent</h2>
+      <p class="section-desc">一本为实战而生的 AI Agent 学习指南</p>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <div class="highlight-icon">📚</div>
+          <h3>10万字精华</h3>
+          <p>10 章系统化内容，覆盖 Agent 从入门到进阶的全部知识点，一站式掌握核心体系。</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🎨</div>
+          <h3>图解驱动</h3>
+          <p>大量手绘概念图、流程图与架构图，让抽象概念变得直观可见、过目不忘。</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🏠</div>
+          <h3>生活化案例</h3>
+          <p>每个技术概念都配有生动的生活类比——用"做饭""开餐馆""婚礼策划"讲透复杂原理。</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">💼</div>
+          <h3>面试导向</h3>
+          <p>内容覆盖 AI Agent 面试高频考点，帮你建立系统认知，自信应对技术面试。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Audience Section ===== -->
+  <section class="audience">
+    <div class="section-container">
+      <h2 class="section-title">谁适合阅读？</h2>
+      <p class="section-desc">无论你是哪种背景，这本指南都能为你提供价值</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-icon">👨‍💻</div>
+          <h3>转行程序员</h3>
+          <p>想从传统开发转向 AI 方向？本指南帮你快速建立 AI Agent 知识体系，找到转型切入点。</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🎯</div>
+          <h3>面试准备</h3>
+          <p>正在准备 AI 相关岗位面试？系统化的内容结构帮你高效备考，覆盖核心知识点。</p>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🔬</div>
+          <h3>AI 技术爱好者</h3>
+          <p>对 AI Agent 充满好奇？从零开始的讲解方式，让你轻松理解前沿技术的本质。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Chapter Directory Section ===== -->
+  <section class="chapters">
+    <div class="section-container">
+      <h2 class="section-title">目录总览</h2>
+      <p class="section-desc">10 章内容，从基础概念到前沿趋势，系统构建你的 AI Agent 知识体系</p>
+      <div class="chapter-grid">
+
+        <a class="chapter-card" href="chapter01.html">
+          <div class="chapter-num">01</div>
+          <div class="chapter-info">
+            <h3>AI Agent 概述</h3>
+            <p>什么是 AI Agent？它与传统 AI 有何不同？从定义出发，用生活类比带你理解 Agent 的核心特征与发展历程。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter02.html">
+          <div class="chapter-num">02</div>
+          <div class="chapter-info">
+            <h3>AI Agent 核心架构</h3>
+            <p>拆解 Agent 的五大核心模块——感知、规划、记忆、行动、工具使用，理解它们如何协同工作。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter03.html">
+          <div class="chapter-num">03</div>
+          <div class="chapter-info">
+            <h3>AI Agent 关键技术</h3>
+            <p>深入 LLM、Prompt Engineering、ReAct、CoT、Function Calling、RAG 等核心技术栈。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter04.html">
+          <div class="chapter-num">04</div>
+          <div class="chapter-info">
+            <h3>主流 Agent 框架与平台</h3>
+            <p>LangChain、AutoGPT、CrewAI、Dify……全面对比主流框架的优劣与适用场景。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter05.html">
+          <div class="chapter-num">05</div>
+          <div class="chapter-info">
+            <h3>Multi-Agent 系统</h3>
+            <p>当多个 Agent 协作时会发生什么？分层式、对等式、竞争式三大协作模式全面解析。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter06.html">
+          <div class="chapter-num">06</div>
+          <div class="chapter-info">
+            <h3>AI Agent 的记忆系统</h3>
+            <p>工作记忆、情景记忆、语义记忆、程序记忆——四种记忆类型如何让 Agent "活"起来。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter07.html">
+          <div class="chapter-num">07</div>
+          <div class="chapter-info">
+            <h3>AI Agent 的规划与推理</h3>
+            <p>任务分解、自我反思、树搜索、Plan-and-Execute——Agent 如何"想清楚再做事"。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter08.html">
+          <div class="chapter-num">08</div>
+          <div class="chapter-info">
+            <h3>AI Agent 安全与伦理</h3>
+            <p>Prompt 注入防御、权限控制、沙箱机制、对齐问题——构建安全 Agent 的全面指南。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter09.html">
+          <div class="chapter-num">09</div>
+          <div class="chapter-info">
+            <h3>AI Agent 实战案例</h3>
+            <p>六大真实场景深度剖析，看 Agent 技术如何在各行各业中解决实际问题。</p>
+          </div>
+        </a>
+
+        <a class="chapter-card" href="chapter10.html">
+          <div class="chapter-num">10</div>
+          <div class="chapter-info">
+            <h3>AI Agent 的未来趋势</h3>
+            <p>具身智能、Agent 操作系统、自主科研……展望 AI Agent 的下一个十年。</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+<!-- Social Media Section -->
+<section class="social-media">
+  <div class="section-container">
+    <h2 class="section-title">关注我们</h2>
+    <p class="section-desc">获取更多 AI Agent 学习资料与行业动态</p>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <div class="qr-placeholder" id="wechat-qr">
+          <!-- 替换为微信公众号二维码图片 -->
+          <span>微信公众号</span>
+        </div>
+        <p>微信公众号</p>
+        <span class="qr-desc">扫码关注，获取最新教程</span>
+      </div>
+      
+      <div class="qr-card">
+        <div class="qr-placeholder" id="xiaohongshu-qr">
+          <!-- 替换为小红书二维码图片 -->
+          <span>小红书</span>
+        </div>
+        <p>小红书</p>
+        <span class="qr-desc">扫码关注，更多 AI 干货</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- ===== Footer ===== -->
+  <footer class="home-footer">
+    <p>图解 AI Agent &copy; 2026 | 持续更新中</p>
+  </footer>
+
+<script src="lang-switcher.js"></script>
+</body>
+</html>

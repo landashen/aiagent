@@ -1,0 +1,17 @@
+{
+  "name": "图解 AI Agent",
+  "short_name": "图解Agent",
+  "description": "面试必备 AI Agent 学习指南",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1a73e8",
+  "background_color": "#ffffff",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

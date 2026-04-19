@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第二章：AI Agent 核心架构 - 图解 AI Agent</title>
+  <meta name="description" content="图解 AI Agent 五大核心模块：感知、规划、记忆、行动、工具使用。通过订机票全流程演示，深入理解 Agent 架构设计。">
+  <meta name="keywords" content="AI Agent, 图解AI Agent, AI面试, AI转行, Agent架构, LLM, 大模型, 人工智能, AI学习, Agent教程">
+  <meta name="author" content="图解 AI Agent">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://tujieagent.com/chapter02.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="第二章：AI Agent 核心架构 - 图解 AI Agent">
+  <meta property="og:description" content="图解 AI Agent 五大核心模块：感知、规划、记忆、行动、工具使用。通过订机票全流程演示，深入理解 Agent 架构设计。">
+  <meta property="og:url" content="https://tujieagent.com/chapter02.html">
+  <meta property="og:site_name" content="图解 AI Agent">
+  <meta property="og:image" content="images/hero-cover.jpg">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="第二章：AI Agent 核心架构 - 图解 AI Agent">
+  <meta name="twitter:description" content="图解 AI Agent 五大核心模块：感知、规划、记忆、行动、工具使用。通过订机票全流程演示，深入理解 Agent 架构设计。">
+  <meta name="twitter:image" content="images/hero-cover.jpg">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter02.html">
+  <link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter02.html">
+  <link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter02.html">
+
+  <!-- Search Engine Verification -->
+  <meta name="baidu-site-verification" content="placeholder_baidu_code">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="msvalidate.01" content="placeholder_bing_code">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "第二章：AI Agent 核心架构 - 图解 AI Agent",
+  "description": "图解 AI Agent 五大核心模块：感知、规划、记忆、行动、工具使用。通过订机票全流程演示，深入理解 Agent 架构设计。",
+  "author": {
+    "@type": "Person",
+    "name": "图解 AI Agent"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "图解 AI Agent"
+  },
+  "datePublished": "2026-04-18",
+  "dateModified": "2026-04-18",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tujieagent.com/chapter02.html"
+  },
+  "image": "images/hero-cover.jpg",
+  "inLanguage": "zh-CN"
+}
+  </script>
+
+  <!-- Favicon & PWA -->
+  <!-- Favicon & PWA -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://p-mira-img-sign-sgnontt.byteintl.net" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .breadcrumb { padding: 12px 20px; font-size: 0.9em; color: #6b7280; }
+    .breadcrumb ol { list-style: none; display: flex; gap: 8px; margin: 0; padding: 0; flex-wrap: wrap; }
+    .breadcrumb li::before { content: ""; }
+    .breadcrumb li + li::before { content: " > "; margin-right: 8px; color: #9ca3af; }
+    .breadcrumb a { color: #4f46e5; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .related-chapters { margin: 40px 0 20px; padding: 24px 28px; background: #f8fafc; border-radius: 12px; border: 1px solid #e5e7eb; }
+    .related-chapters h3 { font-size: 1.1em; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; }
+    .related-chapters ul { list-style: none; padding: 0; margin: 0; }
+    .related-chapters li { margin-bottom: 8px; }
+    .related-chapters a { color: #4f46e5; text-decoration: none; font-size: 0.95em; }
+    .related-chapters a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <button class="hamburger" aria-label="菜单">&#9776;</button>
+  <div class="overlay"></div>
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://tujieagent.com/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "第二章：AI Agent 核心架构",
+            "item": "https://tujieagent.com/chapter02.html"
+        }
+    ]
+}
+    </script>
+    <ol>
+      <li><a href="index.html">首页</a></li>
+      <li aria-current="page">第二章：AI Agent 核心架构</li>
+    </ol>
+  </nav>
+  <div class="sidebar">
+  <div class="sidebar-header"><a href="index.html">图解 AI Agent</a></div>
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a class="nav-link" href="chapter01.html" data-toggle>
+        <span>第一章：AI Agent 概述</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter01.html#11-什么是-ai-agent智能体">1.1 什么是 AI Agent（智能体）</a></li>
+        <li><a href="chapter01.html#12-生活中的-agent-类比">1.2 生活中的 Agent 类比</a></li>
+        <li><a href="chapter01.html#13-ai-agent-与传统-ai-的区别">1.3 AI Agent 与传统 AI 的区别</a></li>
+        <li><a href="chapter01.html#14-ai-agent-的发展历程与里程碑">1.4 AI Agent 的发展历程与里程碑</a></li>
+        <li><a href="chapter01.html#15-ai-agent-的分类">1.5 AI Agent 的分类</a></li>
+        <li><a href="chapter01.html#16-为什么-20242026-是-agent-爆发期">1.6 为什么 2024—2026 是 Agent 爆发期</a></li>
+        <li><a href="chapter01.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item expanded">
+      <a class="nav-link active" href="chapter02.html" data-toggle>
+        <span>第二章：AI Agent 核心架构</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="#21-ai-agent-架构总览">2.1 AI Agent 架构总览</a></li>
+        <li><a href="#22-感知模块perception">2.2 感知模块（Perception）</a></li>
+        <li><a href="#23-规划模块planning">2.3 规划模块（Planning）</a></li>
+        <li><a href="#24-记忆模块memory">2.4 记忆模块（Memory）</a></li>
+        <li><a href="#25-行动模块action">2.5 行动模块（Action）</a></li>
+        <li><a href="#26-工具使用tool-use">2.6 工具使用（Tool Use）</a></li>
+        <li><a href="#27-模块协作完整的执行循环演示">2.7 模块协作：完整的执行循环演示</a></li>
+        <li><a href="#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter03.html" data-toggle>
+        <span>第三章：AI Agent 关键技术</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter03.html#31-大语言模型llm作为-agent-的大脑">3.1 大语言模型（LLM）作为 Agent 的大脑</a></li>
+        <li><a href="chapter03.html#32-prompt-engineering-在-agent-中的应用">3.2 Prompt Engineering 在 Agent 中的应用</a></li>
+        <li><a href="chapter03.html#分析概览">分析概览</a></li>
+        <li><a href="chapter03.html#详细发现">详细发现</a></li>
+        <li><a href="chapter03.html#建议行动">建议行动</a></li>
+        <li><a href="chapter03.html#分析概览">分析概览</a></li>
+        <li><a href="chapter03.html#详细发现">详细发现</a></li>
+        <li><a href="chapter03.html#33-react-框架推理与行动的交织">3.3 ReAct 框架：推理与行动的交织</a></li>
+        <li><a href="chapter03.html#34-chain-of-thought思维链推理">3.4 Chain-of-Thought（思维链）推理</a></li>
+        <li><a href="chapter03.html#35-function-calling-与工具调用机制">3.5 Function Calling 与工具调用机制</a></li>
+        <li><a href="chapter03.html#36-rag检索增强生成与-agent-的结合">3.6 RAG（检索增强生成）与 Agent 的结合</a></li>
+        <li><a href="chapter03.html#37-多模态能力在-agent-中的应用">3.7 多模态能力在 Agent 中的应用</a></li>
+        <li><a href="chapter03.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter04.html" data-toggle>
+        <span>第四章：主流 Agent 框架与平台</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter04.html#41-langchain-langgraph">4.1 LangChain / LangGraph</a></li>
+        <li><a href="chapter04.html#42-autogpt-babyagi">4.2 AutoGPT / BabyAGI</a></li>
+        <li><a href="chapter04.html#43-crewai多智能体协作">4.3 CrewAI（多智能体协作）</a></li>
+        <li><a href="chapter04.html#44-microsoft-autogen">4.4 Microsoft AutoGen</a></li>
+        <li><a href="chapter04.html#45-anthropic-claude-agent-sdk">4.5 Anthropic Claude Agent SDK</a></li>
+        <li><a href="chapter04.html#46-coze-扣子">4.6 Coze / 扣子</a></li>
+        <li><a href="chapter04.html#47-其他值得关注的框架">4.7 其他值得关注的框架</a></li>
+        <li><a href="chapter04.html#48-主流框架全面对比">4.8 主流框架全面对比</a></li>
+        <li><a href="chapter04.html#49-如何选择框架决策指南">4.9 如何选择框架：决策指南</a></li>
+        <li><a href="chapter04.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter05.html" data-toggle>
+        <span>第五章：Multi-Agent 系统（多智能体协作）</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter05.html#51-什么是-multi-agent-系统">5.1 什么是 Multi-Agent 系统</a></li>
+        <li><a href="chapter05.html#52-多智能体协作模式">5.2 多智能体协作模式</a></li>
+        <li><a href="chapter05.html#53-通信协议与消息传递">5.3 通信协议与消息传递</a></li>
+        <li><a href="chapter05.html#54-角色分工与任务编排">5.4 角色分工与任务编排</a></li>
+        <li><a href="chapter05.html#55-多-agent-系统的设计模式">5.5 多 Agent 系统的设计模式</a></li>
+        <li><a href="chapter05.html#56-典型应用案例">5.6 典型应用案例</a></li>
+        <li><a href="chapter05.html#57-多-agent-系统的挑战">5.7 多 Agent 系统的挑战</a></li>
+        <li><a href="chapter05.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter06.html" data-toggle>
+        <span>第六章：AI Agent 的记忆系统</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter06.html#61-记忆系统概述">6.1 记忆系统概述</a></li>
+        <li><a href="chapter06.html#62-工作记忆working-memory">6.2 工作记忆（Working Memory）</a></li>
+        <li><a href="chapter06.html#63-情景记忆episodic-memory">6.3 情景记忆（Episodic Memory）</a></li>
+        <li><a href="chapter06.html#64-语义记忆semantic-memory">6.4 语义记忆（Semantic Memory）</a></li>
+        <li><a href="chapter06.html#65-程序记忆procedural-memory">6.5 程序记忆（Procedural Memory）</a></li>
+        <li><a href="chapter06.html#66-向量数据库在记忆系统中的应用">6.6 向量数据库在记忆系统中的应用</a></li>
+        <li><a href="chapter06.html#67-记忆的存储检索与遗忘机制">6.7 记忆的存储、检索与遗忘机制</a></li>
+        <li><a href="chapter06.html#68-记忆系统的实际案例一个完整的客服-agent-记忆系统">6.8 记忆系统的实际案例：一个完整的客服 Agent 记忆系统</a></li>
+        <li><a href="chapter06.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter07.html" data-toggle>
+        <span>第七章：AI Agent 的规划与推理</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter07.html#71-任务分解task-decomposition">7.1 任务分解（Task Decomposition）</a></li>
+        <li><a href="chapter07.html#72-自我反思self-reflection">7.2 自我反思（Self-Reflection）</a></li>
+        <li><a href="chapter07.html#73-树搜索与蒙特卡洛方法">7.3 树搜索与蒙特卡洛方法</a></li>
+        <li><a href="chapter07.html#74-plan-and-execute-模式">7.4 Plan-and-Execute 模式</a></li>
+        <li><a href="chapter07.html#75-动态重规划能力">7.5 动态重规划能力</a></li>
+        <li><a href="chapter07.html#76-不同推理方式的对比">7.6 不同推理方式的对比</a></li>
+        <li><a href="chapter07.html#77-规划能力的局限与应对">7.7 规划能力的局限与应对</a></li>
+        <li><a href="chapter07.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter08.html" data-toggle>
+        <span>第八章：AI Agent 安全与伦理</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter08.html#81-ai-agent-安全概述">8.1 AI Agent 安全概述</a></li>
+        <li><a href="chapter08.html#82-prompt-注入攻击与防御">8.2 Prompt 注入攻击与防御</a></li>
+        <li><a href="chapter08.html#83-agent-的权限控制与沙箱机制">8.3 Agent 的权限控制与沙箱机制</a></li>
+        <li><a href="chapter08.html#84-对齐问题alignment">8.4 对齐问题（Alignment）</a></li>
+        <li><a href="chapter08.html#85-可解释性与可审计性">8.5 可解释性与可审计性</a></li>
+        <li><a href="chapter08.html#86-数据隐私与合规">8.6 数据隐私与合规</a></li>
+        <li><a href="chapter08.html#87-agent-安全事件案例分析">8.7 Agent 安全事件案例分析</a></li>
+        <li><a href="chapter08.html#88-构建安全-agent-的最佳实践清单">8.8 构建安全 Agent 的最佳实践清单</a></li>
+        <li><a href="chapter08.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter09.html" data-toggle>
+        <span>第九章：AI Agent 实战案例</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter09.html#91-智能客服-agent">9.1 智能客服 Agent</a></li>
+        <li><a href="chapter09.html#92-代码助手-agent">9.2 代码助手 Agent</a></li>
+        <li><a href="chapter09.html#93-数据分析-agent">9.3 数据分析 Agent</a></li>
+        <li><a href="chapter09.html#94-自动化办公-agent">9.4 自动化办公 Agent</a></li>
+        <li><a href="chapter09.html#95-科研辅助-agent">9.5 科研辅助 Agent</a></li>
+        <li><a href="chapter09.html#96-个人生活助理-agent">9.6 个人生活助理 Agent</a></li>
+        <li><a href="chapter09.html#97-构建-agent-的实践建议">9.7 构建 Agent 的实践建议</a></li>
+        <li><a href="chapter09.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter10.html" data-toggle>
+        <span>第十章：AI Agent 的未来趋势</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter10.html#101-从-copilot-到-autopilot-的演进">10.1 从 Copilot 到 Autopilot 的演进</a></li>
+        <li><a href="chapter10.html#102-具身智能embodied-ai">10.2 具身智能（Embodied AI）</a></li>
+        <li><a href="chapter10.html#103-agent-操作系统agent-os">10.3 Agent 操作系统（Agent OS）</a></li>
+        <li><a href="chapter10.html#104-世界模型与-agent-的结合">10.4 世界模型与 Agent 的结合</a></li>
+        <li><a href="chapter10.html#105-agi-之路agent-的角色">10.5 AGI 之路：Agent 的角色</a></li>
+        <li><a href="chapter10.html#106-agent-经济与新职业">10.6 Agent 经济与新职业</a></li>
+        <li><a href="chapter10.html#107-对学习者的行动建议">10.7 对学习者的行动建议</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+  <div class="main">
+    <main role="main"><div class="content" id="md-content">
+<h1 id="第二章ai-agent-核心架构">第二章：AI Agent 核心架构</h1>
+<blockquote><p><strong>"AI Agent 全面学习指南"系列 · 第二章</strong></p>
+<p>在上一章中，我们了解了 AI Agent 的基本概念与发展历程。本章将深入剖析 AI Agent 的<strong>核心架构</strong>——它不是一个单一的"大脑"，而是由多个紧密协作的模块组成的有机系统。理解这些模块的职责与交互方式，是掌握 AI Agent 设计与开发的基石。</p></blockquote>
+<hr>
+<h2 id="21-ai-agent-架构总览">2.1 AI Agent 架构总览</h2>
+<h3 id="五大核心模块">五大核心模块</h3>
+<p>一个功能完备的 AI Agent 通常由以下<strong>五大核心模块</strong>构成：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>英文名</th>
+<th>核心职责</th>
+<th>一句话概括</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>感知模块</strong></td>
+<td>Perception</td>
+<td>接收和理解外部输入</td>
+<td>"看见世界"</td>
+</tr>
+<tr>
+<td><strong>规划模块</strong></td>
+<td>Planning</td>
+<td>分解任务、制定策略</td>
+<td>"想清楚怎么做"</td>
+</tr>
+<tr>
+<td><strong>记忆模块</strong></td>
+<td>Memory</td>
+<td>存储和检索历史信息</td>
+<td>"记住经验"</td>
+</tr>
+<tr>
+<td><strong>行动模块</strong></td>
+<td>Action</td>
+<td>执行具体操作、生成输出</td>
+<td>"动手去做"</td>
+</tr>
+<tr>
+<td><strong>工具使用</strong></td>
+<td>Tool Use</td>
+<td>调用外部工具扩展能力</td>
+<td>"借助工具"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="架构关系一张文字架构图">架构关系：一张"文字架构图"</h3>
+<p>想象一张流程图。最上方是<strong>外部环境</strong>（用户输入、网页、文件、API 返回结果等），它通过一条箭头连接到<strong>感知模块</strong>。感知模块负责将原始输入转化为 Agent 能够理解的结构化信息。</p>
+<p>感知模块的输出流向两个方向：一方面进入<strong>记忆模块</strong>（将当前感知到的信息存入短期记忆），另一方面传递给<strong>规划模块</strong>。规划模块是整个 Agent 的"大脑中枢"，它综合当前感知信息与记忆模块中的历史经验，制定出一系列<strong>行动计划</strong>。</p>
+<p>行动计划被传递给<strong>行动模块</strong>，行动模块负责执行具体操作。在执行过程中，行动模块往往需要借助<strong>工具使用模块</strong>来完成超出大语言模型自身能力范围的任务（如搜索互联网、执行代码、调用第三方 API）。</p>
+<p>行动执行后，其结果（工具返回值、执行状态、环境变化等）又会被<strong>反馈</strong>回感知模块，形成一个<strong>闭环循环</strong>：</p>
+<pre><code>外部环境
+   ↓
+感知模块 ←——————————————————————┐
+   ↓                           │
+记忆模块 ←→ 规划模块            │
+                ↓               │
+           行动模块 → 工具使用 ─┘</code></pre>
+<p>这个循环被称为 <strong>"感知—规划—行动"循环（Perception-Planning-Action Loop）</strong>，也有人称之为 <strong>"观察—思考—行动"循环（Observe-Think-Act Loop）</strong>。它是所有 AI Agent 架构的基本范式。每一轮循环中，Agent 都会根据最新的环境信息和历史记忆做出决策，不断逼近目标。</p>
+<h3 id="与传统软件的本质区别">与传统软件的本质区别</h3>
+<p>传统软件是<strong>确定性流程</strong>：输入 → 预编程的逻辑 → 输出。而 AI Agent 是<strong>自主决策系统</strong>：它能根据不同情况动态选择不同的行动路径，甚至在失败后自我纠错、重新规划。这种灵活性正是 Agent 架构的核心价值所在。</p>
+<hr>
+<div class="illustration">
+  <img loading="lazy" src="images/architecture.jpg" alt="AI Agent 五大核心模块">
+  <div class="caption">「图解：AI Agent 五大核心模块 —— 感知、规划、记忆、行动、工具使用」</div>
+</div>
+<h2 id="22-感知模块perception">2.2 感知模块（Perception）</h2>
+<h3 id="什么是感知">什么是感知？</h3>
+<p><strong>感知模块是 Agent 与外部世界之间的桥梁。</strong> 它负责接收来自环境的各种信号，并将其转化为 Agent 内部能够处理的结构化表示。没有感知模块，Agent 就如同被关在黑屋子里——无论它的"大脑"多么聪明，也无法与世界交互。</p>
+<h3 id="类比人的五感">类比：人的五感</h3>
+<p>我们可以用<strong>人的五感</strong>来理解感知模块的工作原理：</p>
+<table>
+<thead>
+<tr>
+<th>人的感官</th>
+<th>Agent 的对应能力</th>
+<th>具体例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>视觉</strong></td>
+<td>图像理解、视频分析、屏幕截图识别</td>
+<td>识别用户上传的产品照片</td>
+</tr>
+<tr>
+<td><strong>听觉</strong></td>
+<td>语音识别（ASR）、音频理解</td>
+<td>将用户的语音指令转为文字</td>
+</tr>
+<tr>
+<td><strong>触觉</strong></td>
+<td>环境状态感知、传感器数据读取</td>
+<td>机器人感知物体的温度与压力</td>
+</tr>
+<tr>
+<td><strong>嗅觉/味觉</strong></td>
+<td>数值型传感器信号（化学、环境）</td>
+<td>工业 Agent 监测空气质量数据</td>
+</tr>
+<tr>
+<td><strong>综合感知</strong></td>
+<td>多模态融合、上下文整合</td>
+<td>同时理解用户的文字描述和附带的截图</td>
+</tr>
+</tbody>
+</table>
+<p>正如人类不会孤立地使用某一种感官——你听到"小心！"的同时也会用眼睛去看发生了什么——Agent 的感知模块同样需要<strong>多模态融合</strong>能力。</p>
+<h3 id="四大感知能力详解">四大感知能力详解</h3>
+<h4 id="221-文本理解">2.2.1 文本理解</h4>
+<p>这是当前 AI Agent 最基础也是最核心的感知能力。大语言模型（LLM）天然擅长理解自然语言文本。文本理解包括：</p>
+<div class="illustration">
+  <img loading="lazy" src="images/ch02-perception-module.jpg" alt="感知模块四大能力">
+  <div class="caption">「图解：感知模块 —— 文本、图像、音频、视频四大感知通道汇聚处理」</div>
+</div>
+
+<ul>
+<li><strong>意图识别</strong>：用户说"帮我查一下明天北京的天气"，Agent 需要识别出意图是"查询天气"，而非"订机票"或"闲聊"。</li>
+<li><strong>实体抽取</strong>：从上述句子中提取出关键实体——时间："明天"，地点："北京"，查询类型："天气"。</li>
+<li><strong>情感分析</strong>：如果用户说"你们的服务太差了！"，Agent 需要感知到用户的不满情绪，从而调整应对策略。</li>
+<li><strong>指令解析</strong>：理解复杂指令的层级关系，如"先搜索最新的论文，然后总结前三篇的核心观点，最后生成一份 PPT"。</li>
+</ul>
+<h4 id="222-多模态感知">2.2.2 多模态感知</h4>
+<p>随着多模态大模型（如 GPT-4V、Claude 3 等）的发展，Agent 的感知能力已经远超纯文本范畴：</p>
+<ul>
+<li><strong>图像理解</strong>：识别图片中的物体、文字（OCR）、场景、人脸表情等。例如，用户上传一张餐厅菜单的照片，Agent 能将其中的菜品名称和价格提取出来。</li>
+<li><strong>音频理解</strong>：将语音转为文字（Speech-to-Text），并进一步理解语义。未来甚至可以直接从音频波形中提取情感、说话者身份等信息。</li>
+<li><strong>视频理解</strong>：理解视频中的动作序列、事件变化。例如安防场景下，Agent 需要从监控视频中检测异常行为。</li>
+</ul>
+<h4 id="223-环境感知">2.2.3 环境感知</h4>
+<p>对于需要与真实或虚拟环境交互的 Agent（如机器人 Agent、游戏 Agent、操作系统 Agent），环境感知尤为重要：</p>
+<ul>
+<li><strong>屏幕状态感知</strong>：计算机操作 Agent 需要"看到"当前屏幕上显示的内容，包括窗口布局、按钮位置、文本内容等。</li>
+<li><strong>文件系统感知</strong>：编程 Agent 需要了解当前项目的目录结构、文件内容、依赖关系。</li>
+<li><strong>API 响应感知</strong>：当 Agent 调用外部 API 后，需要解析返回的 JSON/XML 数据。</li>
+<li><strong>物理环境感知</strong>：对于具身智能（Embodied AI）Agent，需要感知物理世界的三维空间信息。</li>
+</ul>
+<h4 id="224-上下文整合">2.2.4 上下文整合</h4>
+<p>感知不是一次性的，而是<strong>持续累积</strong>的过程。上下文整合能力包括：</p>
+<ul>
+<li><strong>多轮对话上下文</strong>：记住用户在前几轮说过什么，理解代词指代（"它"指的是什么？"那个"是哪个？）。</li>
+<li><strong>跨模态上下文</strong>：将用户发送的文字描述与图片信息关联起来。例如用户说"图片中左边那个人是谁？"</li>
+<li><strong>任务上下文</strong>：在多步骤任务中，记住当前已经完成了哪些步骤，接下来应该做什么。</li>
+</ul>
+<p>感知模块的质量直接决定了 Agent 对任务的理解深度。一个"听不清"指令的 Agent，后续的规划和行动都将南辕北辙。</p>
+<hr>
+<h2 id="23-规划模块planning">2.3 规划模块（Planning）</h2>
+<h3 id="什么是规划">什么是规划？</h3>
+<p><strong>规划模块是 Agent 的"战略参谋部"。</strong> 它负责将用户的高层目标拆解为可执行的子任务序列，并在执行过程中根据反馈动态调整策略。</p>
+<h3 id="类比装修房子需要先出设计方案再施工">类比：装修房子需要先出设计方案再施工</h3>
+<p>想象你要装修一套新房子。你不会拿起锤子就开始砸墙——你需要先做以下事情：</p>
+<ol>
+<li><strong>需求分析</strong>：你想要什么风格？几间卧室？预算多少？（对应 Agent 理解用户目标）</li>
+<li><strong>出设计方案</strong>：设计师画出平面图、效果图、施工图（对应 Agent 制定行动计划）</li>
+<li><strong>排施工顺序</strong>：先拆改，再水电，然后瓦工、木工、油工，最后软装（对应 Agent 确定子任务的执行顺序）</li>
+<li><strong>应对突发情况</strong>：施工中发现墙体结构不对，需要调整方案（对应 Agent 的动态重规划能力）</li>
+</ol>
+<p>如果没有规划就直接施工，后果可想而知——可能刷完墙才发现忘了埋电线。AI Agent 的规划模块就是为了避免这种"无头苍蝇"式的执行。</p>
+<h3 id="五大规划策略详解">五大规划策略详解</h3>
+<h4 id="231-任务分解task-decomposition">2.3.1 任务分解（Task Decomposition）</h4>
+<p>这是规划模块最基本的能力。面对一个复杂任务，Agent 需要将其分解为多个可独立执行的子任务。例如：</p>
+<p><strong>用户目标</strong>："帮我写一份关于中国新能源汽车市场的研究报告"</p>
+<p><strong>分解结果</strong>：</p>
+<ol>
+<li>搜索中国新能源汽车行业最新数据和政策</li>
+<li>收集主要厂商（比亚迪、特斯拉中国、蔚来等）的市场份额数据</li>
+<li>分析行业发展趋势</li>
+<li>整理消费者偏好与购买动因</li>
+<li>撰写报告初稿</li>
+<li>添加图表和数据可视化</li>
+<li>校对润色，生成最终版本</li>
+</ol>
+<p>任务分解的质量直接决定了 Agent 的执行效率。好的分解应该满足 <strong>MECE 原则</strong>（Mutually Exclusive, Collectively Exhaustive）——子任务之间互不重叠，合在一起完整覆盖原始目标。</p>
+<h4 id="232-思维链chain-of-thought-cot">2.3.2 思维链（Chain-of-Thought, CoT）</h4>
+<p>思维链是一种让 Agent <strong>"边想边说"</strong> 的推理方式。不是直接给出答案，而是展示完整的推理过程。例如：</p>
+<blockquote><p><strong>问题</strong>：一个书店周一卖了 35 本书，周二卖了周一的 2 倍，一周共卖了 300 本。其余五天平均每天卖了多少本？</p>
+<p><strong>思维链</strong>：</p>
+<ul>
+<li>周一：35 本</li>
+<li>周二：35 × 2 = 70 本</li>
+<li>周一 + 周二合计：35 + 70 = 105 本</li>
+<li>其余五天合计：300 - 105 = 195 本</li>
+<li>平均每天：195 ÷ 5 = <strong>39 本</strong></li>
+</ul></blockquote>
+<p>思维链的价值在于：<strong>让 Agent 的推理过程显式化</strong>，减少跳步导致的逻辑错误，同时也让人类更容易理解和调试 Agent 的决策。</p>
+<h4 id="233-react-框架reasoning-acting">2.3.3 ReAct 框架（Reasoning + Acting）</h4>
+<p>ReAct 是当前 AI Agent 领域最具影响力的规划框架之一。它将<strong>推理（Reasoning）</strong>和<strong>行动（Acting）</strong>交替进行：</p>
+<pre><code>Thought: 用户想知道明天北京到上海的航班，我需要查询航班信息。
+Action: 调用航班查询 API，参数为 {出发地: &quot;北京&quot;, 目的地: &quot;上海&quot;, 日期: &quot;明天&quot;}
+Observation: API 返回了 15 个航班结果，最早的是 7:00 的 CA1501。
+Thought: 我已经获得了航班信息，现在需要整理并呈现给用户。
+Action: 将航班信息格式化为表格，按出发时间排序。
+Observation: 表格已生成。
+Thought: 任务完成，可以回复用户了。</code></pre>
+<p>ReAct 的核心优势在于：每一步行动之前都有明确的推理过程，每一步行动之后都有对结果的观察与反思。这使得 Agent 的行为更加可控、可解释。</p>
+<h4 id="234-树搜索tree-search">2.3.4 树搜索（Tree Search）</h4>
+<p>对于需要在多个可能方案中选择最优路径的场景，Agent 可以采用树搜索策略。经典方法包括：</p>
+<ul>
+<li><strong>Tree of Thoughts（ToT）</strong>：将每个推理步骤视为树的一个节点，Agent 在多个分支中探索，评估每个分支的前景，选择最有希望的路径继续深入。</li>
+<li><strong>蒙特卡洛树搜索（MCTS）</strong>：通过模拟和回溯来评估各条路径的价值，在探索（尝试新路径）和利用（深入已知好路径）之间取得平衡。</li>
+</ul>
+<p>树搜索特别适合那些<strong>决策空间大、答案不唯一</strong>的复杂规划任务，例如博弈类问题、路径优化、复杂数学证明等。</p>
+<h4 id="235-自我反思self-reflection">2.3.5 自我反思（Self-Reflection）</h4>
+<p>Agent 不仅要能执行，还要能<strong>反思和自我纠错</strong>。自我反思机制包括：</p>
+<ul>
+<li><strong>执行结果验证</strong>：行动完成后，检查结果是否符合预期。例如写完代码后运行测试，查看是否通过。</li>
+<li><strong>错误归因分析</strong>：如果结果不对，分析是哪一步出了问题——是感知理解有误？还是规划路径选错了？还是工具调用参数填错了？</li>
+<li><strong>策略调整</strong>：基于反思结论，调整后续的行动计划。可能是更换工具、修改参数、或者完全改变解题思路。</li>
+</ul>
+<p>经典的自我反思框架包括 <strong>Reflexion</strong> 和 <strong>Self-Refine</strong>，它们让 Agent 在多轮迭代中不断改进自身的输出质量。</p>
+<hr>
+<h2 id="24-记忆模块memory">2.4 记忆模块（Memory）</h2>
+<h3 id="什么是记忆">什么是记忆？</h3>
+<p><strong>记忆模块为 Agent 提供了"经验积累"的能力。</strong> 没有记忆的 Agent 每次都从零开始，无法利用过去的经验，也无法在长对话中保持连贯性。记忆是 Agent 从"一次性工具"进化为"持续性助手"的关键。</p>
+<h3 id="类比人的工作台-vs-书架">类比：人的工作台 vs 书架</h3>
+<p>我们可以用<strong>工作台和书架</strong>来理解 Agent 的两种记忆：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>短期记忆（工作台）</th>
+<th>长期记忆（书架）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>容量</strong></td>
+<td>有限（工作台面积有限）</td>
+<td>几乎无限（书架可以不断扩展）</td>
+</tr>
+<tr>
+<td><strong>存取速度</strong></td>
+<td>极快（伸手就能拿到）</td>
+<td>较慢（需要查找对应的书）</td>
+</tr>
+<tr>
+<td><strong>保持时间</strong></td>
+<td>临时（任务结束就清理）</td>
+<td>持久（长期保存）</td>
+</tr>
+<tr>
+<td><strong>内容类型</strong></td>
+<td>当前任务相关信息</td>
+<td>历史经验、知识、用户偏好</td>
+</tr>
+<tr>
+<td><strong>对应技术</strong></td>
+<td>上下文窗口（Context Window）</td>
+<td>向量数据库、知识图谱、文件存储</td>
+</tr>
+</tbody>
+</table>
+<p>想象你正在写一篇论文：<strong>工作台</strong>上摊开的是你正在引用的几篇论文、你的写作提纲、以及当前正在编辑的段落——这些是你"随时需要看到"的信息。而<strong>书架</strong>上存放的是你过去读过的所有书籍和论文——你不会把它们全部摊在桌上，但需要的时候你知道去哪里找。</p>
+<h3 id="短期记忆short-term-memory">短期记忆（Short-term Memory）</h3>
+<p>短期记忆主要指 Agent 在单次任务会话中保持的上下文信息。在技术实现上，它通常对应于 LLM 的<strong>上下文窗口（Context Window）</strong>。</p>
+<p><strong>核心特点</strong>：</p>
+<ul>
+<li><strong>即时可用</strong>：所有存储在短期记忆中的信息都可以被 Agent 直接"看到"，无需额外检索。</li>
+<li><strong>容量有限</strong>：即使是最先进的模型，上下文窗口也有上限（如 128K、200K tokens）。当对话过长时，早期信息会被"遗忘"（截断或压缩）。</li>
+<li><strong>任务相关</strong>：短期记忆中通常只保留与当前任务直接相关的信息。</li>
+</ul>
+<p><strong>短期记忆的管理策略</strong>：</p>
+<ol>
+<li><strong>滑动窗口</strong>：当上下文超出限制时，删除最早的消息。简单但可能丢失重要信息。</li>
+<li><strong>摘要压缩</strong>：将较早的对话内容生成摘要，用摘要替代原文，节省 token 同时保留关键信息。</li>
+<li><strong>关键信息提取</strong>：只保留历史对话中的关键实体、决策和结论，丢弃冗余的过程信息。</li>
+</ol>
+<h3 id="长期记忆long-term-memory">长期记忆（Long-term Memory）</h3>
+<p>长期记忆使 Agent 能够跨会话保持信息，积累经验，并随着使用时间的增长变得"越来越了解用户"。</p>
+<p><strong>长期记忆的类型</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>情景记忆</strong></td>
+<td>记住具体的事件经历</td>
+<td>"上次用户让我查航班时，偏好选早班机"</td>
+</tr>
+<tr>
+<td><strong>语义记忆</strong></td>
+<td>记住通用知识和事实</td>
+<td>"北京到上海的高铁约 4.5 小时"</td>
+</tr>
+<tr>
+<td><strong>程序记忆</strong></td>
+<td>记住如何完成某类任务的步骤</td>
+<td>"查航班的标准流程：确认日期 → 调用 API → 排序 → 展示"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>技术实现</strong>：</p>
+<ul>
+<li><strong>向量数据库（Vector Database）</strong>：将信息编码为高维向量，通过向量相似度检索最相关的记忆片段。常用工具包括 Pinecone、Weaviate、Chroma 等。这是当前最主流的长期记忆方案。</li>
+<li><strong>知识图谱（Knowledge Graph）</strong>：以"实体—关系—实体"的三元组形式存储结构化知识，适合需要精确关系推理的场景。</li>
+<li><strong>关系型数据库 / 文件系统</strong>：存储结构化数据或原始文件，适合需要精确查找的场景。</li>
+</ul>
+<h3 id="记忆的检索与更新">记忆的检索与更新</h3>
+<p>记忆存进去只是第一步，关键在于<strong>能在需要的时候高效检索出来</strong>。常见的检索策略包括：</p>
+<ul>
+<li><strong>语义检索</strong>：通过 Embedding 向量的相似度匹配，找到与当前查询语义最接近的记忆片段。</li>
+<li><strong>时间衰减</strong>：最近的记忆权重更高，很久以前的记忆权重递减。模拟人类"近因效应"。</li>
+<li><strong>重要性加权</strong>：标记为"重要"的记忆（如用户的明确偏好声明）会被优先检索。</li>
+<li><strong>混合检索</strong>：结合关键词匹配、语义匹配、时间因子等多维信号进行综合排序。</li>
+</ul>
+<hr>
+<h2 id="25-行动模块action">2.5 行动模块（Action）</h2>
+<h3 id="什么是行动">什么是行动？</h3>
+<p><strong>行动模块是 Agent 将"想法"转化为"现实"的执行层。</strong> 如果说规划模块是"指挥部"，那么行动模块就是"作战部队"。它接收规划模块的指令，执行具体操作，并将结果反馈回系统。</p>
+<h3 id="类比厨师做菜">类比：厨师做菜</h3>
+<p>一位优秀的厨师，不仅需要知道菜谱（规划），还需要精湛的烹饪技艺（行动能力）。Agent 的行动模块就像厨师在厨房里的各项操作：</p>
+<table>
+<thead>
+<tr>
+<th>厨师的操作</th>
+<th>Agent 的行动类型</th>
+<th>具体说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>切菜、搅拌</strong></td>
+<td>文本生成</td>
+<td>最基础的"烹饪动作"，就像厨师的刀工</td>
+</tr>
+<tr>
+<td><strong>使用烤箱、微波炉</strong></td>
+<td>工具调用</td>
+<td>借助专业设备完成特定步骤</td>
+</tr>
+<tr>
+<td><strong>调整火候、控制时间</strong></td>
+<td>参数控制</td>
+<td>精确控制工具的调用参数</td>
+</tr>
+<tr>
+<td><strong>尝味道、调整调料</strong></td>
+<td>结果验证与修正</td>
+<td>检查输出质量，必要时调整</td>
+</tr>
+<tr>
+<td><strong>摆盘上菜</strong></td>
+<td>格式化输出</td>
+<td>将结果以用户期望的格式呈现</td>
+</tr>
+</tbody>
+</table>
+<p>一道好菜，需要切、炒、调味、摆盘等多种技艺的配合；同样，Agent 完成一个任务，往往也需要多种行动类型的组合。</p>
+<h3 id="四大行动类型详解">四大行动类型详解</h3>
+<h4 id="251-文本生成">2.5.1 文本生成</h4>
+<p>这是 LLM 最原生的行动能力。包括：</p>
+<ul>
+<li><strong>直接回答</strong>：回答用户的问题，如解释概念、提供建议。</li>
+<li><strong>内容创作</strong>：撰写文章、邮件、代码注释、营销文案等。</li>
+<li><strong>摘要与翻译</strong>：将长文本压缩为摘要，或翻译为其他语言。</li>
+<li><strong>格式转换</strong>：将非结构化文本转为 JSON、表格、Markdown 等格式。</li>
+</ul>
+<p>文本生成虽然"简单"，但它是所有其他行动类型的基础——即使是工具调用，Agent 也需要先"生成"正确的调用指令。</p>
+<h4 id="252-工具调用">2.5.2 工具调用</h4>
+<p>当 Agent 需要获取实时信息、执行精确计算或与外部系统交互时，它会调用外部工具。工具调用的过程通常是：</p>
+<ol>
+<li><strong>决策</strong>：规划模块决定需要调用哪个工具。</li>
+<li><strong>参数生成</strong>：Agent 生成工具调用所需的参数（通常以 JSON 格式）。</li>
+<li><strong>执行调用</strong>：系统将参数传递给对应的工具并执行。</li>
+<li><strong>结果解析</strong>：Agent 接收工具返回的结果，并将其整合到后续的推理中。</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;tool&quot;: &quot;weather_api&quot;,
+  &quot;parameters&quot;: {
+    &quot;city&quot;: &quot;北京&quot;,
+    &quot;date&quot;: &quot;2026-04-19&quot;
+  }
+}</code></pre>
+<h4 id="253-代码执行">2.5.3 代码执行</h4>
+<p>对于需要数据分析、数学计算、文件处理等任务，Agent 可以编写并执行代码：</p>
+<ul>
+<li><strong>数据分析</strong>：使用 Python 对数据集进行统计分析、可视化。</li>
+<li><strong>数学计算</strong>：精确计算复杂数学表达式（LLM 本身的数学能力有限）。</li>
+<li><strong>文件操作</strong>：读写文件、格式转换（如 CSV 转 Excel）。</li>
+<li><strong>自动化脚本</strong>：执行批量操作，如批量重命名文件、批量发送邮件。</li>
+</ul>
+<p>代码执行通常在<strong>沙箱环境</strong>中进行，以确保安全性。</p>
+<h4 id="254-系统操作">2.5.4 系统操作</h4>
+<p>高级 Agent（如 Computer Use Agent）可以直接操作计算机系统：</p>
+<ul>
+<li><strong>鼠标点击与键盘输入</strong>：模拟人类操作图形界面。</li>
+<li><strong>浏览器自动化</strong>：打开网页、填写表单、点击按钮、提取信息。</li>
+<li><strong>应用程序控制</strong>：启动、切换、关闭应用程序。</li>
+<li><strong>终端命令执行</strong>：在命令行中执行系统命令。</li>
+</ul>
+<p>这类操作使 Agent 能够完成几乎所有人类在电脑上能做的事情，但同时也带来了更大的安全挑战。</p>
+<h3 id="行动质量的保障机制">行动质量的保障机制</h3>
+<p>为了确保行动输出的质量，优秀的 Agent 系统通常会内置以下机制：</p>
+<ul>
+<li><strong>输出验证</strong>：检查生成的文本是否满足格式要求，调用的 API 参数是否合法。</li>
+<li><strong>重试机制</strong>：工具调用失败时自动重试（通常带有指数退避策略）。</li>
+<li><strong>降级策略</strong>：首选方案不可用时，自动切换到备选方案。例如某个 API 不可用时，尝试通过网页搜索获取相同信息。</li>
+<li><strong>安全护栏</strong>：防止 Agent 执行危险操作，如删除系统文件、发送未经确认的付款等。</li>
+</ul>
+<hr>
+<h2 id="26-工具使用tool-use">2.6 工具使用（Tool Use）</h2>
+<h3 id="什么是工具使用">什么是工具使用？</h3>
+<p><strong>工具使用模块赋予了 Agent 超越 LLM 自身能力的"超能力"。</strong> 大语言模型虽然强大，但它有天然的局限性：不能访问实时信息、数学计算不够精确、无法直接与外部系统交互。工具使用模块正是为了弥补这些短板。</p>
+<h3 id="类比瑞士军刀">类比：瑞士军刀</h3>
+<p>Agent 的工具箱就像一把<strong>瑞士军刀</strong>——一把刀上集成了多种功能：</p>
+<ul>
+<li><strong>主刀片</strong>（搜索引擎）：最常用的工具，帮你"切开"信息壁垒。</li>
+<li><strong>螺丝刀</strong>（代码解释器）：当你需要精确"拧紧"数字计算时，它不可或缺。</li>
+<li><strong>开瓶器</strong>（API 调用）：帮你"打开"各种第三方服务的大门。</li>
+<li><strong>小剪刀</strong>（浏览器）：在网页世界中精准地"裁剪"所需信息。</li>
+<li><strong>镊子</strong>（数据库查询）：从海量数据中精确地"夹取"目标记录。</li>
+</ul>
+<p><strong>瑞士军刀的精髓不在于每一种工具都是最强的，而在于它们的组合使用能够应对绝大多数场景。</strong> Agent 的工具箱同理。</p>
+<h3 id="五大核心工具详解">五大核心工具详解</h3>
+<h4 id="261-搜索引擎">2.6.1 搜索引擎</h4>
+<p>这是 Agent 最常用的外部工具之一，使 Agent 能够访问互联网上的最新信息。</p>
+<p><strong>典型应用场景</strong>：</p>
+<ul>
+<li>查询实时新闻、天气、股价</li>
+<li>搜索技术文档和论文</li>
+<li>查找商品信息、用户评价</li>
+<li>验证事实性陈述的准确性</li>
+</ul>
+<p><strong>技术要点</strong>：</p>
+<ul>
+<li>Agent 需要学会构造有效的搜索查询（不是直接把用户的问题扔给搜索引擎）</li>
+<li>需要能够从搜索结果中筛选和提取关键信息</li>
+<li>多次搜索、逐步精炼是常见策略</li>
+</ul>
+<h4 id="262-代码解释器">2.6.2 代码解释器</h4>
+<p>代码解释器（通常是 Python 运行环境）让 Agent 拥有了精确计算和数据处理的能力。</p>
+<p><strong>典型应用场景</strong>：</p>
+<ul>
+<li>复杂数学计算和统计分析</li>
+<li>数据可视化（生成图表）</li>
+<li>文件格式转换</li>
+<li>文本处理与正则匹配</li>
+</ul>
+<p><strong>关键优势</strong>：LLM 的自然语言计算容易出错（如大数乘法），而代码执行的结果是<strong>确定性</strong>的。Agent 学会"遇到计算就写代码"是一个重要的能力进化。</p>
+<h4 id="263-api-调用">2.6.3 API 调用</h4>
+<p>API（应用程序接口）让 Agent 能够与各种第三方服务交互。</p>
+<p><strong>常见 API 类型</strong>：</p>
+<ul>
+<li><strong>信息查询类</strong>：天气 API、航班查询 API、汇率 API</li>
+<li><strong>操作执行类</strong>：发送邮件 API、日历创建 API、支付 API</li>
+<li><strong>AI 服务类</strong>：图像生成 API、语音合成 API、翻译 API</li>
+<li><strong>企业内部 API</strong>：CRM 系统、ERP 系统、内部知识库</li>
+</ul>
+<p><strong>挑战</strong>：Agent 需要理解 API 的文档（参数格式、认证方式、错误码含义），并能正确构造请求。这对 Agent 的"工具学习能力"提出了较高要求。</p>
+<h4 id="264-浏览器">2.6.4 浏览器</h4>
+<p>浏览器工具让 Agent 能够像人类一样浏览网页。</p>
+<p><strong>典型应用场景</strong>：</p>
+<ul>
+<li>访问需要登录才能查看的内容</li>
+<li>填写在线表单</li>
+<li>从动态网页中抓取信息（搜索引擎无法索引的内容）</li>
+<li>完成在线操作（如预订、购买）</li>
+</ul>
+<p><strong>技术实现</strong>：通常基于 Puppeteer、Playwright 或 Selenium 等浏览器自动化框架，Agent 可以执行点击、输入、滚动、截图等操作。</p>
+<h4 id="265-数据库">2.6.5 数据库</h4>
+<p>数据库工具让 Agent 能够查询和操作结构化数据。</p>
+<p><strong>典型应用场景</strong>：</p>
+<ul>
+<li>查询企业内部的客户信息、订单数据</li>
+<li>执行统计分析（如"本月销售额最高的前 10 个产品"）</li>
+<li>数据的增删改查操作</li>
+</ul>
+<p><strong>技术实现</strong>：Agent 通常会生成 SQL 查询语句，由系统执行后将结果返回给 Agent。这要求 Agent 具备一定的 SQL 编写能力（现代 LLM 在这方面表现出色）。</p>
+<h3 id="工具使用的核心挑战">工具使用的核心挑战</h3>
+<table>
+<thead>
+<tr>
+<th>挑战</th>
+<th>描述</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工具选择</strong></td>
+<td>面对众多工具，如何选择最合适的那个？</td>
+<td>工具描述优化、Few-shot 示例、工具推荐系统</td>
+</tr>
+<tr>
+<td><strong>参数填充</strong></td>
+<td>如何正确填充工具的调用参数？</td>
+<td>参数 Schema 约束、参数验证、默认值处理</td>
+</tr>
+<tr>
+<td><strong>错误处理</strong></td>
+<td>工具调用失败怎么办？</td>
+<td>重试机制、降级策略、错误码映射</td>
+</tr>
+<tr>
+<td><strong>权限控制</strong></td>
+<td>如何防止 Agent 滥用工具？</td>
+<td>权限分级、用户确认机制、操作审计</td>
+</tr>
+<tr>
+<td><strong>工具发现</strong></td>
+<td>如何让 Agent 知道有哪些工具可用？</td>
+<td>动态工具注册、工具市场（Tool Marketplace）</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="27-模块协作完整的执行循环演示">2.7 模块协作：完整的执行循环演示</h2>
+<h3 id="真实场景帮我订明天北京到上海的机票">真实场景："帮我订明天北京到上海的机票"</h3>
+<p>让我们用一个具体的场景来串联五大模块的协作过程。假设用户对 Agent 说：</p>
+<div class="illustration">
+  <img loading="lazy" src="images/ch02-execution-loop.jpg" alt="Agent 完整执行循环">
+  <div class="caption">「图解：Agent 完整执行循环 —— 理解需求 → 搜索航班 → 呈现结果 → 确认预订」</div>
+</div>
+
+<blockquote><p><strong>"帮我订明天北京到上海的机票，最好是上午出发，经济舱。"</strong></p></blockquote>
+<p>以下是 Agent 内部的完整执行循环：</p>
+<hr>
+<h3 id="第一轮循环理解需求">第一轮循环：理解需求</h3>
+<p><strong>🔵 感知模块启动</strong></p>
+<p>感知模块接收到用户的自然语言输入，进行以下处理：</p>
+<ul>
+<li><strong>意图识别</strong>：用户意图 = "预订机票"</li>
+<li><strong>实体抽取</strong>：<ul>
+<li>出发地：北京</li>
+<li>目的地：上海</li>
+<li>日期：明天（即 2026-04-19）</li>
+<li>时间偏好：上午出发</li>
+<li>舱位：经济舱</li>
+</ul></li>
+<li><strong>隐含需求分析</strong>：用户没有指定具体航空公司和出发机场（北京有首都和大兴两个机场），需要后续确认或默认处理</li>
+</ul>
+<p><strong>🟡 记忆模块参与</strong></p>
+<p>Agent 查询长期记忆，发现：</p>
+<ul>
+<li>该用户上次订机票时选择了大兴机场</li>
+<li>该用户是国航常旅客会员</li>
+<li>该用户偏好靠窗座位</li>
+</ul>
+<p>这些历史偏好会被纳入后续决策。</p>
+<p><strong>🔴 规划模块制定计划</strong></p>
+<p>规划模块综合感知结果和记忆信息，制定以下行动计划：</p>
+<pre><code>计划：
+1. 调用航班查询 API，搜索 2026-04-19 北京→上海的上午航班
+2. 筛选经济舱可用航班，优先显示国航航班（基于用户偏好）
+3. 将结果整理为表格呈现给用户
+4. 等待用户选择具体航班
+5. 确认订单信息后执行预订</code></pre>
+<hr>
+<h3 id="第二轮循环搜索航班">第二轮循环：搜索航班</h3>
+<p><strong>🛠️ 工具使用模块 + 行动模块执行</strong></p>
+<p>Agent 调用航班查询 API：</p>
+<pre><code class="language-json">{
+  &quot;tool&quot;: &quot;flight_search_api&quot;,
+  &quot;parameters&quot;: {
+    &quot;departure&quot;: &quot;PEK,PKX&quot;,
+    &quot;arrival&quot;: &quot;SHA,PVG&quot;,
+    &quot;date&quot;: &quot;2026-04-19&quot;,
+    &quot;time_range&quot;: &quot;06:00-12:00&quot;,
+    &quot;cabin_class&quot;: &quot;economy&quot;
+  }
+}</code></pre>
+<p><strong>🔵 感知模块解析返回结果</strong></p>
+<p>API 返回 12 个航班结果。感知模块解析 JSON 数据，提取关键字段：航班号、航空公司、出发时间、到达时间、价格、余票数量。</p>
+<p><strong>🟡 记忆模块更新</strong></p>
+<p>将本次搜索结果存入短期记忆，供后续对话使用。</p>
+<p><strong>🔴 规划模块动态调整</strong></p>
+<p>发现国航有 3 个航班符合条件（CA1501 07:00、CA1515 09:30、CA1521 11:00），决定优先推荐这 3 个，同时展示其他航空公司的选项供参考。</p>
+<hr>
+<h3 id="第三轮循环呈现结果">第三轮循环：呈现结果</h3>
+<p><strong>🛠️ 行动模块输出</strong></p>
+<p>Agent 将结果格式化为以下表格呈现给用户：</p>
+<table>
+<thead>
+<tr>
+<th>推荐排序</th>
+<th>航班号</th>
+<th>航空公司</th>
+<th>出发</th>
+<th>到达</th>
+<th>出发机场</th>
+<th>价格</th>
+<th>余票</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>⭐ 1</td>
+<td>CA1515</td>
+<td>中国国航</td>
+<td>09:30</td>
+<td>11:45</td>
+<td>大兴 T1</td>
+<td>¥980</td>
+<td>23</td>
+</tr>
+<tr>
+<td>⭐ 2</td>
+<td>CA1501</td>
+<td>中国国航</td>
+<td>07:00</td>
+<td>09:15</td>
+<td>大兴 T1</td>
+<td>¥890</td>
+<td>15</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MU5101</td>
+<td>东方航空</td>
+<td>08:15</td>
+<td>10:30</td>
+<td>大兴 T2</td>
+<td>¥920</td>
+<td>31</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CA1521</td>
+<td>中国国航</td>
+<td>11:00</td>
+<td>13:15</td>
+<td>大兴 T1</td>
+<td>¥1050</td>
+<td>8</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<blockquote><p>💡 根据您的偏好（大兴机场出发、国航常旅客），为您优先推荐了以上航班。CA1515 的时间和价格综合最优。请问您想选择哪一个航班？</p></blockquote>
+<hr>
+<h3 id="第四轮循环确认与预订">第四轮循环：确认与预订</h3>
+<p><strong>🔵 感知模块</strong> 接收到用户回复："就第一个吧。"</p>
+<p><strong>🔵 感知模块</strong> 解析指代关系：推荐排序第 1 → CA1515。</p>
+<p><strong>🔴 规划模块</strong> 制定预订执行计划：</p>
+<ol>
+<li>确认订单详情（含用户姓名、证件信息——从长期记忆中获取）</li>
+<li>向用户展示最终确认信息</li>
+<li>获得确认后调用预订 API</li>
+</ol>
+<p><strong>🛠️ 行动模块</strong> 输出确认信息：</p>
+<blockquote><p>请确认以下订单信息：</p>
+<ul>
+<li>航班：CA1515（中国国航）</li>
+<li>日期：2026 年 4 月 19 日</li>
+<li>北京大兴 09:30 → 上海虹桥 11:45</li>
+<li>经济舱，¥980</li>
+<li>乘客：张三（身份证 110xxx）</li>
+<li>座位偏好：靠窗</li>
+</ul>
+<p>确认预订吗？</p></blockquote>
+<p>用户回复："确认。"</p>
+<p><strong>🛠️ 工具使用模块</strong> 调用预订 API 完成下单，返回订单号。</p>
+<p><strong>🟡 记忆模块</strong> 将本次预订经历存入长期记忆，包括用户选择了 CA1515、价格 ¥980 等信息，为未来的推荐提供数据支撑。</p>
+<hr>
+<h3 id="执行循环总结">执行循环总结</h3>
+<p>通过这个完整的真实场景，我们可以清晰地看到五大模块是如何协作的：</p>
+<pre><code>用户: &quot;帮我订明天北京到上海的机票...&quot;
+        │
+        ▼
+   ┌──────────┐    理解意图、提取实体
+   │ 感知模块  │──────────────────────────┐
+   └──────────┘                          │
+        │                                ▼
+        │                         ┌──────────┐
+        │                         │ 记忆模块  │ 回忆用户偏好
+        │                         └──────────┘
+        ▼                                │
+   ┌──────────┐    制定搜索、筛选、推荐方案 │
+   │ 规划模块  │◄────────────────────────┘
+   └──────────┘
+        │
+        ▼
+   ┌──────────┐    调用航班 API、格式化输出
+   │ 行动模块  │
+   └──────────┘
+        │
+        ▼
+   ┌──────────┐    航班查询 API、预订 API
+   │ 工具使用  │
+   └──────────┘
+        │
+        ▼
+   [返回结果 → 感知模块 → 下一轮循环...]</code></pre>
+<p><strong>每一轮循环都遵循相同的模式：感知 → 记忆检索 → 规划 → 行动（含工具使用）→ 结果反馈 → 新一轮感知。</strong> 这就是 AI Agent 核心架构的运行本质。</p>
+<hr>
+<h2 id="本章小结">本章小结</h2>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>核心职责</th>
+<th>关键技术</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>感知</strong></td>
+<td>理解输入，感知环境</td>
+<td>NLU、多模态模型、OCR、ASR</td>
+<td>人的五感</td>
+</tr>
+<tr>
+<td><strong>规划</strong></td>
+<td>任务分解，策略制定</td>
+<td>CoT、ReAct、ToT、Reflexion</td>
+<td>装修设计方案</td>
+</tr>
+<tr>
+<td><strong>记忆</strong></td>
+<td>信息存储，经验积累</td>
+<td>上下文窗口、向量数据库、知识图谱</td>
+<td>工作台 + 书架</td>
+</tr>
+<tr>
+<td><strong>行动</strong></td>
+<td>执行操作，生成输出</td>
+<td>文本生成、代码执行、系统操作</td>
+<td>厨师做菜</td>
+</tr>
+<tr>
+<td><strong>工具使用</strong></td>
+<td>调用外部工具扩展能力</td>
+<td>API、搜索引擎、代码解释器、浏览器</td>
+<td>瑞士军刀</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心要点</strong>：</p>
+<ol>
+<li><strong>五大模块缺一不可</strong>：感知是入口，规划是大脑，记忆是经验，行动是双手，工具是延伸。</li>
+<li><strong>闭环循环是灵魂</strong>："感知—规划—行动"的循环使 Agent 能够持续感知环境变化并动态调整行为。</li>
+<li><strong>模块质量决定上限</strong>：每个模块的能力上限共同决定了 Agent 整体的表现上限——木桶效应在此同样适用。</li>
+<li><strong>协作大于单打独斗</strong>：真正强大的 Agent 不是某个模块特别突出，而是所有模块协作流畅。</li>
+</ol>
+<blockquote><p><strong>下一章预告</strong>：在第三章中，我们将深入探讨 AI Agent 的<strong>核心引擎——大语言模型（LLM）</strong>，了解 LLM 是如何驱动 Agent 的各个模块运转的，以及如何选择和优化 LLM 以获得最佳的 Agent 表现。</p></blockquote>
+
+<!-- 关注我们的社交媒体 -->
+<div class="chapter-social">
+  <h3>💡 觉得有帮助？欢迎关注我们</h3>
+  <p>获取更多 AI Agent 学习资料与行业动态</p>
+  <div class="chapter-qr-grid">
+    <div class="chapter-qr-item">
+      <img src="images/wechat-qr.jpg" alt="微信公众号" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">微信公众号</div>
+      <span>微信公众号</span>
+    </div>
+    <div class="chapter-qr-item">
+      <img src="images/xiaohongshu-qr.jpg" alt="小红书" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">小红书</div>
+      <span>小红书</span>
+    </div>
+  </div>
+</div>
+</div>
+    
+  <aside class="related-chapters">
+    <h3>推荐阅读</h3>
+    <ul>
+      <li><a href="chapter03.html">第三章：AI Agent 关键技术</a></li>
+      <li><a href="chapter06.html">第六章：AI Agent 记忆系统</a></li>
+      <li><a href="chapter07.html">第七章：AI Agent 规划与推理</a></li>
+    </ul>
+  </aside>
+    <div class="page-nav">
+      <a href="chapter01.html">&larr; 上一章：第一章：AI Agent 概述</a>
+      <span class="spacer"></span>
+      <a href="chapter03.html">下一章：第三章：AI Agent 关键技术 &rarr;</a>
+    </div>
+  </div>
+  </main>
+  <script src="marked.min.js"></script>
+  <script>
+    var MD_RAW = "# 第二章：AI Agent 核心架构\n\n> **\"AI Agent 全面学习指南\"系列 · 第二章**\n>\n> 在上一章中，我们了解了 AI Agent 的基本概念与发展历程。本章将深入剖析 AI Agent 的**核心架构**——它不是一个单一的\"大脑\"，而是由多个紧密协作的模块组成的有机系统。理解这些模块的职责与交互方式，是掌握 AI Agent 设计与开发的基石。\n\n---\n\n## 2.1 AI Agent 架构总览\n\n### 五大核心模块\n\n一个功能完备的 AI Agent 通常由以下**五大核心模块**构成：\n\n| 模块 | 英文名 | 核心职责 | 一句话概括 |\n|------|--------|----------|-----------|\n| **感知模块** | Perception | 接收和理解外部输入 | \"看见世界\" |\n| **规划模块** | Planning | 分解任务、制定策略 | \"想清楚怎么做\" |\n| **记忆模块** | Memory | 存储和检索历史信息 | \"记住经验\" |\n| **行动模块** | Action | 执行具体操作、生成输出 | \"动手去做\" |\n| **工具使用** | Tool Use | 调用外部工具扩展能力 | \"借助工具\" |\n\n### 架构关系：一张\"文字架构图\"\n\n想象一张流程图。最上方是**外部环境**（用户输入、网页、文件、API 返回结果等），它通过一条箭头连接到**感知模块**。感知模块负责将原始输入转化为 Agent 能够理解的结构化信息。\n\n感知模块的输出流向两个方向：一方面进入**记忆模块**（将当前感知到的信息存入短期记忆），另一方面传递给**规划模块**。规划模块是整个 Agent 的\"大脑中枢\"，它综合当前感知信息与记忆模块中的历史经验，制定出一系列**行动计划**。\n\n行动计划被传递给**行动模块**，行动模块负责执行具体操作。在执行过程中，行动模块往往需要借助**工具使用模块**来完成超出大语言模型自身能力范围的任务（如搜索互联网、执行代码、调用第三方 API）。\n\n行动执行后，其结果（工具返回值、执行状态、环境变化等）又会被**反馈**回感知模块，形成一个**闭环循环**：\n\n```\n外部环境\n   ↓\n感知模块 ←——————————————————————┐\n   ↓                           │\n记忆模块 ←→ 规划模块            │\n                ↓               │\n           行动模块 → 工具使用 ─┘\n```\n\n这个循环被称为 **\"感知—规划—行动\"循环（Perception-Planning-Action Loop）**，也有人称之为 **\"观察—思考—行动\"循环（Observe-Think-Act Loop）**。它是所有 AI Agent 架构的基本范式。每一轮循环中，Agent 都会根据最新的环境信息和历史记忆做出决策，不断逼近目标。\n\n### 与传统软件的本质区别\n\n传统软件是**确定性流程**：输入 → 预编程的逻辑 → 输出。而 AI Agent 是**自主决策系统**：它能根据不同情况动态选择不同的行动路径，甚至在失败后自我纠错、重新规划。这种灵活性正是 Agent 架构的核心价值所在。\n\n---\n\n## 2.2 感知模块（Perception）\n\n### 什么是感知？\n\n**感知模块是 Agent 与外部世界之间的桥梁。** 它负责接收来自环境的各种信号，并将其转化为 Agent 内部能够处理的结构化表示。没有感知模块，Agent 就如同被关在黑屋子里——无论它的\"大脑\"多么聪明，也无法与世界交互。\n\n### 类比：人的五感\n\n我们可以用**人的五感**来理解感知模块的工作原理：\n\n| 人的感官 | Agent 的对应能力 | 具体例子 |\n|---------|----------------|---------|\n| **视觉** | 图像理解、视频分析、屏幕截图识别 | 识别用户上传的产品照片 |\n| **听觉** | 语音识别（ASR）、音频理解 | 将用户的语音指令转为文字 |\n| **触觉** | 环境状态感知、传感器数据读取 | 机器人感知物体的温度与压力 |\n| **嗅觉/味觉** | 数值型传感器信号（化学、环境） | 工业 Agent 监测空气质量数据 |\n| **综合感知** | 多模态融合、上下文整合 | 同时理解用户的文字描述和附带的截图 |\n\n正如人类不会孤立地使用某一种感官——你听到\"小心！\"的同时也会用眼睛去看发生了什么——Agent 的感知模块同样需要**多模态融合**能力。\n\n### 四大感知能力详解\n\n#### 2.2.1 文本理解\n\n这是当前 AI Agent 最基础也是最核心的感知能力。大语言模型（LLM）天然擅长理解自然语言文本。文本理解包括：\n\n- **意图识别**：用户说\"帮我查一下明天北京的天气\"，Agent 需要识别出意图是\"查询天气\"，而非\"订机票\"或\"闲聊\"。\n- **实体抽取**：从上述句子中提取出关键实体——时间：\"明天\"，地点：\"北京\"，查询类型：\"天气\"。\n- **情感分析**：如果用户说\"你们的服务太差了！\"，Agent 需要感知到用户的不满情绪，从而调整应对策略。\n- **指令解析**：理解复杂指令的层级关系，如\"先搜索最新的论文，然后总结前三篇的核心观点，最后生成一份 PPT\"。\n\n#### 2.2.2 多模态感知\n\n随着多模态大模型（如 GPT-4V、Claude 3 等）的发展，Agent 的感知能力已经远超纯文本范畴：\n\n- **图像理解**：识别图片中的物体、文字（OCR）、场景、人脸表情等。例如，用户上传一张餐厅菜单的照片，Agent 能将其中的菜品名称和价格提取出来。\n- **音频理解**：将语音转为文字（Speech-to-Text），并进一步理解语义。未来甚至可以直接从音频波形中提取情感、说话者身份等信息。\n- **视频理解**：理解视频中的动作序列、事件变化。例如安防场景下，Agent 需要从监控视频中检测异常行为。\n\n#### 2.2.3 环境感知\n\n对于需要与真实或虚拟环境交互的 Agent（如机器人 Agent、游戏 Agent、操作系统 Agent），环境感知尤为重要：\n\n- **屏幕状态感知**：计算机操作 Agent 需要\"看到\"当前屏幕上显示的内容，包括窗口布局、按钮位置、文本内容等。\n- **文件系统感知**：编程 Agent 需要了解当前项目的目录结构、文件内容、依赖关系。\n- **API 响应感知**：当 Agent 调用外部 API 后，需要解析返回的 JSON/XML 数据。\n- **物理环境感知**：对于具身智能（Embodied AI）Agent，需要感知物理世界的三维空间信息。\n\n#### 2.2.4 上下文整合\n\n感知不是一次性的，而是**持续累积**的过程。上下文整合能力包括：\n\n- **多轮对话上下文**：记住用户在前几轮说过什么，理解代词指代（\"它\"指的是什么？\"那个\"是哪个？）。\n- **跨模态上下文**：将用户发送的文字描述与图片信息关联起来。例如用户说\"图片中左边那个人是谁？\"\n- **任务上下文**：在多步骤任务中，记住当前已经完成了哪些步骤，接下来应该做什么。\n\n感知模块的质量直接决定了 Agent 对任务的理解深度。一个\"听不清\"指令的 Agent，后续的规划和行动都将南辕北辙。\n\n---\n\n## 2.3 规划模块（Planning）\n\n### 什么是规划？\n\n**规划模块是 Agent 的\"战略参谋部\"。** 它负责将用户的高层目标拆解为可执行的子任务序列，并在执行过程中根据反馈动态调整策略。\n\n### 类比：装修房子需要先出设计方案再施工\n\n想象你要装修一套新房子。你不会拿起锤子就开始砸墙——你需要先做以下事情：\n\n1. **需求分析**：你想要什么风格？几间卧室？预算多少？（对应 Agent 理解用户目标）\n2. **出设计方案**：设计师画出平面图、效果图、施工图（对应 Agent 制定行动计划）\n3. **排施工顺序**：先拆改，再水电，然后瓦工、木工、油工，最后软装（对应 Agent 确定子任务的执行顺序）\n4. **应对突发情况**：施工中发现墙体结构不对，需要调整方案（对应 Agent 的动态重规划能力）\n\n如果没有规划就直接施工，后果可想而知——可能刷完墙才发现忘了埋电线。AI Agent 的规划模块就是为了避免这种\"无头苍蝇\"式的执行。\n\n### 五大规划策略详解\n\n#### 2.3.1 任务分解（Task Decomposition）\n\n这是规划模块最基本的能力。面对一个复杂任务，Agent 需要将其分解为多个可独立执行的子任务。例如：\n\n**用户目标**：\"帮我写一份关于中国新能源汽车市场的研究报告\"\n\n**分解结果**：\n1. 搜索中国新能源汽车行业最新数据和政策\n2. 收集主要厂商（比亚迪、特斯拉中国、蔚来等）的市场份额数据\n3. 分析行业发展趋势\n4. 整理消费者偏好与购买动因\n5. 撰写报告初稿\n6. 添加图表和数据可视化\n7. 校对润色，生成最终版本\n\n任务分解的质量直接决定了 Agent 的执行效率。好的分解应该满足 **MECE 原则**（Mutually Exclusive, Collectively Exhaustive）——子任务之间互不重叠，合在一起完整覆盖原始目标。\n\n#### 2.3.2 思维链（Chain-of-Thought, CoT）\n\n思维链是一种让 Agent **\"边想边说\"** 的推理方式。不是直接给出答案，而是展示完整的推理过程。例如：\n\n> **问题**：一个书店周一卖了 35 本书，周二卖了周一的 2 倍，一周共卖了 300 本。其余五天平均每天卖了多少本？\n>\n> **思维链**：\n> - 周一：35 本\n> - 周二：35 × 2 = 70 本\n> - 周一 + 周二合计：35 + 70 = 105 本\n> - 其余五天合计：300 - 105 = 195 本\n> - 平均每天：195 ÷ 5 = **39 本**\n\n思维链的价值在于：**让 Agent 的推理过程显式化**，减少跳步导致的逻辑错误，同时也让人类更容易理解和调试 Agent 的决策。\n\n#### 2.3.3 ReAct 框架（Reasoning + Acting）\n\nReAct 是当前 AI Agent 领域最具影响力的规划框架之一。它将**推理（Reasoning）**和**行动（Acting）**交替进行：\n\n```\nThought: 用户想知道明天北京到上海的航班，我需要查询航班信息。\nAction: 调用航班查询 API，参数为 {出发地: \"北京\", 目的地: \"上海\", 日期: \"明天\"}\nObservation: API 返回了 15 个航班结果，最早的是 7:00 的 CA1501。\nThought: 我已经获得了航班信息，现在需要整理并呈现给用户。\nAction: 将航班信息格式化为表格，按出发时间排序。\nObservation: 表格已生成。\nThought: 任务完成，可以回复用户了。\n```\n\nReAct 的核心优势在于：每一步行动之前都有明确的推理过程，每一步行动之后都有对结果的观察与反思。这使得 Agent 的行为更加可控、可解释。\n\n#### 2.3.4 树搜索（Tree Search）\n\n对于需要在多个可能方案中选择最优路径的场景，Agent 可以采用树搜索策略。经典方法包括：\n\n- **Tree of Thoughts（ToT）**：将每个推理步骤视为树的一个节点，Agent 在多个分支中探索，评估每个分支的前景，选择最有希望的路径继续深入。\n- **蒙特卡洛树搜索（MCTS）**：通过模拟和回溯来评估各条路径的价值，在探索（尝试新路径）和利用（深入已知好路径）之间取得平衡。\n\n树搜索特别适合那些**决策空间大、答案不唯一**的复杂规划任务，例如博弈类问题、路径优化、复杂数学证明等。\n\n#### 2.3.5 自我反思（Self-Reflection）\n\nAgent 不仅要能执行，还要能**反思和自我纠错**。自我反思机制包括：\n\n- **执行结果验证**：行动完成后，检查结果是否符合预期。例如写完代码后运行测试，查看是否通过。\n- **错误归因分析**：如果结果不对，分析是哪一步出了问题——是感知理解有误？还是规划路径选错了？还是工具调用参数填错了？\n- **策略调整**：基于反思结论，调整后续的行动计划。可能是更换工具、修改参数、或者完全改变解题思路。\n\n经典的自我反思框架包括 **Reflexion** 和 **Self-Refine**，它们让 Agent 在多轮迭代中不断改进自身的输出质量。\n\n---\n\n## 2.4 记忆模块（Memory）\n\n### 什么是记忆？\n\n**记忆模块为 Agent 提供了\"经验积累\"的能力。** 没有记忆的 Agent 每次都从零开始，无法利用过去的经验，也无法在长对话中保持连贯性。记忆是 Agent 从\"一次性工具\"进化为\"持续性助手\"的关键。\n\n### 类比：人的工作台 vs 书架\n\n我们可以用**工作台和书架**来理解 Agent 的两种记忆：\n\n| 特性 | 短期记忆（工作台） | 长期记忆（书架） |\n|------|------------------|----------------|\n| **容量** | 有限（工作台面积有限） | 几乎无限（书架可以不断扩展） |\n| **存取速度** | 极快（伸手就能拿到） | 较慢（需要查找对应的书） |\n| **保持时间** | 临时（任务结束就清理） | 持久（长期保存） |\n| **内容类型** | 当前任务相关信息 | 历史经验、知识、用户偏好 |\n| **对应技术** | 上下文窗口（Context Window） | 向量数据库、知识图谱、文件存储 |\n\n想象你正在写一篇论文：**工作台**上摊开的是你正在引用的几篇论文、你的写作提纲、以及当前正在编辑的段落——这些是你\"随时需要看到\"的信息。而**书架**上存放的是你过去读过的所有书籍和论文——你不会把它们全部摊在桌上，但需要的时候你知道去哪里找。\n\n### 短期记忆（Short-term Memory）\n\n短期记忆主要指 Agent 在单次任务会话中保持的上下文信息。在技术实现上，它通常对应于 LLM 的**上下文窗口（Context Window）**。\n\n**核心特点**：\n- **即时可用**：所有存储在短期记忆中的信息都可以被 Agent 直接\"看到\"，无需额外检索。\n- **容量有限**：即使是最先进的模型，上下文窗口也有上限（如 128K、200K tokens）。当对话过长时，早期信息会被\"遗忘\"（截断或压缩）。\n- **任务相关**：短期记忆中通常只保留与当前任务直接相关的信息。\n\n**短期记忆的管理策略**：\n\n1. **滑动窗口**：当上下文超出限制时，删除最早的消息。简单但可能丢失重要信息。\n2. **摘要压缩**：将较早的对话内容生成摘要，用摘要替代原文，节省 token 同时保留关键信息。\n3. **关键信息提取**：只保留历史对话中的关键实体、决策和结论，丢弃冗余的过程信息。\n\n### 长期记忆（Long-term Memory）\n\n长期记忆使 Agent 能够跨会话保持信息，积累经验，并随着使用时间的增长变得\"越来越了解用户\"。\n\n**长期记忆的类型**：\n\n| 类型 | 描述 | 例子 |\n|------|------|------|\n| **情景记忆** | 记住具体的事件经历 | \"上次用户让我查航班时，偏好选早班机\" |\n| **语义记忆** | 记住通用知识和事实 | \"北京到上海的高铁约 4.5 小时\" |\n| **程序记忆** | 记住如何完成某类任务的步骤 | \"查航班的标准流程：确认日期 → 调用 API → 排序 → 展示\" |\n\n**技术实现**：\n\n- **向量数据库（Vector Database）**：将信息编码为高维向量，通过向量相似度检索最相关的记忆片段。常用工具包括 Pinecone、Weaviate、Chroma 等。这是当前最主流的长期记忆方案。\n- **知识图谱（Knowledge Graph）**：以\"实体—关系—实体\"的三元组形式存储结构化知识，适合需要精确关系推理的场景。\n- **关系型数据库 / 文件系统**：存储结构化数据或原始文件，适合需要精确查找的场景。\n\n### 记忆的检索与更新\n\n记忆存进去只是第一步，关键在于**能在需要的时候高效检索出来**。常见的检索策略包括：\n\n- **语义检索**：通过 Embedding 向量的相似度匹配，找到与当前查询语义最接近的记忆片段。\n- **时间衰减**：最近的记忆权重更高，很久以前的记忆权重递减。模拟人类\"近因效应\"。\n- **重要性加权**：标记为\"重要\"的记忆（如用户的明确偏好声明）会被优先检索。\n- **混合检索**：结合关键词匹配、语义匹配、时间因子等多维信号进行综合排序。\n\n---\n\n## 2.5 行动模块（Action）\n\n### 什么是行动？\n\n**行动模块是 Agent 将\"想法\"转化为\"现实\"的执行层。** 如果说规划模块是\"指挥部\"，那么行动模块就是\"作战部队\"。它接收规划模块的指令，执行具体操作，并将结果反馈回系统。\n\n### 类比：厨师做菜\n\n一位优秀的厨师，不仅需要知道菜谱（规划），还需要精湛的烹饪技艺（行动能力）。Agent 的行动模块就像厨师在厨房里的各项操作：\n\n| 厨师的操作 | Agent 的行动类型 | 具体说明 |\n|-----------|----------------|---------|\n| **切菜、搅拌** | 文本生成 | 最基础的\"烹饪动作\"，就像厨师的刀工 |\n| **使用烤箱、微波炉** | 工具调用 | 借助专业设备完成特定步骤 |\n| **调整火候、控制时间** | 参数控制 | 精确控制工具的调用参数 |\n| **尝味道、调整调料** | 结果验证与修正 | 检查输出质量，必要时调整 |\n| **摆盘上菜** | 格式化输出 | 将结果以用户期望的格式呈现 |\n\n一道好菜，需要切、炒、调味、摆盘等多种技艺的配合；同样，Agent 完成一个任务，往往也需要多种行动类型的组合。\n\n### 四大行动类型详解\n\n#### 2.5.1 文本生成\n\n这是 LLM 最原生的行动能力。包括：\n\n- **直接回答**：回答用户的问题，如解释概念、提供建议。\n- **内容创作**：撰写文章、邮件、代码注释、营销文案等。\n- **摘要与翻译**：将长文本压缩为摘要，或翻译为其他语言。\n- **格式转换**：将非结构化文本转为 JSON、表格、Markdown 等格式。\n\n文本生成虽然\"简单\"，但它是所有其他行动类型的基础——即使是工具调用，Agent 也需要先\"生成\"正确的调用指令。\n\n#### 2.5.2 工具调用\n\n当 Agent 需要获取实时信息、执行精确计算或与外部系统交互时，它会调用外部工具。工具调用的过程通常是：\n\n1. **决策**：规划模块决定需要调用哪个工具。\n2. **参数生成**：Agent 生成工具调用所需的参数（通常以 JSON 格式）。\n3. **执行调用**：系统将参数传递给对应的工具并执行。\n4. **结果解析**：Agent 接收工具返回的结果，并将其整合到后续的推理中。\n\n```json\n{\n  \"tool\": \"weather_api\",\n  \"parameters\": {\n    \"city\": \"北京\",\n    \"date\": \"2026-04-19\"\n  }\n}\n```\n\n#### 2.5.3 代码执行\n\n对于需要数据分析、数学计算、文件处理等任务，Agent 可以编写并执行代码：\n\n- **数据分析**：使用 Python 对数据集进行统计分析、可视化。\n- **数学计算**：精确计算复杂数学表达式（LLM 本身的数学能力有限）。\n- **文件操作**：读写文件、格式转换（如 CSV 转 Excel）。\n- **自动化脚本**：执行批量操作，如批量重命名文件、批量发送邮件。\n\n代码执行通常在**沙箱环境**中进行，以确保安全性。\n\n#### 2.5.4 系统操作\n\n高级 Agent（如 Computer Use Agent）可以直接操作计算机系统：\n\n- **鼠标点击与键盘输入**：模拟人类操作图形界面。\n- **浏览器自动化**：打开网页、填写表单、点击按钮、提取信息。\n- **应用程序控制**：启动、切换、关闭应用程序。\n- **终端命令执行**：在命令行中执行系统命令。\n\n这类操作使 Agent 能够完成几乎所有人类在电脑上能做的事情，但同时也带来了更大的安全挑战。\n\n### 行动质量的保障机制\n\n为了确保行动输出的质量，优秀的 Agent 系统通常会内置以下机制：\n\n- **输出验证**：检查生成的文本是否满足格式要求，调用的 API 参数是否合法。\n- **重试机制**：工具调用失败时自动重试（通常带有指数退避策略）。\n- **降级策略**：首选方案不可用时，自动切换到备选方案。例如某个 API 不可用时，尝试通过网页搜索获取相同信息。\n- **安全护栏**：防止 Agent 执行危险操作，如删除系统文件、发送未经确认的付款等。\n\n---\n\n## 2.6 工具使用（Tool Use）\n\n### 什么是工具使用？\n\n**工具使用模块赋予了 Agent 超越 LLM 自身能力的\"超能力\"。** 大语言模型虽然强大，但它有天然的局限性：不能访问实时信息、数学计算不够精确、无法直接与外部系统交互。工具使用模块正是为了弥补这些短板。\n\n### 类比：瑞士军刀\n\nAgent 的工具箱就像一把**瑞士军刀**——一把刀上集成了多种功能：\n\n- **主刀片**（搜索引擎）：最常用的工具，帮你\"切开\"信息壁垒。\n- **螺丝刀**（代码解释器）：当你需要精确\"拧紧\"数字计算时，它不可或缺。\n- **开瓶器**（API 调用）：帮你\"打开\"各种第三方服务的大门。\n- **小剪刀**（浏览器）：在网页世界中精准地\"裁剪\"所需信息。\n- **镊子**（数据库查询）：从海量数据中精确地\"夹取\"目标记录。\n\n**瑞士军刀的精髓不在于每一种工具都是最强的，而在于它们的组合使用能够应对绝大多数场景。** Agent 的工具箱同理。\n\n### 五大核心工具详解\n\n#### 2.6.1 搜索引擎\n\n这是 Agent 最常用的外部工具之一，使 Agent 能够访问互联网上的最新信息。\n\n**典型应用场景**：\n- 查询实时新闻、天气、股价\n- 搜索技术文档和论文\n- 查找商品信息、用户评价\n- 验证事实性陈述的准确性\n\n**技术要点**：\n- Agent 需要学会构造有效的搜索查询（不是直接把用户的问题扔给搜索引擎）\n- 需要能够从搜索结果中筛选和提取关键信息\n- 多次搜索、逐步精炼是常见策略\n\n#### 2.6.2 代码解释器\n\n代码解释器（通常是 Python 运行环境）让 Agent 拥有了精确计算和数据处理的能力。\n\n**典型应用场景**：\n- 复杂数学计算和统计分析\n- 数据可视化（生成图表）\n- 文件格式转换\n- 文本处理与正则匹配\n\n**关键优势**：LLM 的自然语言计算容易出错（如大数乘法），而代码执行的结果是**确定性**的。Agent 学会\"遇到计算就写代码\"是一个重要的能力进化。\n\n#### 2.6.3 API 调用\n\nAPI（应用程序接口）让 Agent 能够与各种第三方服务交互。\n\n**常见 API 类型**：\n- **信息查询类**：天气 API、航班查询 API、汇率 API\n- **操作执行类**：发送邮件 API、日历创建 API、支付 API\n- **AI 服务类**：图像生成 API、语音合成 API、翻译 API\n- **企业内部 API**：CRM 系统、ERP 系统、内部知识库\n\n**挑战**：Agent 需要理解 API 的文档（参数格式、认证方式、错误码含义），并能正确构造请求。这对 Agent 的\"工具学习能力\"提出了较高要求。\n\n#### 2.6.4 浏览器\n\n浏览器工具让 Agent 能够像人类一样浏览网页。\n\n**典型应用场景**：\n- 访问需要登录才能查看的内容\n- 填写在线表单\n- 从动态网页中抓取信息（搜索引擎无法索引的内容）\n- 完成在线操作（如预订、购买）\n\n**技术实现**：通常基于 Puppeteer、Playwright 或 Selenium 等浏览器自动化框架，Agent 可以执行点击、输入、滚动、截图等操作。\n\n#### 2.6.5 数据库\n\n数据库工具让 Agent 能够查询和操作结构化数据。\n\n**典型应用场景**：\n- 查询企业内部的客户信息、订单数据\n- 执行统计分析（如\"本月销售额最高的前 10 个产品\"）\n- 数据的增删改查操作\n\n**技术实现**：Agent 通常会生成 SQL 查询语句，由系统执行后将结果返回给 Agent。这要求 Agent 具备一定的 SQL 编写能力（现代 LLM 在这方面表现出色）。\n\n### 工具使用的核心挑战\n\n| 挑战 | 描述 | 解决方案 |\n|------|------|---------|\n| **工具选择** | 面对众多工具，如何选择最合适的那个？ | 工具描述优化、Few-shot 示例、工具推荐系统 |\n| **参数填充** | 如何正确填充工具的调用参数？ | 参数 Schema 约束、参数验证、默认值处理 |\n| **错误处理** | 工具调用失败怎么办？ | 重试机制、降级策略、错误码映射 |\n| **权限控制** | 如何防止 Agent 滥用工具？ | 权限分级、用户确认机制、操作审计 |\n| **工具发现** | 如何让 Agent 知道有哪些工具可用？ | 动态工具注册、工具市场（Tool Marketplace） |\n\n---\n\n## 2.7 模块协作：完整的执行循环演示\n\n### 真实场景：\"帮我订明天北京到上海的机票\"\n\n让我们用一个具体的场景来串联五大模块的协作过程。假设用户对 Agent 说：\n\n> **\"帮我订明天北京到上海的机票，最好是上午出发，经济舱。\"**\n\n以下是 Agent 内部的完整执行循环：\n\n---\n\n### 第一轮循环：理解需求\n\n**🔵 感知模块启动**\n\n感知模块接收到用户的自然语言输入，进行以下处理：\n\n- **意图识别**：用户意图 = \"预订机票\"\n- **实体抽取**：\n  - 出发地：北京\n  - 目的地：上海\n  - 日期：明天（即 2026-04-19）\n  - 时间偏好：上午出发\n  - 舱位：经济舱\n- **隐含需求分析**：用户没有指定具体航空公司和出发机场（北京有首都和大兴两个机场），需要后续确认或默认处理\n\n**🟡 记忆模块参与**\n\nAgent 查询长期记忆，发现：\n- 该用户上次订机票时选择了大兴机场\n- 该用户是国航常旅客会员\n- 该用户偏好靠窗座位\n\n这些历史偏好会被纳入后续决策。\n\n**🔴 规划模块制定计划**\n\n规划模块综合感知结果和记忆信息，制定以下行动计划：\n\n```\n计划：\n1. 调用航班查询 API，搜索 2026-04-19 北京→上海的上午航班\n2. 筛选经济舱可用航班，优先显示国航航班（基于用户偏好）\n3. 将结果整理为表格呈现给用户\n4. 等待用户选择具体航班\n5. 确认订单信息后执行预订\n```\n\n---\n\n### 第二轮循环：搜索航班\n\n**🛠️ 工具使用模块 + 行动模块执行**\n\nAgent 调用航班查询 API：\n\n```json\n{\n  \"tool\": \"flight_search_api\",\n  \"parameters\": {\n    \"departure\": \"PEK,PKX\",\n    \"arrival\": \"SHA,PVG\",\n    \"date\": \"2026-04-19\",\n    \"time_range\": \"06:00-12:00\",\n    \"cabin_class\": \"economy\"\n  }\n}\n```\n\n**🔵 感知模块解析返回结果**\n\nAPI 返回 12 个航班结果。感知模块解析 JSON 数据，提取关键字段：航班号、航空公司、出发时间、到达时间、价格、余票数量。\n\n**🟡 记忆模块更新**\n\n将本次搜索结果存入短期记忆，供后续对话使用。\n\n**🔴 规划模块动态调整**\n\n发现国航有 3 个航班符合条件（CA1501 07:00、CA1515 09:30、CA1521 11:00），决定优先推荐这 3 个，同时展示其他航空公司的选项供参考。\n\n---\n\n### 第三轮循环：呈现结果\n\n**🛠️ 行动模块输出**\n\nAgent 将结果格式化为以下表格呈现给用户：\n\n| 推荐排序 | 航班号 | 航空公司 | 出发 | 到达 | 出发机场 | 价格 | 余票 |\n|---------|--------|---------|------|------|---------|------|------|\n| ⭐ 1 | CA1515 | 中国国航 | 09:30 | 11:45 | 大兴 T1 | ¥980 | 23 |\n| ⭐ 2 | CA1501 | 中国国航 | 07:00 | 09:15 | 大兴 T1 | ¥890 | 15 |\n| 3 | MU5101 | 东方航空 | 08:15 | 10:30 | 大兴 T2 | ¥920 | 31 |\n| 4 | CA1521 | 中国国航 | 11:00 | 13:15 | 大兴 T1 | ¥1050 | 8 |\n| ... | ... | ... | ... | ... | ... | ... | ... |\n\n> 💡 根据您的偏好（大兴机场出发、国航常旅客），为您优先推荐了以上航班。CA1515 的时间和价格综合最优。请问您想选择哪一个航班？\n\n---\n\n### 第四轮循环：确认与预订\n\n**🔵 感知模块** 接收到用户回复：\"就第一个吧。\"\n\n**🔵 感知模块** 解析指代关系：推荐排序第 1 → CA1515。\n\n**🔴 规划模块** 制定预订执行计划：\n1. 确认订单详情（含用户姓名、证件信息——从长期记忆中获取）\n2. 向用户展示最终确认信息\n3. 获得确认后调用预订 API\n\n**🛠️ 行动模块** 输出确认信息：\n\n> 请确认以下订单信息：\n> - 航班：CA1515（中国国航）\n> - 日期：2026 年 4 月 19 日\n> - 北京大兴 09:30 → 上海虹桥 11:45\n> - 经济舱，¥980\n> - 乘客：张三（身份证 110xxx）\n> - 座位偏好：靠窗\n>\n> 确认预订吗？\n\n用户回复：\"确认。\"\n\n**🛠️ 工具使用模块** 调用预订 API 完成下单，返回订单号。\n\n**🟡 记忆模块** 将本次预订经历存入长期记忆，包括用户选择了 CA1515、价格 ¥980 等信息，为未来的推荐提供数据支撑。\n\n---\n\n### 执行循环总结\n\n通过这个完整的真实场景，我们可以清晰地看到五大模块是如何协作的：\n\n```\n用户: \"帮我订明天北京到上海的机票...\"\n        │\n        ▼\n   ┌──────────┐    理解意图、提取实体\n   │ 感知模块  │──────────────────────────┐\n   └──────────┘                          │\n        │                                ▼\n        │                         ┌──────────┐\n        │                         │ 记忆模块  │ 回忆用户偏好\n        │                         └──────────┘\n        ▼                                │\n   ┌──────────┐    制定搜索、筛选、推荐方案 │\n   │ 规划模块  │◄────────────────────────┘\n   └──────────┘\n        │\n        ▼\n   ┌──────────┐    调用航班 API、格式化输出\n   │ 行动模块  │\n   └──────────┘\n        │\n        ▼\n   ┌──────────┐    航班查询 API、预订 API\n   │ 工具使用  │\n   └──────────┘\n        │\n        ▼\n   [返回结果 → 感知模块 → 下一轮循环...]\n```\n\n**每一轮循环都遵循相同的模式：感知 → 记忆检索 → 规划 → 行动（含工具使用）→ 结果反馈 → 新一轮感知。** 这就是 AI Agent 核心架构的运行本质。\n\n---\n\n## 本章小结\n\n| 模块 | 核心职责 | 关键技术 | 类比 |\n|------|----------|---------|------|\n| **感知** | 理解输入，感知环境 | NLU、多模态模型、OCR、ASR | 人的五感 |\n| **规划** | 任务分解，策略制定 | CoT、ReAct、ToT、Reflexion | 装修设计方案 |\n| **记忆** | 信息存储，经验积累 | 上下文窗口、向量数据库、知识图谱 | 工作台 + 书架 |\n| **行动** | 执行操作，生成输出 | 文本生成、代码执行、系统操作 | 厨师做菜 |\n| **工具使用** | 调用外部工具扩展能力 | API、搜索引擎、代码解释器、浏览器 | 瑞士军刀 |\n\n**核心要点**：\n\n1. **五大模块缺一不可**：感知是入口，规划是大脑，记忆是经验，行动是双手，工具是延伸。\n2. **闭环循环是灵魂**：\"感知—规划—行动\"的循环使 Agent 能够持续感知环境变化并动态调整行为。\n3. **模块质量决定上限**：每个模块的能力上限共同决定了 Agent 整体的表现上限——木桶效应在此同样适用。\n4. **协作大于单打独斗**：真正强大的 Agent 不是某个模块特别突出，而是所有模块协作流畅。\n\n> **下一章预告**：在第三章中，我们将深入探讨 AI Agent 的**核心引擎——大语言模型（LLM）**，了解 LLM 是如何驱动 Agent 的各个模块运转的，以及如何选择和优化 LLM 以获得最佳的 Agent 表现。\n";
+    var renderer = new marked.Renderer();
+    var origHeading = renderer.heading;
+    renderer.heading = function(data) {
+      var slug = data.text.replace(/[^\w\s\u4e00-\u9fff-]/g, '').replace(/\s+/g, '-').toLowerCase();
+      return '<h' + data.depth + ' id="' + slug + '">' + data.text + '</h' + data.depth + '>';
+    };
+    marked.setOptions({ renderer: renderer, breaks: false, gfm: true });
+    // Only use JS rendering as fallback if pre-rendered content is missing
+    var el = document.getElementById('md-content');
+    if (el && el.children.length === 0) {
+      el.innerHTML = marked.parse(MD_RAW);
+    }
+  </script>
+  <script src="nav.js"></script>
+<script src="lang-switcher.js"></script>
+</body>
+</html>

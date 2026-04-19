@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: AI Agent Overview - Illustrated AI Agent</title>
+  <meta name="description" content="What is an AI Agent? This chapter uses real-life analogies like delivery riders and hotel concierges to explain AI Agent definitions, classifications, and development history.">
+  <meta name="keywords" content="AI Agent, Illustrated AI Agent, AI interview, AI career switch, Agent architecture, LLM, large language model, artificial intelligence, AI tutorial">
+  <meta name="author" content="图解 AI Agent">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://tujieagent.com/en/chapter01.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Chapter 1: AI Agent Overview - Illustrated AI Agent">
+  <meta property="og:description" content="What is an AI Agent? This chapter uses real-life analogies like delivery riders and hotel concierges to explain AI Agent definitions, classifications, and development history.">
+  <meta property="og:url" content="https://tujieagent.com/en/chapter01.html">
+  <meta property="og:site_name" content="图解 AI Agent">
+  <meta property="og:image" content="images/hero-cover.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="zh_CN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chapter 1: AI Agent Overview - Illustrated AI Agent">
+  <meta name="twitter:description" content="What is an AI Agent? This chapter uses real-life analogies like delivery riders and hotel concierges to explain AI Agent definitions, classifications, and development history.">
+  <meta name="twitter:image" content="images/hero-cover.jpg">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter01.html">
+  <link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter01.html">
+  <link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter01.html">
+
+  <!-- Search Engine Verification -->
+  <meta name="baidu-site-verification" content="placeholder_baidu_code">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="msvalidate.01" content="placeholder_bing_code">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Chapter 1: AI Agent Overview - Illustrated AI Agent",
+  "description": "What is an AI Agent? This chapter uses real-life analogies like delivery riders and hotel concierges to explain AI Agent definitions, classifications, and development history.",
+  "author": {
+    "@type": "Person",
+    "name": "图解 AI Agent"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "图解 AI Agent"
+  },
+  "datePublished": "2026-04-18",
+  "dateModified": "2026-04-18",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tujieagent.com/en/chapter01.html"
+  },
+  "image": "images/hero-cover.jpg",
+  "inLanguage": "en"
+}
+  </script>
+
+  <!-- Favicon & PWA -->
+  <!-- Favicon & PWA -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://p-mira-img-sign-sgnontt.byteintl.net" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .breadcrumb { padding: 12px 20px; font-size: 0.9em; color: #6b7280; }
+    .breadcrumb ol { list-style: none; display: flex; gap: 8px; margin: 0; padding: 0; flex-wrap: wrap; }
+    .breadcrumb li::before { content: ""; }
+    .breadcrumb li + li::before { content: " > "; margin-right: 8px; color: #9ca3af; }
+    .breadcrumb a { color: #4f46e5; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .related-chapters { margin: 40px 0 20px; padding: 24px 28px; background: #f8fafc; border-radius: 12px; border: 1px solid #e5e7eb; }
+    .related-chapters h3 { font-size: 1.1em; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; }
+    .related-chapters ul { list-style: none; padding: 0; margin: 0; }
+    .related-chapters li { margin-bottom: 8px; }
+    .related-chapters a { color: #4f46e5; text-decoration: none; font-size: 0.95em; }
+    .related-chapters a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <button class="hamburger" aria-label="Menu">&#9776;</button>
+  <div class="overlay"></div>
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://tujieagent.com/en/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Chapter 1: AI Agent Overview",
+            "item": "https://tujieagent.com/en/chapter01.html"
+        }
+    ]
+}
+    </script>
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li aria-current="page">Chapter 1: AI Agent Overview</li>
+    </ol>
+  </nav>
+  <div class="sidebar">
+  <div class="sidebar-header"><a href="index.html">Illustrated AI Agent</a></div>
+  <ul class="nav-list">
+    <li class="nav-item expanded">
+      <a class="nav-link active" href="chapter01.html" data-toggle>
+        <span>Chapter 1: AI Agent Overview</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="#11-what-is-an-ai-agent">1.1 What is an AI Agent?</a></li>
+        <li><a href="#12-real-life-agent-analogies">1.2 Real-Life Agent Analogies</a></li>
+        <li><a href="#13-ai-agent-vs-traditional-ai">1.3 AI Agent vs. Traditional AI</a></li>
+        <li><a href="#14-development-history-and-milestones">1.4 Development History & Milestones</a></li>
+        <li><a href="#15-classification-of-ai-agents">1.5 Classification of AI Agents</a></li>
+        <li><a href="#16-why-2024-2026-is-the-agent-explosion">1.6 Why 2024–2026 Is the Agent Explosion</a></li>
+        <li><a href="#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter02.html" data-toggle>
+        <span>Chapter 2: Core Architecture of AI Agents</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter02.html#21-architecture-overview">2.1 AI Agent Architecture Overview</a></li>
+        <li><a href="chapter02.html#22-perception-module">2.2 Perception Module</a></li>
+        <li><a href="chapter02.html#23-planning-module">2.3 Planning Module</a></li>
+        <li><a href="chapter02.html#24-memory-module">2.4 Memory Module</a></li>
+        <li><a href="chapter02.html#25-action-module">2.5 Action Module</a></li>
+        <li><a href="chapter02.html#26-tool-use">2.6 Tool Use</a></li>
+        <li><a href="chapter02.html#27-module-collaboration-demo">2.7 Module Collaboration: Complete Execution Loop</a></li>
+        <li><a href="chapter02.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter03.html" data-toggle>
+        <span>Chapter 3: Key Technologies for AI Agents</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter03.html#31-llm-as-agent-brain">3.1 Large Language Models (LLM) as the Agent Brain</a></li>
+        <li><a href="chapter03.html#32-prompt-engineering-for-agents">3.2 Prompt Engineering for Agents</a></li>
+        <li><a href="chapter03.html#33-react-framework">3.3 ReAct Framework: Interleaving Reasoning and Action</a></li>
+        <li><a href="chapter03.html#34-chain-of-thought-reasoning">3.4 Chain-of-Thought (CoT) Reasoning</a></li>
+        <li><a href="chapter03.html#35-function-calling-and-tool-invocation">3.5 Function Calling & Tool Invocation</a></li>
+        <li><a href="chapter03.html#36-rag-retrieval-augmented-generation">3.6 RAG (Retrieval-Augmented Generation) with Agents</a></li>
+        <li><a href="chapter03.html#37-multimodal-capabilities">3.7 Multimodal Capabilities in Agents</a></li>
+        <li><a href="chapter03.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter04.html" data-toggle>
+        <span>Chapter 4: Popular Agent Frameworks & Platforms</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter04.html#41-langchain-langgraph">4.1 LangChain / LangGraph</a></li>
+        <li><a href="chapter04.html#42-autogpt-babyagi">4.2 AutoGPT / BabyAGI</a></li>
+        <li><a href="chapter04.html#43-crewai">4.3 CrewAI (Multi-Agent Collaboration)</a></li>
+        <li><a href="chapter04.html#44-microsoft-autogen">4.4 Microsoft AutoGen</a></li>
+        <li><a href="chapter04.html#45-anthropic-claude-agent-sdk">4.5 Anthropic Claude Agent SDK</a></li>
+        <li><a href="chapter04.html#46-coze">4.6 Coze</a></li>
+        <li><a href="chapter04.html#47-other-notable-frameworks">4.7 Other Notable Frameworks</a></li>
+        <li><a href="chapter04.html#48-comprehensive-framework-comparison">4.8 Comprehensive Framework Comparison</a></li>
+        <li><a href="chapter04.html#49-framework-selection-guide">4.9 Framework Selection Guide</a></li>
+        <li><a href="chapter04.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter05.html" data-toggle>
+        <span>Chapter 5: Multi-Agent Systems</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter05.html#51-what-are-multi-agent-systems">5.1 What Are Multi-Agent Systems?</a></li>
+        <li><a href="chapter05.html#52-collaboration-patterns">5.2 Multi-Agent Collaboration Patterns</a></li>
+        <li><a href="chapter05.html#53-communication-protocols">5.3 Communication Protocols & Message Passing</a></li>
+        <li><a href="chapter05.html#54-role-assignment-and-task-orchestration">5.4 Role Assignment & Task Orchestration</a></li>
+        <li><a href="chapter05.html#55-design-patterns">5.5 Design Patterns for Multi-Agent Systems</a></li>
+        <li><a href="chapter05.html#56-application-cases">5.6 Typical Application Cases</a></li>
+        <li><a href="chapter05.html#57-challenges">5.7 Challenges of Multi-Agent Systems</a></li>
+        <li><a href="chapter05.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter06.html" data-toggle>
+        <span>Chapter 6: Memory Systems of AI Agents</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter06.html#61-memory-system-overview">6.1 Memory System Overview</a></li>
+        <li><a href="chapter06.html#62-working-memory">6.2 Working Memory</a></li>
+        <li><a href="chapter06.html#63-episodic-memory">6.3 Episodic Memory</a></li>
+        <li><a href="chapter06.html#64-semantic-memory">6.4 Semantic Memory</a></li>
+        <li><a href="chapter06.html#65-procedural-memory">6.5 Procedural Memory</a></li>
+        <li><a href="chapter06.html#66-vector-databases">6.6 Vector Databases in Memory Systems</a></li>
+        <li><a href="chapter06.html#67-storage-retrieval-forgetting">6.7 Memory Storage, Retrieval & Forgetting</a></li>
+        <li><a href="chapter06.html#68-practical-case-study">6.8 Practical Case Study: Customer Service Agent Memory</a></li>
+        <li><a href="chapter06.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter07.html" data-toggle>
+        <span>Chapter 7: Planning & Reasoning in AI Agents</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter07.html#71-task-decomposition">7.1 Task Decomposition</a></li>
+        <li><a href="chapter07.html#72-self-reflection">7.2 Self-Reflection</a></li>
+        <li><a href="chapter07.html#73-tree-search-and-monte-carlo">7.3 Tree Search & Monte Carlo Methods</a></li>
+        <li><a href="chapter07.html#74-plan-and-execute">7.4 Plan-and-Execute Pattern</a></li>
+        <li><a href="chapter07.html#75-dynamic-replanning">7.5 Dynamic Replanning</a></li>
+        <li><a href="chapter07.html#76-reasoning-comparison">7.6 Comparison of Reasoning Approaches</a></li>
+        <li><a href="chapter07.html#77-limitations-and-mitigations">7.7 Planning Limitations & Mitigations</a></li>
+        <li><a href="chapter07.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter08.html" data-toggle>
+        <span>Chapter 8: AI Agent Security & Ethics</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter08.html#81-security-overview">8.1 AI Agent Security Overview</a></li>
+        <li><a href="chapter08.html#82-prompt-injection">8.2 Prompt Injection Attacks & Defense</a></li>
+        <li><a href="chapter08.html#83-permission-control-sandbox">8.3 Permission Control & Sandbox Mechanisms</a></li>
+        <li><a href="chapter08.html#84-alignment">8.4 Alignment Problem</a></li>
+        <li><a href="chapter08.html#85-interpretability-auditability">8.5 Interpretability & Auditability</a></li>
+        <li><a href="chapter08.html#86-data-privacy-compliance">8.6 Data Privacy & Compliance</a></li>
+        <li><a href="chapter08.html#87-security-incident-cases">8.7 Security Incident Case Analysis</a></li>
+        <li><a href="chapter08.html#88-security-best-practices">8.8 Best Practices Checklist for Building Secure Agents</a></li>
+        <li><a href="chapter08.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter09.html" data-toggle>
+        <span>Chapter 9: Practical AI Agent Case Studies</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter09.html#91-customer-service-agent">9.1 Intelligent Customer Service Agent</a></li>
+        <li><a href="chapter09.html#92-coding-assistant-agent">9.2 Code Assistant Agent</a></li>
+        <li><a href="chapter09.html#93-data-analysis-agent">9.3 Data Analysis Agent</a></li>
+        <li><a href="chapter09.html#94-office-automation-agent">9.4 Office Automation Agent</a></li>
+        <li><a href="chapter09.html#95-research-assistant-agent">9.5 Research Assistant Agent</a></li>
+        <li><a href="chapter09.html#96-personal-life-assistant">9.6 Personal Life Assistant Agent</a></li>
+        <li><a href="chapter09.html#97-practical-building-tips">9.7 Practical Agent Building Tips</a></li>
+        <li><a href="chapter09.html#chapter-summary">Chapter Summary</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter10.html" data-toggle>
+        <span>Chapter 10: Future Trends of AI Agents</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter10.html#101-copilot-to-autopilot">10.1 From Copilot to Autopilot</a></li>
+        <li><a href="chapter10.html#102-embodied-ai">10.2 Embodied AI</a></li>
+        <li><a href="chapter10.html#103-agent-os">10.3 Agent Operating Systems (Agent OS)</a></li>
+        <li><a href="chapter10.html#104-world-models">10.4 World Models & Agent Integration</a></li>
+        <li><a href="chapter10.html#105-road-to-agi">10.5 Road to AGI: The Agent's Role</a></li>
+        <li><a href="chapter10.html#106-agent-economy">10.6 Agent Economy & New Careers</a></li>
+        <li><a href="chapter10.html#107-action-recommendations">10.7 Action Recommendations for Learners</a></li>
+      </ul>
+    </li>
+  </ul>
+  </div>
+  <div class="main-content">
+    <main role="main"><div class="content" id="md-content">
+<h1>Chapter 1: AI Agent Overview</h1>
+<blockquote><p><strong>"Illustrated AI Agent" Series</strong> - Chapter 1</p></blockquote>
+<hr>
+<h2 id="11-what-is-an-ai-agent">1.1 What is an AI Agent?</h2>
+<p>An AI Agent is a software entity capable of autonomously perceiving its environment, reasoning, taking actions, and continuously learning. Unlike traditional "question-and-answer" AI, an Agent can independently decompose goals, plan steps, call tools, and self-correct when things go wrong. The core formula is: AI Agent = LLM + Memory + Planning + Tool Use + Action. This section covers the six core characteristics of agents: autonomy, perception, reasoning, action, learning, and memory, as well as their basic workflow cycle.</p>
+<div class="illustration">
+  <img loading="lazy" src="images/ch01-agent-milestones.jpg" alt="AI Agent 发展历程">
+  <div class="caption">"Illustration: AI Agent Development Milestones — From Turing Test to the Agent Explosion Era"</div>
+</div>
+
+<div class="illustration">
+  <img loading="lazy" src="images/ch01-agent-analogies.jpg" alt="生活中的 Agent 类比">
+  <div class="caption">"Illustration: Three Agent Analogies in Daily Life — Delivery Rider, Hotel Concierge, Personal Secretary"</div>
+</div>
+
+<h2 id="12-real-life-agent-analogies">1.2 Real-Life Agent Analogies</h2>
+<p>This section uses everyday roles to illustrate how AI Agents work. A food delivery rider demonstrates the perception-planning-action-correction loop in dynamic environments. A hotel concierge represents a full-capability agent that autonomously handles complex multi-step tasks from goal to completion. A personal secretary exemplifies memory-enhanced agents that learn preferences over time and proactively anticipate needs.</p>
+<h2 id="13-ai-agent-vs-traditional-ai">1.3 AI Agent vs. Traditional AI</h2>
+<p>Traditional AI acts like a navigation app — it gives you directions but doesn't drive the car. An AI Agent is like a professional chauffeur who handles everything from route planning to parking. This section provides a detailed comparison across seven dimensions: interaction mode, task execution, planning capability, memory, environment perception, self-correction, and tool usage. It also introduces the three levels of AI assistance: AI Tool, AI Copilot, and AI Agent.</p>
+<h2 id="14-development-history-and-milestones">1.4 Development History & Milestones</h2>
+<p>The evolution of AI Agents spans three major phases: (1) Early exploration (1950s–2000s) with rule-based systems like ELIZA and MYCIN; (2) Multi-agent and reinforcement learning era (2000s–2022) featuring AlphaGo, DQN, and the Transformer revolution; (3) The LLM Agent era (2023–2026+) marked by GPT-4, AutoGPT going viral, Stanford's Generative Agents paper, OpenAI Function Calling, MCP protocol, and the emergence of production-ready agent platforms.</p>
+<h2 id="15-classification-of-ai-agents">1.5 Classification of AI Agents</h2>
+<p>AI Agents are classified into five types by autonomy level: Simple Reflex, Model-Based Reflex, Goal-Based, Utility-Based, and Learning Agents — evolving from thermostat-like reactivity to fully adaptive AI assistants. The LLM era introduces new classification dimensions: by agent count (single vs. multi-agent), by application domain (conversational, coding, data analysis, automation), and by autonomy level (Anthropic's L1–L5 scale from chatbot to fully autonomous agent).</p>
+<h2 id="16-why-2024-2026-is-the-agent-explosion">1.6 Why 2024–2026 Is the Agent Explosion</h2>
+<p>Five converging forces drive the Agent boom: (1) LLM capabilities reaching expert-level reasoning with models like GPT-4 and Claude 3.5; (2) Standardization of tool calling via OpenAI Function Calling and Anthropic Tool Use; (3) MCP (Model Context Protocol) as the "USB-C for Agents" unifying tool connections; (4) Open-source ecosystem explosion with LangChain, AutoGPT, CrewAI, and Dify; (5) Enterprise demand for AI-powered automation, knowledge work efficiency, and cross-system integration.</p>
+<h2 id="chapter-summary">Chapter Summary</h2>
+<p>This chapter covered: the definition and six core characteristics of AI Agents; real-life analogies (delivery rider, concierge, secretary); key differences from traditional AI; the three-phase development history; the five-type classification system plus LLM-era extensions; and the five forces driving the 2024–2026 Agent explosion.</p>
+
+<!-- Follow Us on Social Media -->
+<div class="chapter-social">
+  <h3>💡 Found this helpful? Follow us</h3>
+  <p>Get more AI Agent learning resources and industry updates</p>
+  <div class="chapter-qr-grid">
+    <div class="chapter-qr-item">
+      <img src="../images/wechat-qr.jpg" alt="WeChat" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">WeChat</div>
+      <span>WeChat Official</span>
+    </div>
+    <div class="chapter-qr-item">
+      <img src="../images/xiaohongshu-qr.jpg" alt="Xiaohongshu" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">Xiaohongshu</div>
+      <span>Xiaohongshu</span>
+    </div>
+  </div>
+</div>
+</div>
+    
+  <aside class="related-chapters">
+    <h3>Recommended Reading</h3>
+    <ul>
+      <li><a href="chapter02.html">Chapter 2: Core Architecture</a></li>
+      <li><a href="chapter03.html">Chapter 3: Key Technologies</a></li>
+      <li><a href="chapter10.html">Chapter 10: Future Trends</a></li>
+    </ul>
+  </aside>
+    <div class="page-nav">
+      <a href="index.html">&larr; Back to Home</a>
+      <span class="spacer"></span>
+      <a href="chapter02.html">Chapter 2: Core Architecture of AI Agents &rarr;</a>
+    </div>
+  </div>
+  </main>
+  <script src="../marked.min.js"></script>
+  <script>
+    var MD_RAW = "";
+    var renderer = new marked.Renderer();
+    var origHeading = renderer.heading;
+    renderer.heading = function(data) {
+      var slug = data.text.replace(/[^\w\s\u4e00-\u9fff-]/g, '').replace(/\s+/g, '-').toLowerCase();
+      return '<h' + data.depth + ' id="' + slug + '">' + data.text + '</h' + data.depth + '>';
+    };
+    marked.setOptions({ renderer: renderer, breaks: false, gfm: true });
+    var el = document.getElementById('md-content');
+    if (el && el.children.length === 0) {
+      el.innerHTML = marked.parse(MD_RAW);
+    }
+  </script>
+  <script src="../nav.js"></script>
+<script src="../lang-switcher.js"></script>
+</body>
+</html>

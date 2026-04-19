@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第六章：AI Agent 记忆系统 - 图解 AI Agent</title>
+  <meta name="description" content="图解 AI Agent 四大记忆类型：工作记忆、短期记忆、长期记忆、程序记忆。深入向量数据库原理，手绘思维导图助你一目了然。">
+  <meta name="keywords" content="AI Agent, 图解AI Agent, AI面试, AI转行, Agent架构, LLM, 大模型, 人工智能, AI学习, Agent教程">
+  <meta name="author" content="图解 AI Agent">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://tujieagent.com/chapter06.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="第六章：AI Agent 记忆系统 - 图解 AI Agent">
+  <meta property="og:description" content="图解 AI Agent 四大记忆类型：工作记忆、短期记忆、长期记忆、程序记忆。深入向量数据库原理，手绘思维导图助你一目了然。">
+  <meta property="og:url" content="https://tujieagent.com/chapter06.html">
+  <meta property="og:site_name" content="图解 AI Agent">
+  <meta property="og:image" content="images/hero-cover.jpg">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="第六章：AI Agent 记忆系统 - 图解 AI Agent">
+  <meta name="twitter:description" content="图解 AI Agent 四大记忆类型：工作记忆、短期记忆、长期记忆、程序记忆。深入向量数据库原理，手绘思维导图助你一目了然。">
+  <meta name="twitter:image" content="images/hero-cover.jpg">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="zh-CN" href="https://tujieagent.com/chapter06.html">
+  <link rel="alternate" hreflang="en" href="https://tujieagent.com/en/chapter06.html">
+  <link rel="alternate" hreflang="x-default" href="https://tujieagent.com/chapter06.html">
+
+  <!-- Search Engine Verification -->
+  <meta name="baidu-site-verification" content="placeholder_baidu_code">
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="msvalidate.01" content="placeholder_bing_code">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "第六章：AI Agent 记忆系统 - 图解 AI Agent",
+  "description": "图解 AI Agent 四大记忆类型：工作记忆、短期记忆、长期记忆、程序记忆。深入向量数据库原理，手绘思维导图助你一目了然。",
+  "author": {
+    "@type": "Person",
+    "name": "图解 AI Agent"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "图解 AI Agent"
+  },
+  "datePublished": "2026-04-18",
+  "dateModified": "2026-04-18",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tujieagent.com/chapter06.html"
+  },
+  "image": "images/hero-cover.jpg",
+  "inLanguage": "zh-CN"
+}
+  </script>
+
+  <!-- Favicon & PWA -->
+  <!-- Favicon & PWA -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png">
+<link rel="shortcut icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://p-mira-img-sign-sgnontt.byteintl.net" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .breadcrumb { padding: 12px 20px; font-size: 0.9em; color: #6b7280; }
+    .breadcrumb ol { list-style: none; display: flex; gap: 8px; margin: 0; padding: 0; flex-wrap: wrap; }
+    .breadcrumb li::before { content: ""; }
+    .breadcrumb li + li::before { content: " > "; margin-right: 8px; color: #9ca3af; }
+    .breadcrumb a { color: #4f46e5; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .related-chapters { margin: 40px 0 20px; padding: 24px 28px; background: #f8fafc; border-radius: 12px; border: 1px solid #e5e7eb; }
+    .related-chapters h3 { font-size: 1.1em; color: #1a1a2e; margin-bottom: 12px; font-weight: 700; }
+    .related-chapters ul { list-style: none; padding: 0; margin: 0; }
+    .related-chapters li { margin-bottom: 8px; }
+    .related-chapters a { color: #4f46e5; text-decoration: none; font-size: 0.95em; }
+    .related-chapters a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <button class="hamburger" aria-label="菜单">&#9776;</button>
+  <div class="overlay"></div>
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首页",
+            "item": "https://tujieagent.com/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "第六章：AI Agent 记忆系统",
+            "item": "https://tujieagent.com/chapter06.html"
+        }
+    ]
+}
+    </script>
+    <ol>
+      <li><a href="index.html">首页</a></li>
+      <li aria-current="page">第六章：AI Agent 记忆系统</li>
+    </ol>
+  </nav>
+  <div class="sidebar">
+  <div class="sidebar-header"><a href="index.html">图解 AI Agent</a></div>
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a class="nav-link" href="chapter01.html" data-toggle>
+        <span>第一章：AI Agent 概述</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter01.html#11-什么是-ai-agent智能体">1.1 什么是 AI Agent（智能体）</a></li>
+        <li><a href="chapter01.html#12-生活中的-agent-类比">1.2 生活中的 Agent 类比</a></li>
+        <li><a href="chapter01.html#13-ai-agent-与传统-ai-的区别">1.3 AI Agent 与传统 AI 的区别</a></li>
+        <li><a href="chapter01.html#14-ai-agent-的发展历程与里程碑">1.4 AI Agent 的发展历程与里程碑</a></li>
+        <li><a href="chapter01.html#15-ai-agent-的分类">1.5 AI Agent 的分类</a></li>
+        <li><a href="chapter01.html#16-为什么-20242026-是-agent-爆发期">1.6 为什么 2024—2026 是 Agent 爆发期</a></li>
+        <li><a href="chapter01.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter02.html" data-toggle>
+        <span>第二章：AI Agent 核心架构</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter02.html#21-ai-agent-架构总览">2.1 AI Agent 架构总览</a></li>
+        <li><a href="chapter02.html#22-感知模块perception">2.2 感知模块（Perception）</a></li>
+        <li><a href="chapter02.html#23-规划模块planning">2.3 规划模块（Planning）</a></li>
+        <li><a href="chapter02.html#24-记忆模块memory">2.4 记忆模块（Memory）</a></li>
+        <li><a href="chapter02.html#25-行动模块action">2.5 行动模块（Action）</a></li>
+        <li><a href="chapter02.html#26-工具使用tool-use">2.6 工具使用（Tool Use）</a></li>
+        <li><a href="chapter02.html#27-模块协作完整的执行循环演示">2.7 模块协作：完整的执行循环演示</a></li>
+        <li><a href="chapter02.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter03.html" data-toggle>
+        <span>第三章：AI Agent 关键技术</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter03.html#31-大语言模型llm作为-agent-的大脑">3.1 大语言模型（LLM）作为 Agent 的大脑</a></li>
+        <li><a href="chapter03.html#32-prompt-engineering-在-agent-中的应用">3.2 Prompt Engineering 在 Agent 中的应用</a></li>
+        <li><a href="chapter03.html#分析概览">分析概览</a></li>
+        <li><a href="chapter03.html#详细发现">详细发现</a></li>
+        <li><a href="chapter03.html#建议行动">建议行动</a></li>
+        <li><a href="chapter03.html#分析概览">分析概览</a></li>
+        <li><a href="chapter03.html#详细发现">详细发现</a></li>
+        <li><a href="chapter03.html#33-react-框架推理与行动的交织">3.3 ReAct 框架：推理与行动的交织</a></li>
+        <li><a href="chapter03.html#34-chain-of-thought思维链推理">3.4 Chain-of-Thought（思维链）推理</a></li>
+        <li><a href="chapter03.html#35-function-calling-与工具调用机制">3.5 Function Calling 与工具调用机制</a></li>
+        <li><a href="chapter03.html#36-rag检索增强生成与-agent-的结合">3.6 RAG（检索增强生成）与 Agent 的结合</a></li>
+        <li><a href="chapter03.html#37-多模态能力在-agent-中的应用">3.7 多模态能力在 Agent 中的应用</a></li>
+        <li><a href="chapter03.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter04.html" data-toggle>
+        <span>第四章：主流 Agent 框架与平台</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter04.html#41-langchain-langgraph">4.1 LangChain / LangGraph</a></li>
+        <li><a href="chapter04.html#42-autogpt-babyagi">4.2 AutoGPT / BabyAGI</a></li>
+        <li><a href="chapter04.html#43-crewai多智能体协作">4.3 CrewAI（多智能体协作）</a></li>
+        <li><a href="chapter04.html#44-microsoft-autogen">4.4 Microsoft AutoGen</a></li>
+        <li><a href="chapter04.html#45-anthropic-claude-agent-sdk">4.5 Anthropic Claude Agent SDK</a></li>
+        <li><a href="chapter04.html#46-coze-扣子">4.6 Coze / 扣子</a></li>
+        <li><a href="chapter04.html#47-其他值得关注的框架">4.7 其他值得关注的框架</a></li>
+        <li><a href="chapter04.html#48-主流框架全面对比">4.8 主流框架全面对比</a></li>
+        <li><a href="chapter04.html#49-如何选择框架决策指南">4.9 如何选择框架：决策指南</a></li>
+        <li><a href="chapter04.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter05.html" data-toggle>
+        <span>第五章：Multi-Agent 系统（多智能体协作）</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter05.html#51-什么是-multi-agent-系统">5.1 什么是 Multi-Agent 系统</a></li>
+        <li><a href="chapter05.html#52-多智能体协作模式">5.2 多智能体协作模式</a></li>
+        <li><a href="chapter05.html#53-通信协议与消息传递">5.3 通信协议与消息传递</a></li>
+        <li><a href="chapter05.html#54-角色分工与任务编排">5.4 角色分工与任务编排</a></li>
+        <li><a href="chapter05.html#55-多-agent-系统的设计模式">5.5 多 Agent 系统的设计模式</a></li>
+        <li><a href="chapter05.html#56-典型应用案例">5.6 典型应用案例</a></li>
+        <li><a href="chapter05.html#57-多-agent-系统的挑战">5.7 多 Agent 系统的挑战</a></li>
+        <li><a href="chapter05.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item expanded">
+      <a class="nav-link active" href="chapter06.html" data-toggle>
+        <span>第六章：AI Agent 的记忆系统</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="#61-记忆系统概述">6.1 记忆系统概述</a></li>
+        <li><a href="#62-工作记忆working-memory">6.2 工作记忆（Working Memory）</a></li>
+        <li><a href="#63-情景记忆episodic-memory">6.3 情景记忆（Episodic Memory）</a></li>
+        <li><a href="#64-语义记忆semantic-memory">6.4 语义记忆（Semantic Memory）</a></li>
+        <li><a href="#65-程序记忆procedural-memory">6.5 程序记忆（Procedural Memory）</a></li>
+        <li><a href="#66-向量数据库在记忆系统中的应用">6.6 向量数据库在记忆系统中的应用</a></li>
+        <li><a href="#67-记忆的存储检索与遗忘机制">6.7 记忆的存储、检索与遗忘机制</a></li>
+        <li><a href="#68-记忆系统的实际案例一个完整的客服-agent-记忆系统">6.8 记忆系统的实际案例：一个完整的客服 Agent 记忆系统</a></li>
+        <li><a href="#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter07.html" data-toggle>
+        <span>第七章：AI Agent 的规划与推理</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter07.html#71-任务分解task-decomposition">7.1 任务分解（Task Decomposition）</a></li>
+        <li><a href="chapter07.html#72-自我反思self-reflection">7.2 自我反思（Self-Reflection）</a></li>
+        <li><a href="chapter07.html#73-树搜索与蒙特卡洛方法">7.3 树搜索与蒙特卡洛方法</a></li>
+        <li><a href="chapter07.html#74-plan-and-execute-模式">7.4 Plan-and-Execute 模式</a></li>
+        <li><a href="chapter07.html#75-动态重规划能力">7.5 动态重规划能力</a></li>
+        <li><a href="chapter07.html#76-不同推理方式的对比">7.6 不同推理方式的对比</a></li>
+        <li><a href="chapter07.html#77-规划能力的局限与应对">7.7 规划能力的局限与应对</a></li>
+        <li><a href="chapter07.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter08.html" data-toggle>
+        <span>第八章：AI Agent 安全与伦理</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter08.html#81-ai-agent-安全概述">8.1 AI Agent 安全概述</a></li>
+        <li><a href="chapter08.html#82-prompt-注入攻击与防御">8.2 Prompt 注入攻击与防御</a></li>
+        <li><a href="chapter08.html#83-agent-的权限控制与沙箱机制">8.3 Agent 的权限控制与沙箱机制</a></li>
+        <li><a href="chapter08.html#84-对齐问题alignment">8.4 对齐问题（Alignment）</a></li>
+        <li><a href="chapter08.html#85-可解释性与可审计性">8.5 可解释性与可审计性</a></li>
+        <li><a href="chapter08.html#86-数据隐私与合规">8.6 数据隐私与合规</a></li>
+        <li><a href="chapter08.html#87-agent-安全事件案例分析">8.7 Agent 安全事件案例分析</a></li>
+        <li><a href="chapter08.html#88-构建安全-agent-的最佳实践清单">8.8 构建安全 Agent 的最佳实践清单</a></li>
+        <li><a href="chapter08.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter09.html" data-toggle>
+        <span>第九章：AI Agent 实战案例</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter09.html#91-智能客服-agent">9.1 智能客服 Agent</a></li>
+        <li><a href="chapter09.html#92-代码助手-agent">9.2 代码助手 Agent</a></li>
+        <li><a href="chapter09.html#93-数据分析-agent">9.3 数据分析 Agent</a></li>
+        <li><a href="chapter09.html#94-自动化办公-agent">9.4 自动化办公 Agent</a></li>
+        <li><a href="chapter09.html#95-科研辅助-agent">9.5 科研辅助 Agent</a></li>
+        <li><a href="chapter09.html#96-个人生活助理-agent">9.6 个人生活助理 Agent</a></li>
+        <li><a href="chapter09.html#97-构建-agent-的实践建议">9.7 构建 Agent 的实践建议</a></li>
+        <li><a href="chapter09.html#本章小结">本章小结</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="chapter10.html" data-toggle>
+        <span>第十章：AI Agent 的未来趋势</span>
+        <span class="arrow">&#9654;</span>
+      </a>
+      <ul class="sub-nav">
+        <li><a href="chapter10.html#101-从-copilot-到-autopilot-的演进">10.1 从 Copilot 到 Autopilot 的演进</a></li>
+        <li><a href="chapter10.html#102-具身智能embodied-ai">10.2 具身智能（Embodied AI）</a></li>
+        <li><a href="chapter10.html#103-agent-操作系统agent-os">10.3 Agent 操作系统（Agent OS）</a></li>
+        <li><a href="chapter10.html#104-世界模型与-agent-的结合">10.4 世界模型与 Agent 的结合</a></li>
+        <li><a href="chapter10.html#105-agi-之路agent-的角色">10.5 AGI 之路：Agent 的角色</a></li>
+        <li><a href="chapter10.html#106-agent-经济与新职业">10.6 Agent 经济与新职业</a></li>
+        <li><a href="chapter10.html#107-对学习者的行动建议">10.7 对学习者的行动建议</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+  <div class="main">
+    <main role="main"><div class="content" id="md-content">
+<h1 id="第六章ai-agent-的记忆系统">第六章：AI Agent 的记忆系统</h1>
+<blockquote><p><strong>导读</strong>：如果说大语言模型（LLM）是 AI Agent 的"大脑皮层"，那么记忆系统就是让这颗大脑真正"活"起来的关键基础设施。没有记忆的 Agent，就像一个每隔几秒就会失忆的人——虽然聪明绝顶，却无法完成任何需要持续上下文的任务。本章将系统性地拆解 AI Agent 的四种核心记忆类型、底层实现技术、以及在真实场景中的工程实践。</p></blockquote>
+<hr>
+<h2 id="61-记忆系统概述">6.1 记忆系统概述</h2>
+<h3 id="为什么-ai-agent-需要记忆">为什么 AI Agent 需要记忆？</h3>
+<p>想象一下，你去一家餐厅吃饭。服务员走过来问你要点什么，你说"一份宫保鸡丁"。过了三秒钟，同一个服务员又走过来问："请问您要点什么？"——这就是没有记忆的 Agent 的真实写照。</p>
+<p>原生的大语言模型本质上是"无状态"的：每次调用都是一次独立的文本补全过程，模型并不会"记住"你上一轮说了什么。为了让 Agent 具备连贯的对话能力、长期的知识积累、以及基于经验的决策能力，我们必须为它设计一套完善的记忆系统。</p>
+<h3 id="类比人脑的记忆系统">类比：人脑的记忆系统</h3>
+<p>在认知心理学中，人脑的记忆被划分为多种类型。AI Agent 的记忆系统设计在很大程度上借鉴了这一分类体系：</p>
+<div class="illustration">
+  <img loading="lazy" src="images/ch06-memory-types.jpg" alt="四种记忆类型">
+  <div class="caption">「图解：人脑记忆系统类比 —— 工作记忆、情景记忆、语义记忆、程序记忆」</div>
+</div>
+
+<ul>
+<li><strong>工作记忆</strong>（Working Memory）——你在心算 "17 × 23" 时，脑子里暂存的中间结果。</li>
+<li><strong>情景记忆</strong>（Episodic Memory）——你记得昨天中午和谁一起吃了什么饭。</li>
+<li><strong>语义记忆</strong>（Semantic Memory）——你知道"地球绕太阳转"，但不记得是在哪一天学到的。</li>
+<li><strong>程序记忆</strong>（Procedural Memory）——你会骑自行车，但如果让你写一篇"如何骑自行车"的论文，你可能抓耳挠腮。</li>
+</ul>
+<h3 id="四种记忆类型总览表">四种记忆类型总览表</h3>
+<table>
+<thead>
+<tr>
+<th>记忆类型</th>
+<th>对应人脑</th>
+<th>存储内容</th>
+<th>生命周期</th>
+<th>典型实现方式</th>
+<th>生活类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作记忆</strong></td>
+<td>前额叶皮层的短期缓冲</td>
+<td>当前对话上下文、临时推理状态</td>
+<td>极短（单次会话）</td>
+<td>Context Window、滑动窗口、Scratchpad</td>
+<td>做饭时灶台上摆的食材</td>
+</tr>
+<tr>
+<td><strong>情景记忆</strong></td>
+<td>海马体驱动的自传式记忆</td>
+<td>历史对话记录、具体事件经过</td>
+<td>中长期</td>
+<td>对话日志、事件数据库、时间线索引</td>
+<td>你的日记本/朋友圈</td>
+</tr>
+<tr>
+<td><strong>语义记忆</strong></td>
+<td>新皮层存储的通用知识</td>
+<td>事实、概念、规则、领域知识</td>
+<td>长期（接近永久）</td>
+<td>向量数据库、知识图谱、关键词索引</td>
+<td>百科全书/字典</td>
+</tr>
+<tr>
+<td><strong>程序记忆</strong></td>
+<td>基底神经节与小脑</td>
+<td>操作流程、行为模式、技能</td>
+<td>长期且内隐</td>
+<td>SOP 模板、工作流引擎、强化学习策略</td>
+<td>你会骑自行车但说不清怎么骑</td>
+</tr>
+</tbody>
+</table>
+<p>这四种记忆并非彼此孤立，而是协同工作的。一个成熟的 AI Agent 在处理用户请求时，往往需要同时调用多种记忆：用工作记忆维持当前对话上下文，用情景记忆回忆与该用户的历史交互，用语义记忆查找相关知识，用程序记忆选择合适的操作流程。</p>
+<hr>
+<div class="illustration">
+  <img loading="lazy" src="images/memory.jpg" alt="AI Agent 四种记忆类型">
+  <div class="caption">「图解：AI Agent 四种记忆类型 —— 工作记忆、情景记忆、语义记忆与程序记忆的协同关系」</div>
+</div>
+<h2 id="62-工作记忆working-memory">6.2 工作记忆（Working Memory）</h2>
+<h3 id="定义">定义</h3>
+<p>工作记忆是 AI Agent 在<strong>当前任务执行过程中</strong>所维护的短期信息缓冲区。它存储的是"此时此刻正在处理的信息"，包括当前对话轮次的消息、正在推理的中间步骤、临时变量等。</p>
+<h3 id="类比做饭时灶台上摆的食材">类比：做饭时灶台上摆的食材</h3>
+<p>你在做一道番茄炒蛋。灶台上此刻摆着：两个番茄、三个鸡蛋、一小碟盐、一瓶油。这些就是你的"工作记忆"——它们是你<strong>当前正在使用</strong>的材料。冰箱里还有很多食材（那是长期记忆），但你不可能把冰箱里所有东西都搬到灶台上，因为灶台空间有限（Context Window 有 Token 上限）。</p>
+<h3 id="特点">特点</h3>
+<ol>
+<li><strong>容量有限</strong>：受限于 LLM 的 Context Window 大小（如 GPT-4 Turbo 为 128K tokens，Claude 3 为 200K tokens）。即便是最先进的模型，也无法一次性加载一个企业级知识库的全部内容。</li>
+<li><strong>速度最快</strong>：工作记忆中的信息直接参与当前推理过程，无需额外的检索步骤，响应延迟最低。</li>
+<li><strong>易失性强</strong>：会话结束后，工作记忆中的内容默认丢失（除非显式持久化到其他记忆层）。</li>
+<li><strong>高相关性</strong>：工作记忆中的每一条信息都应当与当前任务高度相关，否则会浪费宝贵的上下文窗口空间，甚至引入噪声导致模型"分心"。</li>
+</ol>
+<h3 id="实现方式">实现方式</h3>
+<h4 id="1context-window-直接利用">（1）Context Window 直接利用</h4>
+<p>最简单的方式是将历史对话消息直接拼接到 LLM 的输入 prompt 中。这是大多数聊天应用（如 ChatGPT、Claude）的默认做法。</p>
+<pre><code>System: 你是一位专业的客服助手。
+User: 我想退货。
+Assistant: 好的，请问您的订单号是多少？
+User: 20240301-00789
+Assistant: 查到了，这是一笔3月1日的订单，商品是蓝牙耳机。请问退货原因是什么？
+User: 音质不好。</code></pre>
+<p>以上所有消息都被拼接在一起送入模型，模型可以"看到"完整的对话历史，这就是最朴素的工作记忆。</p>
+<p><strong>优点</strong>：实现简单、信息完整。 <strong>缺点</strong>：随着对话轮次增加，Token 消耗线性增长；当对话超过 Context Window 上限时，早期消息会被截断。</p>
+<h4 id="2滑动窗口sliding-window">（2）滑动窗口（Sliding Window）</h4>
+<p>当对话历史超过 Context Window 时，保留最近的 N 轮对话，丢弃更早的消息。这就像一个"滑动的取景框"，始终聚焦于最新的对话内容。</p>
+<pre><code class="language-python">def sliding_window(messages, max_turns=10):
+    &quot;&quot;&quot;保留系统提示 + 最近 max_turns 轮对话&quot;&quot;&quot;
+    system_msg = [m for m in messages if m[&#x27;role&#x27;] == &#x27;system&#x27;]
+    conversation = [m for m in messages if m[&#x27;role&#x27;] != &#x27;system&#x27;]
+    recent = conversation[-max_turns * 2:]  # 每轮包含 user + assistant
+    return system_msg + recent</code></pre>
+<p><strong>优点</strong>：简单高效，能保证最近的对话连贯性。 <strong>缺点</strong>：可能丢失关键的早期信息（例如用户在第一轮说的订单号，到了第二十轮就被滑走了）。</p>
+<p><strong>改进策略</strong>：在滑动窗口之外，额外维护一个"关键信息摘要"。例如，每当滑动窗口丢弃消息时，先用 LLM 对被丢弃的内容生成一段摘要，将摘要保留在 Context 中。这样既节省了 Token，又保留了核心信息。</p>
+<h4 id="3scratchpad草稿纸">（3）Scratchpad（草稿纸）</h4>
+<p>Scratchpad 是一种显式的中间状态记录机制。Agent 在执行复杂任务时，会将中间推理结果、临时变量、已获取的信息片段写入一个专门的"草稿区"，并在每次调用 LLM 时将草稿区的内容注入 prompt。</p>
+<p>例如，一个数据分析 Agent 在回答"本季度销售额同比增长了多少？"时：</p>
+<pre><code>[Scratchpad]
+- 已查询：本季度销售额 = 580万
+- 已查询：去年同期销售额 = 420万
+- 待计算：同比增长率 = (580 - 420) / 420 × 100%</code></pre>
+<p>Scratchpad 的核心价值在于<strong>让 Agent 的推理过程可追踪、可调试</strong>，同时避免重复查询已经获取的信息。</p>
+<hr>
+<h2 id="63-情景记忆episodic-memory">6.3 情景记忆（Episodic Memory）</h2>
+<h3 id="定义">定义</h3>
+<p>情景记忆存储的是 Agent 经历过的<strong>具体事件和交互场景</strong>，包括完整的对话记录、任务执行过程、用户的偏好行为等。它的核心特征是<strong>有时间标签、有上下文背景、有具体细节</strong>。</p>
+<h3 id="类比你的日记本朋友圈">类比：你的日记本/朋友圈</h3>
+<p>翻开你的日记本或朋友圈，你会看到这样的内容：</p>
+<ul>
+<li>"2024年3月15日，和小明在星巴克讨论了新项目的技术方案，他建议用 Go 语言重写微服务。"</li>
+<li>"2024年4月2日，客户张总第三次要求修改报表格式，这次他想要饼图替代柱状图。"</li>
+</ul>
+<p>这些记忆是<strong>有时间线的、有角色的、有情境的</strong>——这正是情景记忆的特征。与之相对，"Go 是一种编程语言"这样的知识属于语义记忆，它不依附于任何具体事件。</p>
+<h3 id="特点">特点</h3>
+<ol>
+<li><strong>时间有序</strong>：每条记忆都带有时间戳，可以按时间线回溯。</li>
+<li><strong>具有场景上下文</strong>：不仅记录了"发生了什么"，还记录了"在什么情况下发生的""涉及哪些人"。</li>
+<li><strong>支持模式发现</strong>：通过分析历史情景，可以发现用户行为模式（如"这个用户每次周一都会查询上周数据"）。</li>
+<li><strong>存储成本较高</strong>：完整记录所有交互细节会产生大量数据。</li>
+</ol>
+<h3 id="应用场景">应用场景</h3>
+<h4 id="场景一多轮对话的长期跨会话记忆">场景一：多轮对话的长期跨会话记忆</h4>
+<p>用户上周和 Agent 讨论过旅行计划，这周再次提起时，Agent 能说：</p>
+<blockquote><p>"上周您提到想去京都看樱花，预算大约 8000 元。您后来决定了吗？需要我帮您查一下最新的机票价格吗？"</p></blockquote>
+<p>这种跨会话的连续性体验，依赖的就是情景记忆。</p>
+<h4 id="场景二从历史中学习">场景二：从历史中学习</h4>
+<p>一个编程助手 Agent 发现，用户在过去 10 次交互中有 7 次选择了 Python 实现而非 Java 实现，Agent 就可以在后续默认优先提供 Python 代码。</p>
+<h4 id="场景三错误复盘与改进">场景三：错误复盘与改进</h4>
+<p>Agent 记录下每次任务执行的过程和结果。当某次任务失败时，可以回溯完整的执行日志，分析失败原因，并在未来遇到类似场景时主动规避。</p>
+<h3 id="实现方式">实现方式</h3>
+<p>情景记忆的典型存储结构：</p>
+<pre><code class="language-json">{
+  &quot;episode_id&quot;: &quot;ep_20240315_001&quot;,
+  &quot;timestamp&quot;: &quot;2024-03-15T14:23:00Z&quot;,
+  &quot;session_id&quot;: &quot;sess_abc123&quot;,
+  &quot;user_id&quot;: &quot;user_zhang&quot;,
+  &quot;summary&quot;: &quot;用户咨询蓝牙耳机退货流程，最终成功提交退货申请&quot;,
+  &quot;messages&quot;: [
+    {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;我想退货&quot;, &quot;timestamp&quot;: &quot;...&quot;},
+    {&quot;role&quot;: &quot;assistant&quot;, &quot;content&quot;: &quot;好的，请问订单号是...&quot;, &quot;timestamp&quot;: &quot;...&quot;}
+  ],
+  &quot;outcome&quot;: &quot;success&quot;,
+  &quot;tags&quot;: [&quot;退货&quot;, &quot;蓝牙耳机&quot;, &quot;售后&quot;],
+  &quot;user_sentiment&quot;: &quot;neutral&quot;,
+  &quot;key_entities&quot;: {
+    &quot;order_id&quot;: &quot;20240301-00789&quot;,
+    &quot;product&quot;: &quot;蓝牙耳机 BT-500&quot;,
+    &quot;reason&quot;: &quot;音质不满意&quot;
+  }
+}</code></pre>
+<p>检索时，可以按 <code>user_id</code>、<code>tags</code>、<code>时间范围</code>、<code>语义相似度</code> 等多种维度进行查询。</p>
+<hr>
+<h2 id="64-语义记忆semantic-memory">6.4 语义记忆（Semantic Memory）</h2>
+<h3 id="定义">定义</h3>
+<p>语义记忆存储的是<strong>通用知识和事实</strong>，与具体事件无关。它是 Agent 的"知识库"，包含领域知识、产品信息、规则制度、常见问题解答等。</p>
+<h3 id="类比百科全书字典">类比：百科全书/字典</h3>
+<p>当你想知道"光速是多少"时，你不需要回忆"我是在哪一天、哪一堂课上学到的"，你只需要查百科全书或字典就行了。语义记忆就是这样的存在——它是<strong>去情境化的纯知识</strong>。</p>
+<h3 id="特点">特点</h3>
+<ol>
+<li><strong>去情境化</strong>：不依附于具体事件或时间。"退货政策：购买后 7 天内可无理由退货"就是一条语义记忆。</li>
+<li><strong>高度结构化或半结构化</strong>：可以是结构化的知识图谱三元组，也可以是半结构化的文档段落。</li>
+<li><strong>需要高效检索</strong>：知识库可能包含数百万条文档，如何在毫秒级找到最相关的几条，是核心挑战。</li>
+<li><strong>相对稳定</strong>：语义记忆的更新频率远低于情景记忆，但也需要定期维护（如产品下架、政策变更）。</li>
+</ol>
+<h3 id="实现技术">实现技术</h3>
+<h4 id="1向量数据库vector-database">（1）向量数据库（Vector Database）</h4>
+<p>这是当前最主流的语义记忆实现方式。核心思路是：</p>
+<ol>
+<li>将文本知识通过 Embedding 模型转化为高维向量。</li>
+<li>将向量存储到向量数据库中。</li>
+<li>查询时，将用户问题也转化为向量，通过<strong>近似最近邻搜索（ANN）</strong>找到语义最相似的知识片段。</li>
+</ol>
+<p>这种方式的最大优势是<strong>语义理解能力</strong>——即使用户的问法和知识库中的原文措辞完全不同，只要语义接近，就能检索到。例如，用户问"东西坏了怎么办"，系统能匹配到"商品质量问题退换货流程"。</p>
+<h4 id="2知识图谱knowledge-graph">（2）知识图谱（Knowledge Graph）</h4>
+<p>知识图谱以"实体-关系-实体"三元组的形式存储结构化知识。</p>
+<pre><code>(蓝牙耳机 BT-500) --[属于]--&gt; (音频设备)
+(蓝牙耳机 BT-500) --[支持]--&gt; (蓝牙 5.3)
+(蓝牙耳机 BT-500) --[保修期]--&gt; (12个月)
+(退货政策) --[适用于]--&gt; (所有电子产品)
+(退货政策) --[时间窗口]--&gt; (7天)</code></pre>
+<p>知识图谱的优势在于<strong>关系推理</strong>。例如，当用户问"BT-500 能不能退货"时，系统可以通过以下推理链得出答案：</p>
+<pre><code>BT-500 属于 电子产品 → 退货政策 适用于 所有电子产品 → 退货时间窗口 = 7天</code></pre>
+<h4 id="3关键词索引如-bm25elasticsearch">（3）关键词索引（如 BM25、Elasticsearch）</h4>
+<p>传统的全文检索技术，基于词频统计和倒排索引。优点是速度极快、对精确匹配效果好（如订单号、产品型号）；缺点是无法理解语义（搜"手机没声音"无法匹配到"音频故障排查"）。</p>
+<p><strong>实践中的最佳方案</strong>往往是<strong>混合检索（Hybrid Search）</strong>：先用关键词索引做粗筛，再用向量相似度做精排；或者两者并行检索，最后通过 Reranker 模型进行结果融合。</p>
+<hr>
+<h2 id="65-程序记忆procedural-memory">6.5 程序记忆（Procedural Memory）</h2>
+<h3 id="定义">定义</h3>
+<p>程序记忆存储的是 Agent 的<strong>行为模式和操作流程</strong>——它知道"怎么做"，而不仅仅是"知道什么"。程序记忆是一种<strong>内隐的、技能性的记忆</strong>。</p>
+<h3 id="类比你会骑自行车但说不清怎么骑">类比：你会骑自行车但说不清怎么骑</h3>
+<p>你问一个会骑自行车的人："你是怎么保持平衡的？"他大概率回答不上来。但把他放到自行车上，他立刻就能骑走。这就是程序记忆——<strong>不需要显式思考就能执行的技能</strong>。</p>
+<p>对于 AI Agent 来说，程序记忆体现为：它知道在什么情况下该调用什么工具、该遵循什么流程、该用什么策略来解决问题。</p>
+<h3 id="特点">特点</h3>
+<ol>
+<li><strong>内隐性</strong>：程序记忆往往嵌入在模型权重、提示工程模板、或工作流配置中，不像语义记忆那样以显式文本存在。</li>
+<li><strong>条件触发</strong>：特定的输入模式会激活特定的行为流程（如"用户提到退货" → 触发退货处理 SOP）。</li>
+<li><strong>可优化性</strong>：通过反复执行和反馈，程序记忆可以不断改进（类似人类"熟能生巧"）。</li>
+<li><strong>高效执行</strong>：一旦形成程序记忆，执行速度很快，不需要每次都从头推理。</li>
+</ol>
+<h3 id="实现方式">实现方式</h3>
+<h4 id="1sopstandard-operating-procedure标准操作流程">（1）SOP（Standard Operating Procedure）标准操作流程</h4>
+<p>将业务流程显式定义为结构化的步骤序列，作为 Agent 的行为指南。</p>
+<pre><code class="language-yaml">SOP: 退货处理流程
+trigger: 用户意图 == &quot;退货&quot;
+steps:
+  1. 获取订单号
+     - 如果用户未提供 → 询问订单号
+     - 如果用户提供 → 进入步骤 2
+  2. 查询订单状态
+     - 调用工具: order_service.query(order_id)
+     - 如果订单不存在 → 告知用户并结束
+     - 如果订单存在 → 进入步骤 3
+  3. 检查退货条件
+     - 计算: 当前日期 - 购买日期
+     - 如果 &gt; 7天 → 告知已超出退货期限
+     - 如果 &lt;= 7天 → 进入步骤 4
+  4. 确认退货原因并提交
+     - 询问退货原因
+     - 调用工具: return_service.submit(order_id, reason)
+     - 返回退货单号</code></pre>
+<h4 id="2操作模板action-templates">（2）操作模板（Action Templates）</h4>
+<p>将常见的工具调用模式封装为模板，Agent 在遇到类似场景时可以直接复用。</p>
+<pre><code class="language-json">{
+  &quot;template_name&quot;: &quot;查询天气&quot;,
+  &quot;trigger_pattern&quot;: &quot;用户询问天气相关信息&quot;,
+  &quot;action_sequence&quot;: [
+    {
+      &quot;step&quot;: 1,
+      &quot;action&quot;: &quot;extract_entity&quot;,
+      &quot;params&quot;: {&quot;entity_type&quot;: &quot;location&quot;, &quot;from&quot;: &quot;user_message&quot;}
+    },
+    {
+      &quot;step&quot;: 2,
+      &quot;action&quot;: &quot;call_api&quot;,
+      &quot;params&quot;: {&quot;api&quot;: &quot;weather_service&quot;, &quot;location&quot;: &quot;${step1.result}&quot;}
+    },
+    {
+      &quot;step&quot;: 3,
+      &quot;action&quot;: &quot;format_response&quot;,
+      &quot;params&quot;: {&quot;template&quot;: &quot;天气播报模板&quot;, &quot;data&quot;: &quot;${step2.result}&quot;}
+    }
+  ]
+}</code></pre>
+<h4 id="3强化学习策略rl-based-policy">（3）强化学习策略（RL-based Policy）</h4>
+<p>通过强化学习，Agent 可以从大量交互经验中自动学习最优行为策略。这种方式不需要人工编写 SOP，而是让 Agent 在反复试错中自己发现"什么情况下做什么最有效"。</p>
+<p>例如，一个对话策略可能通过 RL 学到：当用户情绪激动时，先表达共情再给出解决方案，比直接给方案效果更好。这种策略被编码在模型的参数或策略网络中，是一种典型的程序记忆。</p>
+<hr>
+<h2 id="66-向量数据库在记忆系统中的应用">6.6 向量数据库在记忆系统中的应用</h2>
+<p>向量数据库是 AI Agent 记忆系统的核心基础设施之一，尤其在语义记忆和情景记忆的存储与检索中扮演着关键角色。本节将深入讲解其工作原理和主流产品对比。</p>
+<h3 id="类比图书馆的分类索引系统">类比：图书馆的分类索引系统</h3>
+<p>想象一座巨大的图书馆，里面有数百万本书。如果没有索引系统，你要找一本关于"人工智能伦理"的书，就得一本一本翻——这显然不现实。</p>
+<div class="illustration">
+  <img loading="lazy" src="images/ch06-vector-database.jpg" alt="向量数据库原理">
+  <div class="caption">「图解：向量数据库 —— 文档向量化存储与语义相似度检索的魔法图书馆」</div>
+</div>
+
+<p>传统图书馆的索引方式是<strong>按类别分区</strong>（计算机科学 → 人工智能 → 伦理），这类似于关键词索引。但如果有人问"机器能不能有道德？"，按传统分类可能找不到，因为措辞不同。</p>
+<p>向量数据库的做法更高级：它给每本书生成一个"语义指纹"（向量），语义相近的书在向量空间中距离更近。这样，无论你用什么措辞描述需求，只要语义接近，就能找到最匹配的内容。</p>
+<h3 id="embedding-过程详解">Embedding 过程详解</h3>
+<p>向量数据库的核心前提是<strong>将文本转化为向量</strong>，这个过程称为 Embedding。</p>
+<h4 id="第一步文本分块chunking">第一步：文本分块（Chunking）</h4>
+<p>原始文档通常很长，需要先切分成合适大小的文本块（Chunk）。常见策略包括：</p>
+<ul>
+<li><strong>固定长度分块</strong>：每 512 个 Token 切一刀。简单粗暴，但可能在语义中间截断。</li>
+<li><strong>语义分块</strong>：基于段落、章节、句子等自然边界切分。保持语义完整性更好。</li>
+<li><strong>滑动窗口分块</strong>：相邻块之间有重叠（如每块 512 Token，重叠 64 Token），减少边界信息丢失。</li>
+<li><strong>递归分块</strong>：先按大的分隔符（如 `\</li>
+</ul>
+<p>\ <code>）切分，如果块太大，再按小的分隔符（如 </code>\ <code>、</code>。`）进一步切分。</p>
+<h4 id="第二步向量化embedding">第二步：向量化（Embedding）</h4>
+<p>使用 Embedding 模型将每个文本块转化为一个固定维度的浮点数向量。</p>
+<pre><code class="language-python">from openai import OpenAI
+
+client = OpenAI()
+
+def get_embedding(text, model=&quot;text-embedding-3-small&quot;):
+    response = client.embeddings.create(input=text, model=model)
+    return response.data[0].embedding  # 返回一个 1536 维的浮点数列表
+
+# 示例
+vector = get_embedding(&quot;蓝牙耳机 BT-500 支持蓝牙 5.3 协议，续航 30 小时&quot;)
+# vector = [0.0123, -0.0456, 0.0789, ..., 0.0012]  # 1536 个浮点数</code></pre>
+<p>主流 Embedding 模型包括 OpenAI 的 <code>text-embedding-3-small/large</code>、Cohere 的 <code>embed-v3</code>、BGE 系列、以及 Jina Embeddings 等。</p>
+<h4 id="第三步索引构建">第三步：索引构建</h4>
+<p>向量数据库会对存入的向量构建高效的索引结构，以支持快速的近似最近邻搜索（ANN）。常见索引算法包括：</p>
+<ul>
+<li><strong>HNSW（Hierarchical Navigable Small World）</strong>：基于图的索引，查询速度快、精度高，是目前最流行的方案。</li>
+<li><strong>IVF（Inverted File Index）</strong>：先将向量空间聚类，查询时只搜索最相关的几个簇。</li>
+<li><strong>PQ（Product Quantization）</strong>：通过量化压缩向量，节省存储空间，适合超大规模数据。</li>
+</ul>
+<h4 id="第四步相似性检索">第四步：相似性检索</h4>
+<p>查询时，将用户输入同样转化为向量，然后在索引中搜索最近邻的向量，返回对应的原始文本。</p>
+<pre><code class="language-python"># 伪代码示意
+query_vector = get_embedding(&quot;这款耳机电池能用多久？&quot;)
+results = vector_db.search(
+    vector=query_vector,
+    top_k=5,
+    filter={&quot;category&quot;: &quot;产品信息&quot;}  # 可选的元数据过滤
+)
+# results 返回语义最相似的 5 条文档片段</code></pre>
+<h3 id="主流向量数据库对比">主流向量数据库对比</h3>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>类型</th>
+<th>托管方式</th>
+<th>核心特性</th>
+<th>适用场景</th>
+<th>开源协议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pinecone</strong></td>
+<td>纯向量数据库</td>
+<td>全托管云服务</td>
+<td>开箱即用、自动扩缩容、Serverless 模式</td>
+<td>快速上线、不想运维、中小规模</td>
+<td>商业闭源</td>
+</tr>
+<tr>
+<td><strong>Chroma</strong></td>
+<td>嵌入式向量数据库</td>
+<td>本地/云端</td>
+<td>轻量级、Python-native、易于集成</td>
+<td>原型开发、小规模应用、LangChain 集成</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><strong>Milvus</strong></td>
+<td>分布式向量数据库</td>
+<td>自托管/Zilliz Cloud</td>
+<td>高性能、支持十亿级向量、多种索引</td>
+<td>大规模生产环境、企业级应用</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><strong>Weaviate</strong></td>
+<td>向量+图数据库</td>
+<td>自托管/云托管</td>
+<td>内置向量化模块、GraphQL API、混合搜索</td>
+<td>需要复杂查询的应用、知识图谱融合</td>
+<td>BSD-3</td>
+</tr>
+<tr>
+<td><strong>Qdrant</strong></td>
+<td>向量数据库</td>
+<td>自托管/云托管</td>
+<td>Rust 编写、高性能、丰富的过滤能力</td>
+<td>需要复杂元数据过滤、高性能需求</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td><strong>FAISS</strong></td>
+<td>向量搜索库</td>
+<td>本地（库）</td>
+<td>Meta 开发、极致性能、GPU 加速</td>
+<td>研究实验、超大规模离线检索、自建系统</td>
+<td>MIT</td>
+</tr>
+</tbody>
+</table>
+<h4 id="选型建议">选型建议</h4>
+<ul>
+<li><strong>快速原型/个人项目</strong> → Chroma 或 FAISS</li>
+<li><strong>中小规模生产环境，不想运维</strong> → Pinecone</li>
+<li><strong>大规模企业级应用，需要灵活控制</strong> → Milvus 或 Qdrant</li>
+<li><strong>需要混合搜索（向量 + 关键词 + 过滤）</strong> → Weaviate 或 Qdrant</li>
+<li><strong>纯研究/离线批处理</strong> → FAISS</li>
+</ul>
+<hr>
+<h2 id="67-记忆的存储检索与遗忘机制">6.7 记忆的存储、检索与遗忘机制</h2>
+<p>一个完善的记忆系统不仅需要"记得住"，还需要"找得到"和"忘得掉"。这三者缺一不可。</p>
+<h3 id="类比整理衣柜常穿的放前面不穿的捐掉">类比：整理衣柜——常穿的放前面，不穿的捐掉</h3>
+<p>你的衣柜容量有限。如果只进不出，很快就塞满了。聪明的做法是：</p>
+<ul>
+<li><strong>存储策略</strong>：新买的衣服挂到最容易拿到的位置。</li>
+<li><strong>检索策略</strong>：按照季节、场合分类，需要时能快速找到。</li>
+<li><strong>遗忘策略</strong>：每季度整理一次，一年没穿过的衣服捐掉或处理掉。</li>
+</ul>
+<p>AI Agent 的记忆管理也是同样的逻辑。</p>
+<h3 id="671-存储策略">6.7.1 存储策略</h3>
+<h4 id="分层存储">分层存储</h4>
+<p>借鉴计算机存储体系的"缓存-内存-磁盘"分层思想：</p>
+<pre><code>┌─────────────────────────────────┐
+│   L1：工作记忆（Context Window）    │  ← 速度最快，容量最小
+│   存储当前对话上下文              │
+├─────────────────────────────────┤
+│   L2：热记忆（Redis / 内存缓存）   │  ← 高频访问的最近记忆
+│   存储最近的对话摘要和关键实体     │
+├─────────────────────────────────┤
+│   L3：温记忆（向量数据库）         │  ← 语义检索，中等延迟
+│   存储中期历史和知识片段           │
+├─────────────────────────────────┤
+│   L4：冷记忆（关系数据库 / 对象存储）│  ← 大容量，高延迟
+│   存储完整的历史日志和原始文档      │
+└─────────────────────────────────┘</code></pre>
+<h4 id="写入时摘要">写入时摘要</h4>
+<p>不是所有信息都值得原样存储。在写入长期记忆前，可以先用 LLM 对信息做提炼和摘要：</p>
+<pre><code class="language-python">def store_episode(conversation):
+    # 1. 存储完整对话到冷存储
+    cold_storage.save(conversation)
+    
+    # 2. 用 LLM 生成摘要
+    summary = llm.summarize(conversation)
+    
+    # 3. 提取关键实体
+    entities = llm.extract_entities(conversation)
+    
+    # 4. 将摘要和实体写入向量数据库
+    vector_db.upsert(
+        text=summary,
+        metadata={&quot;entities&quot;: entities, &quot;timestamp&quot;: now()}
+    )</code></pre>
+<h4 id="多维度元数据标注">多维度元数据标注</h4>
+<p>存储时附加丰富的元数据，为后续的多维度检索提供支持：</p>
+<ul>
+<li>时间戳（when）</li>
+<li>用户 ID（who）</li>
+<li>话题标签（what）</li>
+<li>情感标签（sentiment）</li>
+<li>重要性评分（importance）</li>
+<li>来源渠道（source）</li>
+</ul>
+<h3 id="672-检索策略">6.7.2 检索策略</h3>
+<h4 id="语义检索semantic-search">语义检索（Semantic Search）</h4>
+<p>通过向量相似度匹配，找到语义最相关的记忆片段。这是应对"用户换个说法提同一个问题"的利器。</p>
+<h4 id="时间衰减检索recency-weighted-search">时间衰减检索（Recency-Weighted Search）</h4>
+<p>在语义相似度的基础上，加入时间衰减因子。越近的记忆权重越高。</p>
+<pre><code class="language-python">def time_weighted_score(semantic_score, timestamp, decay_rate=0.995):
+    &quot;&quot;&quot;综合语义相似度和时间新鲜度的评分&quot;&quot;&quot;
+    hours_ago = (now() - timestamp).total_seconds() / 3600
+    recency_score = decay_rate ** hours_ago
+    return semantic_score * 0.7 + recency_score * 0.3</code></pre>
+<h4 id="重要性加权检索importance-weighted-search">重要性加权检索（Importance-Weighted Search）</h4>
+<p>某些记忆天然更重要（如用户的核心偏好、关键决策记录）。在检索时可以根据重要性评分加权。</p>
+<pre><code class="language-python">def importance_weighted_score(semantic_score, importance):
+    &quot;&quot;&quot;将重要性纳入检索评分&quot;&quot;&quot;
+    return semantic_score * 0.6 + importance * 0.4</code></pre>
+<h4 id="混合检索hybrid-search">混合检索（Hybrid Search）</h4>
+<p>结合多种检索策略：</p>
+<pre><code>最终得分 = α × 语义相似度 + β × 时间新鲜度 + γ × 重要性评分 + δ × 关键词匹配度</code></pre>
+<p>其中 α、β、γ、δ 为可调节的权重参数，可以根据业务场景进行调优。</p>
+<h3 id="673-遗忘机制">6.7.3 遗忘机制</h3>
+<p>"遗忘"在 AI Agent 中不是一个 bug，而是一个 feature。没有遗忘机制的记忆系统会导致：</p>
+<ul>
+<li><strong>存储爆炸</strong>：数据量无限增长，成本失控。</li>
+<li><strong>检索噪声</strong>：大量过时、无关的记忆干扰检索结果。</li>
+<li><strong>隐私风险</strong>：过期的用户数据未被清理，带来合规问题。</li>
+</ul>
+<h4 id="基于时间的遗忘ttl">基于时间的遗忘（TTL）</h4>
+<p>为每条记忆设置生存时间（Time To Live），过期自动删除。</p>
+<pre><code class="language-python">memory_store.save(
+    content=&quot;用户询问了快递进度&quot;,
+    ttl=timedelta(days=30)  # 30天后自动过期
+)</code></pre>
+<h4 id="基于访问频率的遗忘lru-lfu">基于访问频率的遗忘（LRU / LFU）</h4>
+<p>长时间未被访问的记忆逐渐淡化或删除，类似于缓存的淘汰策略。</p>
+<ul>
+<li><strong>LRU（Least Recently Used）</strong>：最久未被访问的记忆优先淘汰。</li>
+<li><strong>LFU（Least Frequently Used）</strong>：访问频率最低的记忆优先淘汰。</li>
+</ul>
+<h4 id="基于重要性的遗忘">基于重要性的遗忘</h4>
+<p>重要性低的记忆优先遗忘。重要性可以通过以下维度评估：</p>
+<ul>
+<li>信息的独特性（是否可以从其他来源重新获取）</li>
+<li>用户显式标记的重要程度</li>
+<li>LLM 对信息重要性的自动评估</li>
+</ul>
+<h4 id="记忆整合memory-consolidation">记忆整合（Memory Consolidation）</h4>
+<p>受人脑睡眠期间记忆整合过程的启发，Agent 可以定期对记忆进行"整合"：</p>
+<ol>
+<li>将多条相似的记忆合并为一条综合摘要。</li>
+<li>提取反复出现的模式，升级为语义记忆或程序记忆。</li>
+<li>删除被合并后的冗余原始记录。</li>
+</ol>
+<pre><code class="language-python">def consolidate_memories(memories):
+    &quot;&quot;&quot;定期整合记忆&quot;&quot;&quot;
+    # 1. 聚类相似记忆
+    clusters = cluster_by_similarity(memories, threshold=0.85)
+    
+    # 2. 对每个聚类生成综合摘要
+    for cluster in clusters:
+        if len(cluster) &gt;= 3:
+            consolidated = llm.summarize(cluster)
+            memory_store.save(consolidated, type=&quot;consolidated&quot;)
+            # 3. 删除原始冗余记忆
+            for mem in cluster:
+                memory_store.soft_delete(mem.id)</code></pre>
+<hr>
+<h2 id="68-记忆系统的实际案例一个完整的客服-agent-记忆系统">6.8 记忆系统的实际案例：一个完整的客服 Agent 记忆系统</h2>
+<p>为了将前面的理论串联起来，我们来看一个完整的实际案例：一家电商公司的智能客服 Agent 如何利用四种记忆协同工作。</p>
+<h3 id="场景设定">场景设定</h3>
+<ul>
+<li><strong>公司</strong>：某电商平台</li>
+<li><strong>Agent</strong>：智能客服"小智"</li>
+<li><strong>用户</strong>：张先生（VIP 会员，注册 3 年）</li>
+<li><strong>当前诉求</strong>：他两天前买的蓝牙耳机有杂音，想要退换货</li>
+</ul>
+<h3 id="第一轮交互记忆系统启动">第一轮交互：记忆系统启动</h3>
+<p><strong>张先生</strong>：你好，我前天买的耳机有问题。</p>
+<p>此时，Agent 的记忆系统开始协同运作：</p>
+<h4 id="工作记忆激活">工作记忆激活</h4>
+<pre><code>[工作记忆 - Context Window]
+System Prompt: 你是小智，某电商平台的智能客服...
+User: 你好，我前天买的耳机有问题。</code></pre>
+<h4 id="情景记忆检索">情景记忆检索</h4>
+<p>系统用张先生的 <code>user_id</code> 检索情景记忆：</p>
+<pre><code>[情景记忆检索结果]
+- 2024-04-10: 张先生咨询过蓝牙耳机 BT-500 的降噪功能后下单。
+- 2024-03-20: 张先生退过一次蓝牙音箱（原因：外观划痕），处理顺利。
+- 2024-01-15: 张先生投诉过物流延迟，补偿了 50 元优惠券。</code></pre>
+<h4 id="语义记忆检索">语义记忆检索</h4>
+<p>系统用"耳机有问题"检索语义记忆（知识库）：</p>
+<pre><code>[语义记忆检索结果]
+- 文档 A：耳机常见问题排查指南（杂音、断连、充电异常等）
+- 文档 B：退换货政策（7 天无理由 + 15 天质量问题换货）
+- 文档 C：蓝牙耳机 BT-500 产品规格与已知问题列表</code></pre>
+<h4 id="程序记忆激活">程序记忆激活</h4>
+<p>系统识别到用户意图为"售后问题"，激活对应的 SOP：</p>
+<pre><code>[程序记忆 - 售后处理 SOP]
+步骤 1: 确认具体问题 → 步骤 2: 排查是否为已知问题 → 步骤 3: 判断退换货条件 → ...</code></pre>
+<h3 id="第二轮交互信息整合与回应">第二轮交互：信息整合与回应</h3>
+<p><strong>小智</strong>：张先生您好！我看到您 4 月 10 日购买了蓝牙耳机 BT-500，请问具体是什么问题呢？是有杂音、断连还是其他情况？</p>
+<blockquote><p>注意：Agent 能直接叫出用户名字、知道具体购买的产品，这些信息来自<strong>情景记忆</strong>；它能列出常见问题选项，这来自<strong>语义记忆</strong>中的排查指南。</p></blockquote>
+<p><strong>张先生</strong>：有杂音，听音乐的时候滋滋响。</p>
+<h4 id="工作记忆更新">工作记忆更新</h4>
+<pre><code>[工作记忆 - Scratchpad]
+- 用户: 张先生 (VIP)
+- 产品: 蓝牙耳机 BT-500
+- 购买日期: 2024-04-10
+- 问题描述: 听音乐时有杂音（滋滋响）
+- 退换货资格: 购买 2 天，在 7 天退货期内 ✓</code></pre>
+<h3 id="第三轮交互解决方案提供">第三轮交互：解决方案提供</h3>
+<p><strong>小智</strong>：了解了。BT-500 出现杂音通常可以尝试以下排查步骤：</p>
+<ol>
+<li>在手机蓝牙设置中删除配对记录，重新配对</li>
+<li>确认耳机固件是否为最新版本（可在APP中检查）</li>
+<li>尝试在不同设备上使用，排除手机端问题</li>
+</ol>
+<p>如果以上步骤无法解决，您这笔订单在 7 天退换期内，我可以直接帮您申请换货或退款。考虑到您是我们的 VIP 会员，我们可以安排上门取件，您不需要自己寄回。您希望先试试排查，还是直接办理退换呢？</p>
+<blockquote><p>排查建议来自<strong>语义记忆</strong>；退换货政策来自<strong>语义记忆</strong>；VIP 会员的特殊待遇来自<strong>程序记忆</strong>（VIP 客户 SOP 分支）；上次退货经历顺利的信息让 Agent 判断可以更主动地提供换货选项，这来自<strong>情景记忆</strong>。</p></blockquote>
+<p><strong>张先生</strong>：直接换一个新的吧。</p>
+<h3 id="第四轮交互执行操作">第四轮交互：执行操作</h3>
+<pre><code>[程序记忆 - 换货执行流程]
+1. 调用 order_service.query(user_id) → 获取订单详情
+2. 调用 return_service.create_exchange(order_id, reason) → 创建换货单
+3. 调用 logistics_service.schedule_pickup(address, time) → 安排上门取件
+4. 生成换货确认信息 → 发送给用户</code></pre>
+<p><strong>小智</strong>：好的，已为您创建换货申请（换货单号：EX-20240412-003）。快递员将在明天上午 9:00-12:00 之间上门取件，届时请将耳机和配件放回原包装即可。新耳机预计 3 个工作日内送达。还有其他我能帮您的吗？</p>
+<h3 id="交互结束后记忆持久化">交互结束后：记忆持久化</h3>
+<p>当会话结束后，Agent 执行记忆持久化流程：</p>
+<pre><code class="language-python"># 1. 存储情景记忆
+episodic_memory.save({
+    &quot;episode_id&quot;: &quot;ep_20240412_017&quot;,
+    &quot;user_id&quot;: &quot;user_zhang&quot;,
+    &quot;timestamp&quot;: &quot;2024-04-12T15:30:00Z&quot;,
+    &quot;summary&quot;: &quot;张先生反馈BT-500耳机有杂音，选择换货处理。已创建换货单，安排明日上门取件。&quot;,
+    &quot;outcome&quot;: &quot;success&quot;,
+    &quot;tags&quot;: [&quot;换货&quot;, &quot;蓝牙耳机&quot;, &quot;质量问题&quot;, &quot;VIP客户&quot;],
+    &quot;key_entities&quot;: {
+        &quot;order_id&quot;: &quot;ORD-20240410-789&quot;,
+        &quot;exchange_id&quot;: &quot;EX-20240412-003&quot;,
+        &quot;product&quot;: &quot;蓝牙耳机 BT-500&quot;,
+        &quot;issue&quot;: &quot;杂音&quot;,
+        &quot;resolution&quot;: &quot;换货&quot;
+    },
+    &quot;user_sentiment&quot;: &quot;neutral_to_positive&quot;
+})
+
+# 2. 更新用户画像（语义记忆）
+user_profile.update(&quot;user_zhang&quot;, {
+    &quot;product_issues&quot;: [
+        {&quot;product&quot;: &quot;BT-500&quot;, &quot;issue&quot;: &quot;杂音&quot;, &quot;date&quot;: &quot;2024-04-12&quot;}
+    ],
+    &quot;service_preference&quot;: &quot;倾向直接换货而非排查&quot;,
+    &quot;satisfaction_trend&quot;: &quot;稳定&quot;
+})
+
+# 3. 更新程序记忆（如果发现 SOP 有改进空间）
+# 例如：BT-500 杂音问题频发，可以在 SOP 中增加&quot;主动提醒检查固件版本&quot;步骤</code></pre>
+<h3 id="下一次交互的记忆召回">下一次交互的记忆召回</h3>
+<p>假设一周后，张先生再次联系客服：</p>
+<p><strong>张先生</strong>：你好，上次换的耳机收到了。</p>
+<p>Agent 的情景记忆立即被激活，工作记忆中会注入：</p>
+<pre><code>[从情景记忆注入工作记忆的上下文]
+- 该用户上周因 BT-500 杂音问题办理了换货（换货单号 EX-20240412-003）
+- 新耳机预计 4 月 15 日前送达
+- 用户是 VIP 会员，历史满意度良好</code></pre>
+<p><strong>小智</strong>：张先生您好！新的 BT-500 收到了是吗？使用感觉怎么样？还有杂音问题吗？</p>
+<blockquote><p>这种"记得住用户历史"的体验，正是记忆系统带来的核心价值。</p></blockquote>
+<hr>
+<h2 id="本章小结">本章小结</h2>
+<p>AI Agent 的记忆系统是一个多层次、多类型协同的复杂系统。让我们回顾核心要点：</p>
+<table>
+<thead>
+<tr>
+<th>要点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>工作记忆</strong></td>
+<td>Agent 的"灶台"，容量有限但速度最快，通过 Context Window、滑动窗口、Scratchpad 实现</td>
+</tr>
+<tr>
+<td><strong>情景记忆</strong></td>
+<td>Agent 的"日记本"，记录具体交互事件，支持个性化服务和经验学习</td>
+</tr>
+<tr>
+<td><strong>语义记忆</strong></td>
+<td>Agent 的"百科全书"，存储通用知识，通过向量数据库、知识图谱等实现高效检索</td>
+</tr>
+<tr>
+<td><strong>程序记忆</strong></td>
+<td>Agent 的"肌肉记忆"，编码行为模式和操作流程，通过 SOP、模板、RL 实现</td>
+</tr>
+<tr>
+<td><strong>向量数据库</strong></td>
+<td>记忆系统的核心基础设施，通过 Embedding + ANN 搜索实现语义级检索</td>
+</tr>
+<tr>
+<td><strong>存储-检索-遗忘</strong></td>
+<td>记忆管理的三大支柱，分层存储控制成本，混合检索提升精度，遗忘机制防止膨胀</td>
+</tr>
+</tbody>
+</table>
+<p>在实际工程中，设计记忆系统时需要权衡以下因素：</p>
+<ol>
+<li><strong>成本</strong>：向量数据库的存储和计算成本、LLM 调用的 Token 成本。</li>
+<li><strong>延迟</strong>：记忆检索不应显著增加用户等待时间（通常需控制在 200ms 以内）。</li>
+<li><strong>准确性</strong>：检索结果的相关性直接影响 Agent 的回答质量。</li>
+<li><strong>隐私</strong>：用户数据的存储、访问和删除需要严格遵守数据保护法规。</li>
+<li><strong>可维护性</strong>：知识库需要定期更新，避免 Agent 基于过时信息做出错误回答。</li>
+</ol>
+<p>记忆系统是让 AI Agent 从"无状态的问答工具"进化为"有经验的智能助手"的关键一步。在下一章中，我们将探讨如何将记忆系统与 Agent 的规划和推理能力结合起来，构建真正具有自主性的智能体。</p>
+<hr>
+<blockquote><p><strong>下一章预告</strong>：第七章——AI Agent 的规划与推理能力</p></blockquote>
+
+<!-- 关注我们的社交媒体 -->
+<div class="chapter-social">
+  <h3>💡 觉得有帮助？欢迎关注我们</h3>
+  <p>获取更多 AI Agent 学习资料与行业动态</p>
+  <div class="chapter-qr-grid">
+    <div class="chapter-qr-item">
+      <img src="images/wechat-qr.jpg" alt="微信公众号" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">微信公众号</div>
+      <span>微信公众号</span>
+    </div>
+    <div class="chapter-qr-item">
+      <img src="images/xiaohongshu-qr.jpg" alt="小红书" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="qr-fallback" style="display:none;">小红书</div>
+      <span>小红书</span>
+    </div>
+  </div>
+</div>
+</div>
+    
+  <aside class="related-chapters">
+    <h3>推荐阅读</h3>
+    <ul>
+      <li><a href="chapter02.html">第二章：AI Agent 核心架构</a></li>
+      <li><a href="chapter07.html">第七章：AI Agent 规划与推理</a></li>
+      <li><a href="chapter03.html">第三章：AI Agent 关键技术</a></li>
+    </ul>
+  </aside>
+    <div class="page-nav">
+      <a href="chapter05.html">&larr; 上一章：第五章：Multi-Agent 系统（多智能体协作）</a>
+      <span class="spacer"></span>
+      <a href="chapter07.html">下一章：第七章：AI Agent 的规划与推理 &rarr;</a>
+    </div>
+  </div>
+  </main>
+  <script src="marked.min.js"></script>
+  <script>
+    var MD_RAW = "# 第六章：AI Agent 的记忆系统\n\n> **导读**：如果说大语言模型（LLM）是 AI Agent 的\"大脑皮层\"，那么记忆系统就是让这颗大脑真正\"活\"起来的关键基础设施。没有记忆的 Agent，就像一个每隔几秒就会失忆的人——虽然聪明绝顶，却无法完成任何需要持续上下文的任务。本章将系统性地拆解 AI Agent 的四种核心记忆类型、底层实现技术、以及在真实场景中的工程实践。\n\n---\n\n## 6.1 记忆系统概述\n\n### 为什么 AI Agent 需要记忆？\n\n想象一下，你去一家餐厅吃饭。服务员走过来问你要点什么，你说\"一份宫保鸡丁\"。过了三秒钟，同一个服务员又走过来问：\"请问您要点什么？\"——这就是没有记忆的 Agent 的真实写照。\n\n原生的大语言模型本质上是\"无状态\"的：每次调用都是一次独立的文本补全过程，模型并不会\"记住\"你上一轮说了什么。为了让 Agent 具备连贯的对话能力、长期的知识积累、以及基于经验的决策能力，我们必须为它设计一套完善的记忆系统。\n\n### 类比：人脑的记忆系统\n\n在认知心理学中，人脑的记忆被划分为多种类型。AI Agent 的记忆系统设计在很大程度上借鉴了这一分类体系：\n\n- **工作记忆**（Working Memory）——你在心算 \"17 × 23\" 时，脑子里暂存的中间结果。\n- **情景记忆**（Episodic Memory）——你记得昨天中午和谁一起吃了什么饭。\n- **语义记忆**（Semantic Memory）——你知道\"地球绕太阳转\"，但不记得是在哪一天学到的。\n- **程序记忆**（Procedural Memory）——你会骑自行车，但如果让你写一篇\"如何骑自行车\"的论文，你可能抓耳挠腮。\n\n### 四种记忆类型总览表\n\n| 记忆类型 | 对应人脑 | 存储内容 | 生命周期 | 典型实现方式 | 生活类比 |\n|---------|---------|---------|---------|------------|---------|\n| **工作记忆** | 前额叶皮层的短期缓冲 | 当前对话上下文、临时推理状态 | 极短（单次会话） | Context Window、滑动窗口、Scratchpad | 做饭时灶台上摆的食材 |\n| **情景记忆** | 海马体驱动的自传式记忆 | 历史对话记录、具体事件经过 | 中长期 | 对话日志、事件数据库、时间线索引 | 你的日记本/朋友圈 |\n| **语义记忆** | 新皮层存储的通用知识 | 事实、概念、规则、领域知识 | 长期（接近永久） | 向量数据库、知识图谱、关键词索引 | 百科全书/字典 |\n| **程序记忆** | 基底神经节与小脑 | 操作流程、行为模式、技能 | 长期且内隐 | SOP 模板、工作流引擎、强化学习策略 | 你会骑自行车但说不清怎么骑 |\n\n这四种记忆并非彼此孤立，而是协同工作的。一个成熟的 AI Agent 在处理用户请求时，往往需要同时调用多种记忆：用工作记忆维持当前对话上下文，用情景记忆回忆与该用户的历史交互，用语义记忆查找相关知识，用程序记忆选择合适的操作流程。\n\n---\n\n## 6.2 工作记忆（Working Memory）\n\n### 定义\n\n工作记忆是 AI Agent 在**当前任务执行过程中**所维护的短期信息缓冲区。它存储的是\"此时此刻正在处理的信息\"，包括当前对话轮次的消息、正在推理的中间步骤、临时变量等。\n\n### 类比：做饭时灶台上摆的食材\n\n你在做一道番茄炒蛋。灶台上此刻摆着：两个番茄、三个鸡蛋、一小碟盐、一瓶油。这些就是你的\"工作记忆\"——它们是你**当前正在使用**的材料。冰箱里还有很多食材（那是长期记忆），但你不可能把冰箱里所有东西都搬到灶台上，因为灶台空间有限（Context Window 有 Token 上限）。\n\n### 特点\n\n1. **容量有限**：受限于 LLM 的 Context Window 大小（如 GPT-4 Turbo 为 128K tokens，Claude 3 为 200K tokens）。即便是最先进的模型，也无法一次性加载一个企业级知识库的全部内容。\n2. **速度最快**：工作记忆中的信息直接参与当前推理过程，无需额外的检索步骤，响应延迟最低。\n3. **易失性强**：会话结束后，工作记忆中的内容默认丢失（除非显式持久化到其他记忆层）。\n4. **高相关性**：工作记忆中的每一条信息都应当与当前任务高度相关，否则会浪费宝贵的上下文窗口空间，甚至引入噪声导致模型\"分心\"。\n\n### 实现方式\n\n#### （1）Context Window 直接利用\n\n最简单的方式是将历史对话消息直接拼接到 LLM 的输入 prompt 中。这是大多数聊天应用（如 ChatGPT、Claude）的默认做法。\n\n```\nSystem: 你是一位专业的客服助手。\nUser: 我想退货。\nAssistant: 好的，请问您的订单号是多少？\nUser: 20240301-00789\nAssistant: 查到了，这是一笔3月1日的订单，商品是蓝牙耳机。请问退货原因是什么？\nUser: 音质不好。\n```\n\n以上所有消息都被拼接在一起送入模型，模型可以\"看到\"完整的对话历史，这就是最朴素的工作记忆。\n\n**优点**：实现简单、信息完整。\n**缺点**：随着对话轮次增加，Token 消耗线性增长；当对话超过 Context Window 上限时，早期消息会被截断。\n\n#### （2）滑动窗口（Sliding Window）\n\n当对话历史超过 Context Window 时，保留最近的 N 轮对话，丢弃更早的消息。这就像一个\"滑动的取景框\"，始终聚焦于最新的对话内容。\n\n```python\ndef sliding_window(messages, max_turns=10):\n    \"\"\"保留系统提示 + 最近 max_turns 轮对话\"\"\"\n    system_msg = [m for m in messages if m['role'] == 'system']\n    conversation = [m for m in messages if m['role'] != 'system']\n    recent = conversation[-max_turns * 2:]  # 每轮包含 user + assistant\n    return system_msg + recent\n```\n\n**优点**：简单高效，能保证最近的对话连贯性。\n**缺点**：可能丢失关键的早期信息（例如用户在第一轮说的订单号，到了第二十轮就被滑走了）。\n\n**改进策略**：在滑动窗口之外，额外维护一个\"关键信息摘要\"。例如，每当滑动窗口丢弃消息时，先用 LLM 对被丢弃的内容生成一段摘要，将摘要保留在 Context 中。这样既节省了 Token，又保留了核心信息。\n\n#### （3）Scratchpad（草稿纸）\n\nScratchpad 是一种显式的中间状态记录机制。Agent 在执行复杂任务时，会将中间推理结果、临时变量、已获取的信息片段写入一个专门的\"草稿区\"，并在每次调用 LLM 时将草稿区的内容注入 prompt。\n\n例如，一个数据分析 Agent 在回答\"本季度销售额同比增长了多少？\"时：\n\n```\n[Scratchpad]\n- 已查询：本季度销售额 = 580万\n- 已查询：去年同期销售额 = 420万\n- 待计算：同比增长率 = (580 - 420) / 420 × 100%\n```\n\nScratchpad 的核心价值在于**让 Agent 的推理过程可追踪、可调试**，同时避免重复查询已经获取的信息。\n\n---\n\n## 6.3 情景记忆（Episodic Memory）\n\n### 定义\n\n情景记忆存储的是 Agent 经历过的**具体事件和交互场景**，包括完整的对话记录、任务执行过程、用户的偏好行为等。它的核心特征是**有时间标签、有上下文背景、有具体细节**。\n\n### 类比：你的日记本/朋友圈\n\n翻开你的日记本或朋友圈，你会看到这样的内容：\n\n- \"2024年3月15日，和小明在星巴克讨论了新项目的技术方案，他建议用 Go 语言重写微服务。\"\n- \"2024年4月2日，客户张总第三次要求修改报表格式，这次他想要饼图替代柱状图。\"\n\n这些记忆是**有时间线的、有角色的、有情境的**——这正是情景记忆的特征。与之相对，\"Go 是一种编程语言\"这样的知识属于语义记忆，它不依附于任何具体事件。\n\n### 特点\n\n1. **时间有序**：每条记忆都带有时间戳，可以按时间线回溯。\n2. **具有场景上下文**：不仅记录了\"发生了什么\"，还记录了\"在什么情况下发生的\"\"涉及哪些人\"。\n3. **支持模式发现**：通过分析历史情景，可以发现用户行为模式（如\"这个用户每次周一都会查询上周数据\"）。\n4. **存储成本较高**：完整记录所有交互细节会产生大量数据。\n\n### 应用场景\n\n#### 场景一：多轮对话的长期跨会话记忆\n\n用户上周和 Agent 讨论过旅行计划，这周再次提起时，Agent 能说：\n\n> \"上周您提到想去京都看樱花，预算大约 8000 元。您后来决定了吗？需要我帮您查一下最新的机票价格吗？\"\n\n这种跨会话的连续性体验，依赖的就是情景记忆。\n\n#### 场景二：从历史中学习\n\n一个编程助手 Agent 发现，用户在过去 10 次交互中有 7 次选择了 Python 实现而非 Java 实现，Agent 就可以在后续默认优先提供 Python 代码。\n\n#### 场景三：错误复盘与改进\n\nAgent 记录下每次任务执行的过程和结果。当某次任务失败时，可以回溯完整的执行日志，分析失败原因，并在未来遇到类似场景时主动规避。\n\n### 实现方式\n\n情景记忆的典型存储结构：\n\n```json\n{\n  \"episode_id\": \"ep_20240315_001\",\n  \"timestamp\": \"2024-03-15T14:23:00Z\",\n  \"session_id\": \"sess_abc123\",\n  \"user_id\": \"user_zhang\",\n  \"summary\": \"用户咨询蓝牙耳机退货流程，最终成功提交退货申请\",\n  \"messages\": [\n    {\"role\": \"user\", \"content\": \"我想退货\", \"timestamp\": \"...\"},\n    {\"role\": \"assistant\", \"content\": \"好的，请问订单号是...\", \"timestamp\": \"...\"}\n  ],\n  \"outcome\": \"success\",\n  \"tags\": [\"退货\", \"蓝牙耳机\", \"售后\"],\n  \"user_sentiment\": \"neutral\",\n  \"key_entities\": {\n    \"order_id\": \"20240301-00789\",\n    \"product\": \"蓝牙耳机 BT-500\",\n    \"reason\": \"音质不满意\"\n  }\n}\n```\n\n检索时，可以按 `user_id`、`tags`、`时间范围`、`语义相似度` 等多种维度进行查询。\n\n---\n\n## 6.4 语义记忆（Semantic Memory）\n\n### 定义\n\n语义记忆存储的是**通用知识和事实**，与具体事件无关。它是 Agent 的\"知识库\"，包含领域知识、产品信息、规则制度、常见问题解答等。\n\n### 类比：百科全书/字典\n\n当你想知道\"光速是多少\"时，你不需要回忆\"我是在哪一天、哪一堂课上学到的\"，你只需要查百科全书或字典就行了。语义记忆就是这样的存在——它是**去情境化的纯知识**。\n\n### 特点\n\n1. **去情境化**：不依附于具体事件或时间。\"退货政策：购买后 7 天内可无理由退货\"就是一条语义记忆。\n2. **高度结构化或半结构化**：可以是结构化的知识图谱三元组，也可以是半结构化的文档段落。\n3. **需要高效检索**：知识库可能包含数百万条文档，如何在毫秒级找到最相关的几条，是核心挑战。\n4. **相对稳定**：语义记忆的更新频率远低于情景记忆，但也需要定期维护（如产品下架、政策变更）。\n\n### 实现技术\n\n#### （1）向量数据库（Vector Database）\n\n这是当前最主流的语义记忆实现方式。核心思路是：\n\n1. 将文本知识通过 Embedding 模型转化为高维向量。\n2. 将向量存储到向量数据库中。\n3. 查询时，将用户问题也转化为向量，通过**近似最近邻搜索（ANN）**找到语义最相似的知识片段。\n\n这种方式的最大优势是**语义理解能力**——即使用户的问法和知识库中的原文措辞完全不同，只要语义接近，就能检索到。例如，用户问\"东西坏了怎么办\"，系统能匹配到\"商品质量问题退换货流程\"。\n\n#### （2）知识图谱（Knowledge Graph）\n\n知识图谱以\"实体-关系-实体\"三元组的形式存储结构化知识。\n\n```\n(蓝牙耳机 BT-500) --[属于]--> (音频设备)\n(蓝牙耳机 BT-500) --[支持]--> (蓝牙 5.3)\n(蓝牙耳机 BT-500) --[保修期]--> (12个月)\n(退货政策) --[适用于]--> (所有电子产品)\n(退货政策) --[时间窗口]--> (7天)\n```\n\n知识图谱的优势在于**关系推理**。例如，当用户问\"BT-500 能不能退货\"时，系统可以通过以下推理链得出答案：\n\n```\nBT-500 属于 电子产品 → 退货政策 适用于 所有电子产品 → 退货时间窗口 = 7天\n```\n\n#### （3）关键词索引（如 BM25、Elasticsearch）\n\n传统的全文检索技术，基于词频统计和倒排索引。优点是速度极快、对精确匹配效果好（如订单号、产品型号）；缺点是无法理解语义（搜\"手机没声音\"无法匹配到\"音频故障排查\"）。\n\n**实践中的最佳方案**往往是**混合检索（Hybrid Search）**：先用关键词索引做粗筛，再用向量相似度做精排；或者两者并行检索，最后通过 Reranker 模型进行结果融合。\n\n---\n\n## 6.5 程序记忆（Procedural Memory）\n\n### 定义\n\n程序记忆存储的是 Agent 的**行为模式和操作流程**——它知道\"怎么做\"，而不仅仅是\"知道什么\"。程序记忆是一种**内隐的、技能性的记忆**。\n\n### 类比：你会骑自行车但说不清怎么骑\n\n你问一个会骑自行车的人：\"你是怎么保持平衡的？\"他大概率回答不上来。但把他放到自行车上，他立刻就能骑走。这就是程序记忆——**不需要显式思考就能执行的技能**。\n\n对于 AI Agent 来说，程序记忆体现为：它知道在什么情况下该调用什么工具、该遵循什么流程、该用什么策略来解决问题。\n\n### 特点\n\n1. **内隐性**：程序记忆往往嵌入在模型权重、提示工程模板、或工作流配置中，不像语义记忆那样以显式文本存在。\n2. **条件触发**：特定的输入模式会激活特定的行为流程（如\"用户提到退货\" → 触发退货处理 SOP）。\n3. **可优化性**：通过反复执行和反馈，程序记忆可以不断改进（类似人类\"熟能生巧\"）。\n4. **高效执行**：一旦形成程序记忆，执行速度很快，不需要每次都从头推理。\n\n### 实现方式\n\n#### （1）SOP（Standard Operating Procedure）标准操作流程\n\n将业务流程显式定义为结构化的步骤序列，作为 Agent 的行为指南。\n\n```yaml\nSOP: 退货处理流程\ntrigger: 用户意图 == \"退货\"\nsteps:\n  1. 获取订单号\n     - 如果用户未提供 → 询问订单号\n     - 如果用户提供 → 进入步骤 2\n  2. 查询订单状态\n     - 调用工具: order_service.query(order_id)\n     - 如果订单不存在 → 告知用户并结束\n     - 如果订单存在 → 进入步骤 3\n  3. 检查退货条件\n     - 计算: 当前日期 - 购买日期\n     - 如果 > 7天 → 告知已超出退货期限\n     - 如果 <= 7天 → 进入步骤 4\n  4. 确认退货原因并提交\n     - 询问退货原因\n     - 调用工具: return_service.submit(order_id, reason)\n     - 返回退货单号\n```\n\n#### （2）操作模板（Action Templates）\n\n将常见的工具调用模式封装为模板，Agent 在遇到类似场景时可以直接复用。\n\n```json\n{\n  \"template_name\": \"查询天气\",\n  \"trigger_pattern\": \"用户询问天气相关信息\",\n  \"action_sequence\": [\n    {\n      \"step\": 1,\n      \"action\": \"extract_entity\",\n      \"params\": {\"entity_type\": \"location\", \"from\": \"user_message\"}\n    },\n    {\n      \"step\": 2,\n      \"action\": \"call_api\",\n      \"params\": {\"api\": \"weather_service\", \"location\": \"${step1.result}\"}\n    },\n    {\n      \"step\": 3,\n      \"action\": \"format_response\",\n      \"params\": {\"template\": \"天气播报模板\", \"data\": \"${step2.result}\"}\n    }\n  ]\n}\n```\n\n#### （3）强化学习策略（RL-based Policy）\n\n通过强化学习，Agent 可以从大量交互经验中自动学习最优行为策略。这种方式不需要人工编写 SOP，而是让 Agent 在反复试错中自己发现\"什么情况下做什么最有效\"。\n\n例如，一个对话策略可能通过 RL 学到：当用户情绪激动时，先表达共情再给出解决方案，比直接给方案效果更好。这种策略被编码在模型的参数或策略网络中，是一种典型的程序记忆。\n\n---\n\n## 6.6 向量数据库在记忆系统中的应用\n\n向量数据库是 AI Agent 记忆系统的核心基础设施之一，尤其在语义记忆和情景记忆的存储与检索中扮演着关键角色。本节将深入讲解其工作原理和主流产品对比。\n\n### 类比：图书馆的分类索引系统\n\n想象一座巨大的图书馆，里面有数百万本书。如果没有索引系统，你要找一本关于\"人工智能伦理\"的书，就得一本一本翻——这显然不现实。\n\n传统图书馆的索引方式是**按类别分区**（计算机科学 → 人工智能 → 伦理），这类似于关键词索引。但如果有人问\"机器能不能有道德？\"，按传统分类可能找不到，因为措辞不同。\n\n向量数据库的做法更高级：它给每本书生成一个\"语义指纹\"（向量），语义相近的书在向量空间中距离更近。这样，无论你用什么措辞描述需求，只要语义接近，就能找到最匹配的内容。\n\n### Embedding 过程详解\n\n向量数据库的核心前提是**将文本转化为向量**，这个过程称为 Embedding。\n\n#### 第一步：文本分块（Chunking）\n\n原始文档通常很长，需要先切分成合适大小的文本块（Chunk）。常见策略包括：\n\n- **固定长度分块**：每 512 个 Token 切一刀。简单粗暴，但可能在语义中间截断。\n- **语义分块**：基于段落、章节、句子等自然边界切分。保持语义完整性更好。\n- **滑动窗口分块**：相邻块之间有重叠（如每块 512 Token，重叠 64 Token），减少边界信息丢失。\n- **递归分块**：先按大的分隔符（如 `\\n\\n`）切分，如果块太大，再按小的分隔符（如 `\\n`、`。`）进一步切分。\n\n#### 第二步：向量化（Embedding）\n\n使用 Embedding 模型将每个文本块转化为一个固定维度的浮点数向量。\n\n```python\nfrom openai import OpenAI\n\nclient = OpenAI()\n\ndef get_embedding(text, model=\"text-embedding-3-small\"):\n    response = client.embeddings.create(input=text, model=model)\n    return response.data[0].embedding  # 返回一个 1536 维的浮点数列表\n\n# 示例\nvector = get_embedding(\"蓝牙耳机 BT-500 支持蓝牙 5.3 协议，续航 30 小时\")\n# vector = [0.0123, -0.0456, 0.0789, ..., 0.0012]  # 1536 个浮点数\n```\n\n主流 Embedding 模型包括 OpenAI 的 `text-embedding-3-small/large`、Cohere 的 `embed-v3`、BGE 系列、以及 Jina Embeddings 等。\n\n#### 第三步：索引构建\n\n向量数据库会对存入的向量构建高效的索引结构，以支持快速的近似最近邻搜索（ANN）。常见索引算法包括：\n\n- **HNSW（Hierarchical Navigable Small World）**：基于图的索引，查询速度快、精度高，是目前最流行的方案。\n- **IVF（Inverted File Index）**：先将向量空间聚类，查询时只搜索最相关的几个簇。\n- **PQ（Product Quantization）**：通过量化压缩向量，节省存储空间，适合超大规模数据。\n\n#### 第四步：相似性检索\n\n查询时，将用户输入同样转化为向量，然后在索引中搜索最近邻的向量，返回对应的原始文本。\n\n```python\n# 伪代码示意\nquery_vector = get_embedding(\"这款耳机电池能用多久？\")\nresults = vector_db.search(\n    vector=query_vector,\n    top_k=5,\n    filter={\"category\": \"产品信息\"}  # 可选的元数据过滤\n)\n# results 返回语义最相似的 5 条文档片段\n```\n\n### 主流向量数据库对比\n\n| 数据库 | 类型 | 托管方式 | 核心特性 | 适用场景 | 开源协议 |\n|--------|------|---------|---------|---------|---------|\n| **Pinecone** | 纯向量数据库 | 全托管云服务 | 开箱即用、自动扩缩容、Serverless 模式 | 快速上线、不想运维、中小规模 | 商业闭源 |\n| **Chroma** | 嵌入式向量数据库 | 本地/云端 | 轻量级、Python-native、易于集成 | 原型开发、小规模应用、LangChain 集成 | Apache-2.0 |\n| **Milvus** | 分布式向量数据库 | 自托管/Zilliz Cloud | 高性能、支持十亿级向量、多种索引 | 大规模生产环境、企业级应用 | Apache-2.0 |\n| **Weaviate** | 向量+图数据库 | 自托管/云托管 | 内置向量化模块、GraphQL API、混合搜索 | 需要复杂查询的应用、知识图谱融合 | BSD-3 |\n| **Qdrant** | 向量数据库 | 自托管/云托管 | Rust 编写、高性能、丰富的过滤能力 | 需要复杂元数据过滤、高性能需求 | Apache-2.0 |\n| **FAISS** | 向量搜索库 | 本地（库） | Meta 开发、极致性能、GPU 加速 | 研究实验、超大规模离线检索、自建系统 | MIT |\n\n#### 选型建议\n\n- **快速原型/个人项目** → Chroma 或 FAISS\n- **中小规模生产环境，不想运维** → Pinecone\n- **大规模企业级应用，需要灵活控制** → Milvus 或 Qdrant\n- **需要混合搜索（向量 + 关键词 + 过滤）** → Weaviate 或 Qdrant\n- **纯研究/离线批处理** → FAISS\n\n---\n\n## 6.7 记忆的存储、检索与遗忘机制\n\n一个完善的记忆系统不仅需要\"记得住\"，还需要\"找得到\"和\"忘得掉\"。这三者缺一不可。\n\n### 类比：整理衣柜——常穿的放前面，不穿的捐掉\n\n你的衣柜容量有限。如果只进不出，很快就塞满了。聪明的做法是：\n\n- **存储策略**：新买的衣服挂到最容易拿到的位置。\n- **检索策略**：按照季节、场合分类，需要时能快速找到。\n- **遗忘策略**：每季度整理一次，一年没穿过的衣服捐掉或处理掉。\n\nAI Agent 的记忆管理也是同样的逻辑。\n\n### 6.7.1 存储策略\n\n#### 分层存储\n\n借鉴计算机存储体系的\"缓存-内存-磁盘\"分层思想：\n\n```\n┌─────────────────────────────────┐\n│   L1：工作记忆（Context Window）    │  ← 速度最快，容量最小\n│   存储当前对话上下文              │\n├─────────────────────────────────┤\n│   L2：热记忆（Redis / 内存缓存）   │  ← 高频访问的最近记忆\n│   存储最近的对话摘要和关键实体     │\n├─────────────────────────────────┤\n│   L3：温记忆（向量数据库）         │  ← 语义检索，中等延迟\n│   存储中期历史和知识片段           │\n├─────────────────────────────────┤\n│   L4：冷记忆（关系数据库 / 对象存储）│  ← 大容量，高延迟\n│   存储完整的历史日志和原始文档      │\n└─────────────────────────────────┘\n```\n\n#### 写入时摘要\n\n不是所有信息都值得原样存储。在写入长期记忆前，可以先用 LLM 对信息做提炼和摘要：\n\n```python\ndef store_episode(conversation):\n    # 1. 存储完整对话到冷存储\n    cold_storage.save(conversation)\n    \n    # 2. 用 LLM 生成摘要\n    summary = llm.summarize(conversation)\n    \n    # 3. 提取关键实体\n    entities = llm.extract_entities(conversation)\n    \n    # 4. 将摘要和实体写入向量数据库\n    vector_db.upsert(\n        text=summary,\n        metadata={\"entities\": entities, \"timestamp\": now()}\n    )\n```\n\n#### 多维度元数据标注\n\n存储时附加丰富的元数据，为后续的多维度检索提供支持：\n\n- 时间戳（when）\n- 用户 ID（who）\n- 话题标签（what）\n- 情感标签（sentiment）\n- 重要性评分（importance）\n- 来源渠道（source）\n\n### 6.7.2 检索策略\n\n#### 语义检索（Semantic Search）\n\n通过向量相似度匹配，找到语义最相关的记忆片段。这是应对\"用户换个说法提同一个问题\"的利器。\n\n#### 时间衰减检索（Recency-Weighted Search）\n\n在语义相似度的基础上，加入时间衰减因子。越近的记忆权重越高。\n\n```python\ndef time_weighted_score(semantic_score, timestamp, decay_rate=0.995):\n    \"\"\"综合语义相似度和时间新鲜度的评分\"\"\"\n    hours_ago = (now() - timestamp).total_seconds() / 3600\n    recency_score = decay_rate ** hours_ago\n    return semantic_score * 0.7 + recency_score * 0.3\n```\n\n#### 重要性加权检索（Importance-Weighted Search）\n\n某些记忆天然更重要（如用户的核心偏好、关键决策记录）。在检索时可以根据重要性评分加权。\n\n```python\ndef importance_weighted_score(semantic_score, importance):\n    \"\"\"将重要性纳入检索评分\"\"\"\n    return semantic_score * 0.6 + importance * 0.4\n```\n\n#### 混合检索（Hybrid Search）\n\n结合多种检索策略：\n\n```\n最终得分 = α × 语义相似度 + β × 时间新鲜度 + γ × 重要性评分 + δ × 关键词匹配度\n```\n\n其中 α、β、γ、δ 为可调节的权重参数，可以根据业务场景进行调优。\n\n### 6.7.3 遗忘机制\n\n\"遗忘\"在 AI Agent 中不是一个 bug，而是一个 feature。没有遗忘机制的记忆系统会导致：\n\n- **存储爆炸**：数据量无限增长，成本失控。\n- **检索噪声**：大量过时、无关的记忆干扰检索结果。\n- **隐私风险**：过期的用户数据未被清理，带来合规问题。\n\n#### 基于时间的遗忘（TTL）\n\n为每条记忆设置生存时间（Time To Live），过期自动删除。\n\n```python\nmemory_store.save(\n    content=\"用户询问了快递进度\",\n    ttl=timedelta(days=30)  # 30天后自动过期\n)\n```\n\n#### 基于访问频率的遗忘（LRU / LFU）\n\n长时间未被访问的记忆逐渐淡化或删除，类似于缓存的淘汰策略。\n\n- **LRU（Least Recently Used）**：最久未被访问的记忆优先淘汰。\n- **LFU（Least Frequently Used）**：访问频率最低的记忆优先淘汰。\n\n#### 基于重要性的遗忘\n\n重要性低的记忆优先遗忘。重要性可以通过以下维度评估：\n\n- 信息的独特性（是否可以从其他来源重新获取）\n- 用户显式标记的重要程度\n- LLM 对信息重要性的自动评估\n\n#### 记忆整合（Memory Consolidation）\n\n受人脑睡眠期间记忆整合过程的启发，Agent 可以定期对记忆进行\"整合\"：\n\n1. 将多条相似的记忆合并为一条综合摘要。\n2. 提取反复出现的模式，升级为语义记忆或程序记忆。\n3. 删除被合并后的冗余原始记录。\n\n```python\ndef consolidate_memories(memories):\n    \"\"\"定期整合记忆\"\"\"\n    # 1. 聚类相似记忆\n    clusters = cluster_by_similarity(memories, threshold=0.85)\n    \n    # 2. 对每个聚类生成综合摘要\n    for cluster in clusters:\n        if len(cluster) >= 3:\n            consolidated = llm.summarize(cluster)\n            memory_store.save(consolidated, type=\"consolidated\")\n            # 3. 删除原始冗余记忆\n            for mem in cluster:\n                memory_store.soft_delete(mem.id)\n```\n\n---\n\n## 6.8 记忆系统的实际案例：一个完整的客服 Agent 记忆系统\n\n为了将前面的理论串联起来，我们来看一个完整的实际案例：一家电商公司的智能客服 Agent 如何利用四种记忆协同工作。\n\n### 场景设定\n\n- **公司**：某电商平台\n- **Agent**：智能客服\"小智\"\n- **用户**：张先生（VIP 会员，注册 3 年）\n- **当前诉求**：他两天前买的蓝牙耳机有杂音，想要退换货\n\n### 第一轮交互：记忆系统启动\n\n**张先生**：你好，我前天买的耳机有问题。\n\n此时，Agent 的记忆系统开始协同运作：\n\n#### 工作记忆激活\n\n```\n[工作记忆 - Context Window]\nSystem Prompt: 你是小智，某电商平台的智能客服...\nUser: 你好，我前天买的耳机有问题。\n```\n\n#### 情景记忆检索\n\n系统用张先生的 `user_id` 检索情景记忆：\n\n```\n[情景记忆检索结果]\n- 2024-04-10: 张先生咨询过蓝牙耳机 BT-500 的降噪功能后下单。\n- 2024-03-20: 张先生退过一次蓝牙音箱（原因：外观划痕），处理顺利。\n- 2024-01-15: 张先生投诉过物流延迟，补偿了 50 元优惠券。\n```\n\n#### 语义记忆检索\n\n系统用\"耳机有问题\"检索语义记忆（知识库）：\n\n```\n[语义记忆检索结果]\n- 文档 A：耳机常见问题排查指南（杂音、断连、充电异常等）\n- 文档 B：退换货政策（7 天无理由 + 15 天质量问题换货）\n- 文档 C：蓝牙耳机 BT-500 产品规格与已知问题列表\n```\n\n#### 程序记忆激活\n\n系统识别到用户意图为\"售后问题\"，激活对应的 SOP：\n\n```\n[程序记忆 - 售后处理 SOP]\n步骤 1: 确认具体问题 → 步骤 2: 排查是否为已知问题 → 步骤 3: 判断退换货条件 → ...\n```\n\n### 第二轮交互：信息整合与回应\n\n**小智**：张先生您好！我看到您 4 月 10 日购买了蓝牙耳机 BT-500，请问具体是什么问题呢？是有杂音、断连还是其他情况？\n\n> 注意：Agent 能直接叫出用户名字、知道具体购买的产品，这些信息来自**情景记忆**；它能列出常见问题选项，这来自**语义记忆**中的排查指南。\n\n**张先生**：有杂音，听音乐的时候滋滋响。\n\n#### 工作记忆更新\n\n```\n[工作记忆 - Scratchpad]\n- 用户: 张先生 (VIP)\n- 产品: 蓝牙耳机 BT-500\n- 购买日期: 2024-04-10\n- 问题描述: 听音乐时有杂音（滋滋响）\n- 退换货资格: 购买 2 天，在 7 天退货期内 ✓\n```\n\n### 第三轮交互：解决方案提供\n\n**小智**：了解了。BT-500 出现杂音通常可以尝试以下排查步骤：\n1. 在手机蓝牙设置中删除配对记录，重新配对\n2. 确认耳机固件是否为最新版本（可在APP中检查）\n3. 尝试在不同设备上使用，排除手机端问题\n\n如果以上步骤无法解决，您这笔订单在 7 天退换期内，我可以直接帮您申请换货或退款。考虑到您是我们的 VIP 会员，我们可以安排上门取件，您不需要自己寄回。您希望先试试排查，还是直接办理退换呢？\n\n> 排查建议来自**语义记忆**；退换货政策来自**语义记忆**；VIP 会员的特殊待遇来自**程序记忆**（VIP 客户 SOP 分支）；上次退货经历顺利的信息让 Agent 判断可以更主动地提供换货选项，这来自**情景记忆**。\n\n**张先生**：直接换一个新的吧。\n\n### 第四轮交互：执行操作\n\n```\n[程序记忆 - 换货执行流程]\n1. 调用 order_service.query(user_id) → 获取订单详情\n2. 调用 return_service.create_exchange(order_id, reason) → 创建换货单\n3. 调用 logistics_service.schedule_pickup(address, time) → 安排上门取件\n4. 生成换货确认信息 → 发送给用户\n```\n\n**小智**：好的，已为您创建换货申请（换货单号：EX-20240412-003）。快递员将在明天上午 9:00-12:00 之间上门取件，届时请将耳机和配件放回原包装即可。新耳机预计 3 个工作日内送达。还有其他我能帮您的吗？\n\n### 交互结束后：记忆持久化\n\n当会话结束后，Agent 执行记忆持久化流程：\n\n```python\n# 1. 存储情景记忆\nepisodic_memory.save({\n    \"episode_id\": \"ep_20240412_017\",\n    \"user_id\": \"user_zhang\",\n    \"timestamp\": \"2024-04-12T15:30:00Z\",\n    \"summary\": \"张先生反馈BT-500耳机有杂音，选择换货处理。已创建换货单，安排明日上门取件。\",\n    \"outcome\": \"success\",\n    \"tags\": [\"换货\", \"蓝牙耳机\", \"质量问题\", \"VIP客户\"],\n    \"key_entities\": {\n        \"order_id\": \"ORD-20240410-789\",\n        \"exchange_id\": \"EX-20240412-003\",\n        \"product\": \"蓝牙耳机 BT-500\",\n        \"issue\": \"杂音\",\n        \"resolution\": \"换货\"\n    },\n    \"user_sentiment\": \"neutral_to_positive\"\n})\n\n# 2. 更新用户画像（语义记忆）\nuser_profile.update(\"user_zhang\", {\n    \"product_issues\": [\n        {\"product\": \"BT-500\", \"issue\": \"杂音\", \"date\": \"2024-04-12\"}\n    ],\n    \"service_preference\": \"倾向直接换货而非排查\",\n    \"satisfaction_trend\": \"稳定\"\n})\n\n# 3. 更新程序记忆（如果发现 SOP 有改进空间）\n# 例如：BT-500 杂音问题频发，可以在 SOP 中增加\"主动提醒检查固件版本\"步骤\n```\n\n### 下一次交互的记忆召回\n\n假设一周后，张先生再次联系客服：\n\n**张先生**：你好，上次换的耳机收到了。\n\nAgent 的情景记忆立即被激活，工作记忆中会注入：\n\n```\n[从情景记忆注入工作记忆的上下文]\n- 该用户上周因 BT-500 杂音问题办理了换货（换货单号 EX-20240412-003）\n- 新耳机预计 4 月 15 日前送达\n- 用户是 VIP 会员，历史满意度良好\n```\n\n**小智**：张先生您好！新的 BT-500 收到了是吗？使用感觉怎么样？还有杂音问题吗？\n\n> 这种\"记得住用户历史\"的体验，正是记忆系统带来的核心价值。\n\n---\n\n## 本章小结\n\nAI Agent 的记忆系统是一个多层次、多类型协同的复杂系统。让我们回顾核心要点：\n\n| 要点 | 说明 |\n|------|------|\n| **工作记忆** | Agent 的\"灶台\"，容量有限但速度最快，通过 Context Window、滑动窗口、Scratchpad 实现 |\n| **情景记忆** | Agent 的\"日记本\"，记录具体交互事件，支持个性化服务和经验学习 |\n| **语义记忆** | Agent 的\"百科全书\"，存储通用知识，通过向量数据库、知识图谱等实现高效检索 |\n| **程序记忆** | Agent 的\"肌肉记忆\"，编码行为模式和操作流程，通过 SOP、模板、RL 实现 |\n| **向量数据库** | 记忆系统的核心基础设施，通过 Embedding + ANN 搜索实现语义级检索 |\n| **存储-检索-遗忘** | 记忆管理的三大支柱，分层存储控制成本，混合检索提升精度，遗忘机制防止膨胀 |\n\n在实际工程中，设计记忆系统时需要权衡以下因素：\n\n1. **成本**：向量数据库的存储和计算成本、LLM 调用的 Token 成本。\n2. **延迟**：记忆检索不应显著增加用户等待时间（通常需控制在 200ms 以内）。\n3. **准确性**：检索结果的相关性直接影响 Agent 的回答质量。\n4. **隐私**：用户数据的存储、访问和删除需要严格遵守数据保护法规。\n5. **可维护性**：知识库需要定期更新，避免 Agent 基于过时信息做出错误回答。\n\n记忆系统是让 AI Agent 从\"无状态的问答工具\"进化为\"有经验的智能助手\"的关键一步。在下一章中，我们将探讨如何将记忆系统与 Agent 的规划和推理能力结合起来，构建真正具有自主性的智能体。\n\n---\n\n> **下一章预告**：第七章——AI Agent 的规划与推理能力\n";
+    var renderer = new marked.Renderer();
+    var origHeading = renderer.heading;
+    renderer.heading = function(data) {
+      var slug = data.text.replace(/[^\w\s\u4e00-\u9fff-]/g, '').replace(/\s+/g, '-').toLowerCase();
+      return '<h' + data.depth + ' id="' + slug + '">' + data.text + '</h' + data.depth + '>';
+    };
+    marked.setOptions({ renderer: renderer, breaks: false, gfm: true });
+    // Only use JS rendering as fallback if pre-rendered content is missing
+    var el = document.getElementById('md-content');
+    if (el && el.children.length === 0) {
+      el.innerHTML = marked.parse(MD_RAW);
+    }
+  </script>
+  <script src="nav.js"></script>
+<script src="lang-switcher.js"></script>
+</body>
+</html>
