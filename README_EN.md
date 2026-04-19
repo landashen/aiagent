@@ -1,6 +1,6 @@
 # Illustrated AI Agent - Essential Study Guide for AI Agent Interviews
 
-[![Illustrated AI Agent](https://gostudying.cn)](https://gostudying.cn)
+🌍 [中文版本](README.md) | Chinese Version
 
 ## 🔥 Core Introduction
 From concepts to practical applications, master the architecture design, core technologies, and cutting-edge trends of AI Agents with vivid analogies and systematic frameworks.
