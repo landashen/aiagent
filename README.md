@@ -1,5 +1,7 @@
 # [图解 AI Agent - 面试必备 AI Agent 学习指南](https://gostudying.cn)
 
+🌍 [English Version](README_EN.md) | 英文版
+
 ## 🔥 核心介绍
 从概念到实战，用生动类比与系统化框架，带你全面掌握 AI Agent 的架构设计、核心技术与前沿趋势。
 - 🎯 面试必备
